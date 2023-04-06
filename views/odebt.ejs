@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+  <meta name="author" content="GeeksLabs">
+  <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+  <link rel="shortcut icon" href="img/favicon.png">
+  <title>Smart Savdo</title>
+  <!-- Bootstrap CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- bootstrap theme -->
+  <link href="css/bootstrap-theme.css" rel="stylesheet">
+  <!--external css-->
+  <!-- font icon -->
+  <link href="css/elegant-icons-style.css" rel="stylesheet" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+  <!-- Custom styles -->
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style-responsive.css" rel="stylesheet" />
+  
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
+  <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+      <script src="js/lte-ie7.js"></script>
+    <![endif]-->
+
+  <!-- =======================================================
+      Theme Name: NiceAdmin
+      Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+      Author: BootstrapMade
+      Author URL: https://bootstrapmade.com
+    ======================================================= -->
+</head>
+<script>
+  document.title="Долговая Тетрадь"
+</script>
+<body>
+  <!-- container section start -->
+  <%- include('nav')%>
+
+    <!--main content start-->
+    <section id="main-content">
+      <section class="wrapper">
+        <div class="row" id="sa">
+          <div class="col-lg-12">
+            <h3 class="page-header"><i class="fa fa-table"></i> Таблица должников</h3>
+            <ol class="breadcrumb">
+              <li><i class="fa fa-home"></i><a href="index.html">Домашняя страница</a></li>
+              <li><i class="fa fa-table"></i>Долг</li>
+              <li><i class="fa fa-th-list"></i>Мой график задолженности</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12">
+            <section class="panel">
+              <header class="panel-heading">
+                Таблица Должников
+
+              </header>
+              <div class="form-check form-switch">
+                <center><a  href="/odebtplus" class="btn btn-success">Добавление Долга</a>  </center>
+               <center><h3 id="opshi"></h3></center>
+                <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" onclick="checked1()">
+                <label class="form-check-label" id="kamqolgan" for="flexSwitchCheckChecked">Просроченная Задолженность</label>
+              </div>
+              <table class="table table-advance">
+                <form class="navbar-form">
+                  <input class="form-control" placeholder="Qidiruv"id="searcher"  type="text">
+                  <br>
+                 <center> <button type="button" onclick="searchBar()"  class="btn btn-primary" ><i class="fa fa-search"></i>Поиск</button> </center>
+                </form>
+                <br>
+                <tbody id="mahsulot">
+                </tbody>
+              </table>
+            </section>
+          </div>
+        </div>
+        <!-- page end-->
+      </section>
+    </section>
+    <style>
+      
+
+    </style>
+    <!--main content end-->
+    <div class="text-right">
+      <div class="credits">
+        <!--
+            All the links in the footer should remain intact.
+            You can delete the links only if you purchased the pro version.
+            Licensing information: https://bootstrapmade.com/license/
+            Purchase the pro version form: https://bootstrapmade.com/buy/?theme=NiceAdmin
+          -->
+     
+      </div>
+    </div>
+  </section>
+  <style>
+      @media print {
+aside,#sa,header,#stat1,#stat,#searcher,#flexSwitchCheckChecked,#kamqolgan{
+  display: none;
+}
+}
+  </style>
+  <center><h2 id="xarid"></h2></center>
+  <!-- container section end -->
+  <!-- javascripts -->
+  <script src="js/jquery.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <!-- nicescroll -->
+  <script src="js/jquery.scrollTo.min.js"></script>
+  <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
+  <!--custome script for all page-->
+  <script src="js/scripts.js" ></script>
+  <script>
+      window.onload = function() {
+  var inputs = document.getElementsByTagName('input');
+  for (var i = 0; i < inputs.length; i++) {
+    if (inputs[i].type == 'text') {
+      inputs[i].onchange = function() {
+        this.value = this.value.replace(/^\s+/, '').replace(/\s+$/, '');
+      };
+    }
+  }
+}
+var data=<%- JSON.stringify(data) %>;
+var days=<%- JSON.stringify(days) %>;
+
+
+alldebt=0
+for (q of data){
+  var jami=0;
+  for(v of q.debt){
+    jami+=v;
+  } 
+  for (v of q.paydebt){
+    jami-=v;
+  }
+  alldebt+=jami
+}
+function createTable(data,days){
+  x=-1;
+  s="<tr><th>No</th><th>Имя должника</th><th>Сумма долга</th> <th>Телефон</th><th>Остаток дня</th> <th>Информация</th><tr>"
+for (q of data){
+x++;
+  var jami=0;
+  for(v of q.debt){
+    jami+=v;
+  } 
+  for (v of q.paydebt){
+    jami-=v;
+  }
+  
+  if (days[x]<=0 && jami>0)
+  s+=`<tr  style="background-color:#ff2d55;color:white"><td>${x+1}</td><td>${q.name}</td><td>${jami}</td><td>${q.telnumber==undefined?"Не указано":q.telnumber}</td><td>Истек Срок(${`${Math.abs(days[x])})`}</td><td><a class="btn btn-success" href="/getinfoodebt?id=${q.id}"><i class="fa fa-book" aria-hidden="true"></i></a><a class="btn btn-primary" href="/odebtplus?id=${q.id}"><i class="fa fa-plus" aria-hidden="true"></i></a><a class="btn btn-warning" href="/odebtminus?id=${q.id}"><i class="fa fa-minus" aria-hidden="true"></i></a><a class="btn btn-danger" name="${q.name}" onclick="return  con(event,${jami},this.name)" href="/deleteodebt?id=${q.id}" ><i class="fa fa-trash" aria-hidden="true"></i></a></td></tr>`
+  else{
+    s+=`<tr><td>${x+1}</td><td>${q.name}</td><td>${jami}</td><td>${q.telnumber==undefined?"Не указано":q.telnumber}</td><td>${`${Math.abs(days[x])}`}</td><td><a class="btn btn-success" href="/getinfoodebt?id=${q.id}"><i class="fa fa-book" aria-hidden="true"></i></a><a class="btn btn-primary" href="/odebtplus?id=${q.id}"><i class="fa fa-plus" aria-hidden="true"></i></a><a class="btn btn-warning"  href="/odebtminus?id=${q.id}"><i class="fa fa-minus" aria-hidden="true"></i></a><a class="btn btn-danger" name="${q.name}"  onclick="return con(event,${jami},this.name)" href="/deleteodebt?id=${q.id}"><i class="fa fa-trash" aria-hidden="true"></i></a></td></tr>`
+  }
+}
+document.getElementById('mahsulot').innerHTML=s;
+}
+createTable(data,days)
+var naqd,plastik,qarz,pulkochirish,summa;
+function money(summa){
+   naqd=0;
+   plastik=0;
+   qarz=0;
+   pulkochrish=0;
+   naqd=prompt(`Наличные:${summa}`,0);
+  summa-=naqd;
+  if (summa>0)
+   plastik=prompt(`Пластик:${summa}`,0);
+ summa-=plastik; 
+ if (summa>0)
+  pulkochrish=prompt(`Перемещение денег:${summa}`,0);
+  summa-=pulkochrish
+  return summa;
+}
+
+function con(event,jami,name){
+ if (money(jami)!=0){
+alert("Вы допустили ошибку!Попробуй еще раз!");
+event.preventDefault(); 
+ }
+ else
+  if (confirm("Согласны Удалить?")==true){
+    $.ajax({
+  url:'/minusodebt',
+  type:"POST",
+  cache:false,
+  contentType:'application/json',
+  dataType:'json',
+  data:JSON.stringify({name:name,naqd:naqd,plastik:plastik,pulkochrish:pulkochrish,day:0}),
+  success:data=>{
+  }
+})
+    return true;
+  }
+  else{
+    event.preventDefault(); 
+  }
+
+}
+function checked1(){
+  arr=[]
+  day=[]
+  if (document.getElementById('flexSwitchCheckChecked').checked==true){
+for (let i=0;i<days.length;i++){
+   if (days[i]<=0){
+     z=i;
+     arr.push(data[i]);
+     day.push(days[i])
+   }
+ }
+ createTable(arr,day);
+}
+  else{
+    createTable(data,days)
+  }
+}
+document.getElementById('opshi').innerHTML+=`Общая Задолженность: ${alldebt}`
+function searchBar(){
+  z=-1;
+  var searchtext=document.getElementById('searcher').value;
+
+  ar=[];
+  day=[]
+for (let i=0;i<data.length;i++){
+  if (data[i].name.toLowerCase().indexOf(searchtext.toLowerCase())>-1){
+z=i;
+    ar.push(data[i]);
+    day.push(days[i])
+  }
+
+  createTable(ar,day)
+}
+}
+
+</script>
+</body>
+</html>

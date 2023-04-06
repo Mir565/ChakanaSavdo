@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+  <meta name="author" content="GeeksLabs">
+  <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+  <link rel="shortcut icon" href="img/favicon.png">
+
+  <title>Smart Savdo</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- bootstrap theme -->
+  <link href="css/bootstrap-theme.css" rel="stylesheet">
+  <!--external css-->
+  <!-- font icon -->
+  <link href="css/elegant-icons-style.css" rel="stylesheet" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+  <!-- Custom styles -->
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style-responsive.css" rel="stylesheet" />
+</head>
+
+<body>
+  <!-- container section start -->
+  <%- include('nav')%>
+      <section id="main-content">
+        <section class="wrapper">
+          <div class="row">
+            <div class="col-lg-12">
+              <h3 class="page-header"><i class="icon_piechart"></i> Kundalik savdo  <a href="/big" class="btn btn-primary">Katta Ro'yhat Tuzish</a></h3>
+              <ol class="breadcrumb">
+                <li><i class="fa fa-home"></i><a href="index.html">Uy Sahifasi</a></li>
+                <li><i class="icon_piechart"></i>Kundalik Savdo</li>
+              </ol>
+          
+            </div>
+          </div>
+          
+          <div class="row">
+            <!-- chart morris start -->
+           
+           <center> <div class="col-lg-12" >
+              <section class="panel">
+                <header class="panel-heading">
+                  <h3>Kunlik Savdo Hisoboti</Char>
+                    <br>
+                   </header>
+                      <div class="panel-body"> 
+                        <input type="text" class="form-control"style="color:black" name="savdo" id="savdo3" list="customernames" placeholder="Xaridor nomi" required><br> 
+                        <input type="text" class="form-control"style="color:black" name="savdo" id="savdo1" list="citynames" onkeypress="boer(event)" onkeyup="boer(event)"  onchange="man()" placeholder="mahsulot nomi" required><br> 
+                        <input type="number" class="form-control"style="color:black" name="" id="savdo2" placeholder="soni" required><br>
+              <input type="number" class="form-control"style="color:black" name="" id="cost" placeholder="narxi" required
+              ><br>    
+              <p>Narxi(So'mda)</p>
+                         <center> <button href="" class="btn btn-primary" type="submit"  onclick="add()">Qo'shish<i class="icon_plus_alt2"></i> </button> </center>
+                         <datalist  id="citynames">
+
+                        </datalist> 
+                    <datalist id="customernames">
+
+                    </datalist>
+                         <br>
+                          
+                    </section>
+              </div>
+              <!-- chart morris start -->
+            </div>
+          </center>
+      </section>
+      <!--main content end-->
+        </div>
+    </section>
+ 
+    <div style="padding-left:16%;padding-right:1% ;" >
+    
+    <table class="table table-striped table-advance table-hover" id="salom"> 
+   
+        <!-- <div class="clear"></div> -->
+    </div>
+    </center>
+      <center ><button style="margin-bottom: 5px;" class="btn btn-primary" onclick="minus()" id="tas">Tasdiqlash</button></center>
+      <center><div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate" >
+        <label class="form-check-label" for="flexCheckIndeterminate" id="saqlash">
+      Xaridor Xaridini Saqlash
+        </label>
+       <center> <h3 id="nameofMarket" style="display: none;color:black;font-size: 25px;;"></h3></center>
+        <h3 id="nameofCustomer" style="display: none;color:black"></h3>
+        <h4 id="telofMarket" style="display: none;color:black"></h4> 
+      
+        <p id="timenow" style="display:none;color:black" ></p>   
+           
+      </div></center>
+      <tbody id="mahsulot">
+       
+   
+      </tbody>
+    
+    </table>
+    <center>   <h3 id="all"></h3></center>
+    <center><h4 id="commentofMarket" style="display: none;color:black"></h4></center>
+  </div>
+  <style>
+  @media print {
+#saqlash,#delete,#delete1{
+  display: none;
+}
+#flexCheckIndeterminate{
+  display: none;
+}
+ #sidebar{
+   display: none;
+ }
+#main-content{
+  display: none;
+
+}
+#container{
+ display: none; 
+}
+#tas{
+  display: none;
+} 
+}
+
+
+</style>
+    <!-- container section end -->
+    <!-- javascripts -->
+    <script>
+      document.title=document.getElementsByClassName("page-header")[0].innerText;
+      
+     </script>
+    <script src="js/jquery.js"></script>
+    <script src="js/jquery-1.8.3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- nice scroll -->
+    <script src="js/jquery.scrollTo.min.js"></script>
+    <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
+    <!-- chartjs -->
+    <script src="assets/chart-master/Chart.js"></script>
+    <!-- custom chart script for this page only-->
+    <script src="js/chartjs-custom.js"></script>
+    <!--custome script for all page-->
+    <script   src="js/scripts.js"></script>
+    <script  type="text/javascript">
+var z=[]
+document.getElementById('savdo3').focus();
+var datalar
+$.ajax({
+url:`/api/getitem`,
+type:"GET",
+dataType:'json',
+cache:false,
+contentType:'application/json',
+success:data=>{
+  datalar=data
+  console.log(data)
+  console.log(data.customers)
+   document.getElementById('nameofMarket').innerHTML=`"${data.pasport.marketname}"`
+  document.getElementById('telofMarket').innerHTML=`Tel:${data.pasport.telnumber}`
+  document.getElementById('commentofMarket').innerHTML=`${data.pasport.comment}`
+}
+})
+function boer(event){
+s=""
+all_customernames=""
+
+  var searchtext=document.getElementById('savdo1').value;
+  var set1=new Set();
+  for (q of datalar.customers){
+    set1.add(q.CustomerName);
+  }
+ for (q of set1){
+  all_customernames+=`<option    value="${q}">`
+ }
+ document.getElementById('customernames').innerHTML=all_customernames;
+ 
+ u=0;
+  for (q of datalar.items){
+z.push(q);
+if (q.name[q.name.length-1].toLowerCase().indexOf(searchtext.toLowerCase())>-1){
+u++;
+s+=`<option id="${q.id}"   value="${q.name[q.name.length-1]}">`
+}
+  if (u>15)
+break;
+}
+document.getElementById('citynames').innerHTML=s;
+}
+
+function man(){
+  var zz=document.getElementById('savdo1').value
+  console.log(zz)
+  for (v of z){
+    console.log(v.name)
+    if(v.name[v.name.length-1]===zz){
+document.getElementById('cost').value=`${v.buyprice[v.buyprice.length-1]}`;
+document.getElementById('savdo2').placeholder=`${v.countnum} ta bor`;
+break;
+    }
+  }
+}
+var x=0;
+var jami=0;
+var arrayName=[]
+var arrayCount=[]
+var arrayPrice=[]
+var arraySell=[];
+function createTable(){
+  jami=0;
+  arraySell=[];
+  xs=`<tr> <th>#N</th>
+       <th>Nomi</th>
+      <th></th>
+      <th></th>
+       <th>Soni</th>
+       <th>Narxi</th>
+       <th>Jami</th>
+      <th id="delete">O'chirish</th>
+      </tr>`;
+for (i=0;i<arrayPrice.length;i++){
+
+  jami+=arrayPrice[i]*arrayCount[i];
+  arraySell.push(arrayPrice[i]*arrayCount[i]);
+ xs+=`<tr style="color:black;font-size:20px" ><td>${i+1}</td><td>${arrayName[i]}<td>        
+          <td></td>
+          <td onclick="cliked(${i})">${arrayCount[i]}</td>
+          <td onclick="cliked1(${i})">${arrayPrice[i]}</td>
+          <td>${arrayPrice[i]*arrayCount[i]}</td>
+          <td><button class="btn btn-danger" id="delete1" onclick="addminus(s=${i})">O'chirish</button></td></tr>
+          `
+} 
+document.getElementById('all').innerHTML=`Jami:${jami} so'm`;
+document.getElementById('mahsulot').innerHTML=xs;
+}
+function cliked(i){
+  console.log(i);
+ t=prompt("Soni")
+console.log(t)
+arrayCount[i]=t;
+createTable();
+}
+function cliked1(i){
+  console.log(i);
+ t=prompt("Narxi")
+console.log(t)
+arrayPrice[i]=t;
+createTable();
+}
+var check=document.getElementById('flexCheckIndeterminate')
+function add(){
+if (document.getElementById('cost').value.length>0 && document.getElementById('savdo2').value.length>0 && 
+document.getElementById('savdo1').value.length>0 && document.getElementById('savdo3').value.length>0
+ ){
+  arrayPrice.push(parseFloat(document.getElementById('cost').value));
+  arrayCount.push(parseFloat(document.getElementById('savdo2').value));
+  arrayName.push(document.getElementById('savdo1').value);
+  createTable();
+  x++;
+        document.getElementById('savdo1').value="";
+        document.getElementById('savdo2').value="";
+        document.getElementById('savdo2').placeholder="";
+        document.getElementById('cost').value="";
+        document.getElementById('savdo1').focus();
+ }
+}
+function addminus(s){
+arrayCount.splice(s,1);
+arrayName.splice(s,1);
+arrayPrice.splice(s,1);
+createTable();
+}
+function minus(){
+  var customername=document.getElementById('savdo3').value;
+document.getElementById('nameofCustomer').innerHTML=`Xaridor :${customername}`;
+document.getElementById('nameofMarket').style.display="flex"
+document.getElementById('telofMarket').style.display="flex"
+document.getElementById('commentofMarket').style.display="block"
+document.getElementById('nameofCustomer').style.display="flex"
+document.getElementById('timenow').style.display="flex"
+
+
+  window.print();
+  
+var r=confirm('Tasdiqlansinmi?')
+document.getElementById('nameofMarket').style.display="none" 
+document.getElementById('telofMarket').style.display="none"
+document.getElementById('commentofMarket').style.display="none"
+document.getElementById('nameofCustomer').style.display="none" 
+document.getElementById('timenow').style.display="none"
+if (r==true){
+$.ajax({
+  url:'/api/minusitem',
+  type:"POST",
+  cache:false,
+  contentType:'application/json',
+  dataType:'json',
+  data:JSON.stringify({minusName:arrayName,minusCount:arrayCount,payment:arraySell,CustomerName:customername,minusPayment:arrayPrice,check:check.checked}),
+  success:data=>{
+    console.log(data);
+  }
+})
+location.reload();
+      }
+}
+today=new Date();
+var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+document.getElementById('timenow').innerHTML+=`Sana:${new Date().getDate()}.${new Date().getMonth()+1}.${new Date().getFullYear()} ${time}`
+    </script>
+  </body>
+</html>

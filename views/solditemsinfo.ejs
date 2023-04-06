@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+  <meta name="author" content="GeeksLabs">
+  <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+  <link rel="shortcut icon" href="img/favicon.png">
+  <title>Smart Savdo</title>
+  <!-- Bootstrap CSS -->
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <!-- bootstrap theme -->
+  <link href="/css/bootstrap-theme.css" rel="stylesheet">
+  <script type="text/javascript" src="https://unpkg.com/xlsx@0.15.1/dist/xlsx.full.min.js"></script>
+
+  <!--external css-->
+  <!-- font icon -->
+  <link href="/css/elegant-icons-style.css" rel="stylesheet" />
+  <link href="/css/font-awesome.min.css" rel="stylesheet" />
+  <!-- Custom styles -->
+  <link href="/css/style.css" rel="stylesheet">
+  <link href="/css/style-responsive.css" rel="stylesheet" />
+  
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
+  <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+      <script src="js/lte-ie7.js"></script>
+    <![endif]-->
+
+  <!-- =======================================================
+      Theme Name: NiceAdmin
+      Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+      Author: BootstrapMade
+      Author URL: https://bootstrapmade.com
+    ======================================================= -->
+</head>
+<script>
+  document.title="Все Продукты"
+</script>
+<body>
+  <!-- container section start -->
+  <%- include('nav')%>
+
+    <!--main content start-->
+    <section id="main-content">
+      <section class="wrapper">
+        <div class="row" id="sa">
+          <div class="col-lg-12">
+            <h3 class="page-header"><i class="fa fa-table"></i> Таблица продуктов            </h3>
+            <ol class="breadcrumb">
+              <li><i class="fa fa-home"></i><a href="index.html">Домашняя страница
+              </a></li>
+              <li><i class="fa fa-table"></i>Продукт</li>
+              <li><i class="fa fa-th-list"></i>Таблица продуктов
+              </li>
+            </ol>
+          </div>
+        </div>
+        <br>
+        <select name="" id="pagenation" onchange="changelocation(this.value)" ></select>
+        <br>
+      <div>
+      
+      </div>
+        <center> 
+        <h3 style="color: black;" id="tovarsoni"> </h3> 
+        <h3 style="color: black;" id="tovar"></h3>
+              <h3 style="color: black;"id="sotilishi"></h3>
+              <h3 style="color: black;"id="foyda"></h3>
+            
+            </center>
+           
+            <div class="row">
+          <div class="col-lg-12">
+            <section class="panel">
+              <header class="panel-heading">
+                Таблица продуктов
+
+              </header>
+              
+              
+              <table class="table table-advance" id="tbl_exporttable_to_xls">
+               
+                <tbody id="mahsulot">
+                 
+                </tbody>
+              </table>
+            </section>
+          </div>
+        </div>
+        <!-- page end-->
+      </section>
+    </section>
+    <style>
+      
+
+    </style>
+    <!--main content end-->
+    <div class="text-right">
+      <div class="credits">
+        <!--
+            All the links in the footer should remain intact.
+            You can delete the links only if you purchased the pro version.
+            Licensing information: https://bootstrapmade.com/license/
+            Purchase the pro version form: https://bootstrapmade.com/buy/?theme=NiceAdmin
+          -->
+     
+      </div>
+    </div>
+  </section>
+  <style>
+      @media print {
+aside,#sa,header,#stat1,#stat,#searcher,#flexSwitchCheckChecked,#kamqolgan{
+  display: none;
+}
+}
+  </style>
+  <center><h2 id="xarid"></h2></center>
+  <!-- container section end -->
+  <!-- javascripts -->
+  <script src="/js/jquery.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  <!-- nicescroll -->
+  <script src="/js/jquery.scrollTo.min.js"></script>
+  <script src="/js/jquery.nicescroll.js" type="text/javascript"></script>
+  <!--custome script for all page-->
+  <script src="/js/scripts.js" ></script>
+  <script>
+    
+    let z=[];
+    let qq=[];
+    let x=0;
+    let alltranz=<%- JSON.stringify(alltranz)%>;
+     let count=<%- JSON.stringify(count)%>;
+     console.log(alltranz)
+    const urlParams = new URLSearchParams(window.location.search);
+const pagenumber = parseInt(urlParams.get('getpage'));
+
+var select = document.getElementById("pagenation");
+    for(let i=1;i<(count/100)+1;i++){
+        var option = document.createElement("option");
+option.text = `${i}`;
+option.value = `${i}`;
+if (pagenumber==i){
+    option.selected="selected";
+}
+select.appendChild(option);
+    //     if (pagenumber==i) 
+    //   document.getElementById('pagenation').innerHTML+=`<option selected="selected">${i}</option>`
+    //   else
+    //   document.getElementById('pagenation').innerHTML+=`<option >${i}</option>`
+      
+    }
+    function changelocation(pagenum){
+    //  console.log(pagenum)
+    window.location=`/sold/itemsinfo?getpage=${pagenum}&date=${document.getElementById('date').value}&product_id=${urlParams.get('product_id')}`
+
+    }
+    createTable(alltranz)
+    
+    function createTable(alltranz){
+      qq=[];
+      x++;
+      s=`<tr> <th >
+        <i  class="fa fa-number" >
+            </i>Порядковый Номер</th>
+                      <th onclick="sorting1(1)" ondblclick="sorting2(1)" >
+                  <i  class="fa fa-shopping-cart" >
+                      </i>  Название</th><th><i class="icon_calendar" ></i>Soni</th><th>UserName<th/> <th><i class="icon_calendar" ></i>Sanasi</th> 
+                           </tr>`;
+      var table = document.getElementById('mahsulot')
+      for (var i = 0; i < alltranz.length; i++) 
+     {
+      s+=` <tr style="font-size:20px;color:black"  id="tr${i}"><td>${((pagenumber-1)*100)+i+1}</td><td>${alltranz[i].name}</td>  <td>${alltranz[i].pr_count}</td><td>${alltranz[i].email}</td> <td></td><td>${alltranz[i].cr_date}</td>  </tr>`
+       }
+      table.innerHTML=s;
+        }       
+      function ExportToExcel(type, fn, dl) {
+       var elt = document.getElementById('tbl_exporttable_to_xls');
+       var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
+       return dl ?
+         XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
+         XLSX.writeFile(wb, fn || ('MySheetName.' + (type || 'xlsx')));
+    }
+      function round(value, precision) {
+    var multiplier = Math.pow(10, precision || 0);
+    return Math.round(value * multiplier) / multiplier;
+}
+      function check(){
+        t=confirm("Ochirilsinmi?");
+          return t;
+      }
+      
+     
+     </script>
+    
+</body>
+</html>

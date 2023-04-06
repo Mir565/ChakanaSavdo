@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+  <meta name="author" content="GeeksLabs">
+  <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+  <link rel="shortcut icon" href="img/favicon.png">
+
+  <title>Smart Savdo</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <!-- bootstrap theme -->
+  <link href="/css/bootstrap-theme.css" rel="stylesheet">
+  <!--external css-->
+  <!-- font icon -->
+  <link href="/css/elegant-icons-style.css" rel="stylesheet" />
+  <link href="/css/font-awesome.min.css" rel="stylesheet" />
+  <link href="/css/daterangepicker.css" rel="stylesheet" />
+  <!-- date picker -->
+
+  <!-- color picker -->
+
+  <!-- Custom styles -->
+  <link href="/css/style.css" rel="stylesheet">
+  <link href="/css/style-responsive.css" rel="stylesheet" />
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
+  <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+      <script src="js/lte-ie7.js"></script>
+    <![endif]-->
+
+    <!-- =======================================================
+      Theme Name: NiceAdmin
+      Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+      Author: BootstrapMade
+      Author URL: https://bootstrapmade.com
+    ======================================================= -->
+</head>
+<script>
+  
+ </script>
+<body>
+  <%- include('nav')%>
+    <!--sidebar end-->
+
+    <!--main content start-->
+    <section id="main-content">
+      <section class="wrapper">
+        <div class="row">
+          <div class="col-lg-12">
+            <h3 class="page-header"><i class="fa fa-file-text-o"></i>  Новые расходы
+            </h3>
+            <ol class="breadcrumb">
+              <li><i class="fa fa-home"></i><a href="index.html">Домашняя страница</a></li>
+              <li><i class="icon_document_alt"></i>Новые расходы
+              </li>
+              <li><i class="fa fa-file-text-o"></i> Новые расходы
+              </li>
+            </ol>
+          </div>
+        </div>
+        <center><button  id="button1"class="btn <%= clas%>" "><%= message%></button></center>
+        <br>
+        <div class="row">
+          <div class="col-lg-12">
+            <section class="panel">
+              <center><a href="/all/organizations?getpage=1&organ_name=" class="btn btn-success">Список Всех Расходов</a></center>
+              <br>
+              <center><a href="/all/tranzactions?getpage=1date&name" class="btn btn-success">Barcha Tranzaksiyalar</a></center>
+              <header class="panel-heading"> 
+                Новые Расходы
+              </header>
+              <div class="panel-body">
+                <form class="form-horizontal" method="POST" action="/add/organizations">
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Примечание</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" required  name="organname">
+                    </div>
+                  </div>
+                    </div>
+               
+                     <center><button class="btn btn-primary btn-lg btn-block"  type="submit">Вставка В Базу</button></center>
+                    </div>
+                  </div>
+                  </form>
+    <div class="text-right">
+      
+    </div>
+  </section>
+  <!-- container section end -->
+  <!-- javascripts -->
+  <script>
+    
+    
+   </script>
+
+
+  <!-- colorpicker -->
+
+  <!-- bootstrap-wysiwyg -->
+  
+
+</body>
+
+</html>

@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+  <meta name="author" content="GeeksLabs">
+  <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+  <link rel="shortcut icon" href="/img/favicon.png">
+  <title>Обн.. Продукта</title>
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/bootstrap-theme.css" rel="stylesheet">
+  <link href="/css/elegant-icons-style.css" rel="stylesheet" />
+  <link href="/css/font-awesome.min.css" rel="stylesheet" />
+  <link href="/css/style.css" rel="stylesheet">
+  <link href="/css/style-responsive.css" rel="stylesheet" />
+</head>
+<body >
+  <%- include('nav')%>
+    <section id="main-content">
+      <section class="wrapper">
+        <div class="row" id="sa">
+          <div class="col-lg-12">
+            <ol class="breadcrumb">
+              <li><i class="fa fa-home"></i><a href="index.html">Домашняя страница
+              </a></li>
+              <li><i class="fa fa-table"></i>Продажи              </li>
+              <li><i class="fa fa-th-list"></i>Большой список
+              </li>
+            </ol>
+          </div>
+        </div>
+        <center> <select  class="form-control" name="" id="organnames"></select>
+        </center>
+        <br>
+        <div  id="sabzi">
+          <table class="table table-striped table-advance table-hover" id="salom">
+            <!-- <div class="clear"></div> -->
+        </div>
+        </center>
+        <center><button style="margin-bottom: 5px;" class="btn btn-primary" onclick="minus()" id="tas">Подтверждение
+        </button>
+        </center>
+        <center>
+          <div class="form-check">
+          
+            <center>
+              <b id="nameofMarket" style="display: none;color:black;font-size: 57px;font-family:'Arial Narrow', Arial, sans-serif;;"></b>
+            </center>
+            <br>
+            <b id="nameofCustomer" style="display: none;font-size:30px;font-family:'Arial Narrow', Arial, sans-serif;color:black"></b>
+            <b id="telofMarket" style="display: none;font-size:30px;font-family:'Arial Narrow', Arial, sans-serif;color:black"></b>
+            <b id="timenow" style="display:none;font-size:30px;font-family:'Arial Narrow', Arial, sans-serif;color:black"></b>
+    <b id="yulduz"  style="display: none;color:black;font-size: 40px;font-family:'Arial Narrow', Arial, sans-serif;" ></b>
+    <br>
+    
+          </div>
+        </center>
+        </table>
+        <b id="yulduz1" style="display: none;color:black;font-size: 40px;font-family:'Arial Narrow', Arial, sans-serif;" ></b>
+        <center>
+          <b style="font-size: 45px;font-family:'Arial Narrow', Arial, sans-serif;" id="skidkani"></b>
+        </center>
+        <center>
+          <b style="font-size: 45px;font-family:'Arial Narrow', Arial, sans-serif;" id="puli"></b>
+        </center>
+        <b id="yulduz2"  style="display: none;color:black;font-size: 40px;font-family:'Arial Narrow', Arial, sans-serif;" ></b>
+        <center>
+          <b style="font-size: 25px;font-family:'Arial Narrow', Arial, sans-serif;" id="commentofMarket" style="display: none;color:black"></b>
+        </center>
+         </div>
+        <center>
+          <h3 id="debtorofdebt"></h3>
+
+       
+          <datalist id="customernames">
+
+          </datalist>
+
+
+          <h3 style="color: black;" id="tovarsoni"> </h3>
+          <h3 style="color: black;" id="tovar"></h3>
+          <h3 style="color: black;" id="sotilishi"></h3>
+          <h3 style="color: black;" id="foyda"></h3>
+        </center>
+        <br>
+        <br>
+        <section id="kill">
+          <div class="row">
+            <div class="col-lg-12">
+              <section class="panel">
+                <div class="form-check form-switch">
+                </div>
+
+                <table class="table table-advance">
+                  <input class="form-control" placeholder="Qidiruv" id="searcher" tabindex="0" onkeypress="searchBar(event)"
+                    type="text">
+                    <br>
+                    <input class="form-control" placeholder="Nomi" id="searcher1" tabindex="0" onkeyup="searchBar1(event)"
+                    type="text">
+
+
+                  <tbody id="mahsulot">
+
+                  </tbody>
+                </table>
+              </section>
+        </section>
+        <center><h1>Jadval</h1></center>
+        <table  class="table table-advance"> 
+        <tbody id="mahsulot1" >
+    
+        </tbody>
+        <center>
+          <b style="font-size: 45px;font-family:'Arial Narrow', Arial, sans-serif;" id="all"></b>
+        </center>
+       
+      </table>
+
+        </div>
+        </div>
+
+      </section>
+    </section>
+
+    <style>
+    </style>
+    <!--main content end-->
+    </section>
+ 
+    <style>
+      @media print {
+        body {
+          margin: 0;
+          padding: 0;
+        }
+
+        #customername,
+        #pagenation,
+        #delete,
+        #delete1,
+        section,
+        .row,
+        #flexCheckIndeterminate,
+        #saqlash,
+        #tas,
+        #mahsulot,
+        aside,
+        #sa,
+        header,
+        #stat1,
+        #stat,
+        #searcher,
+        #flexSwitchCheckChecked,
+        #kamqolgan {
+          display: none;
+        }
+
+        br {
+          display: none;
+        }
+
+      }
+    </style>
+    <center>
+      <h2 id="xarid"></h2>
+    </center>
+    <!-- container section end -->
+    <!-- javascripts -->
+    <script src="/js/jquery.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <!-- nicescroll -->
+    <script src="/js/jquery.scrollTo.min.js"></script>
+    <script src="/js/jquery.nicescroll.js" type="text/javascript"></script>
+    <!--custome script for all page-->
+    <script src="/js/scripts.js"></script>
+    <script>
+           
+        
+        // console.log(rol)
+      var dict = {};
+      var dictnames={};
+
+    var telnumber;
+     
+      // console.log(CustomerNames1)
+    
+      // console.log(CustomerNames1)
+   
+
+    
+      var Mahsulotlar;
+    function searchBar(event){
+      if (event.key ==="Enter"){
+      $.ajax({
+            url: `/search/item?barcode=${document.getElementById('searcher').value}`,
+            type: "GET",
+            cache: false,
+            contentType: 'application/json',
+            dataType: 'json',
+            success: data => {
+              console.log(data)
+              if (data.barcode!=undefined){
+                document.getElementById('searcher').value=""
+                createTable([data]);
+              }else{
+                alert('Topilmadi')
+              }
+            }
+          })
+    }
+    
+  }
+  function searchBar1(event){
+    if (event.key ==="Enter"){
+      $.ajax({
+            url: `/search/itemText?name=${document.getElementById('searcher1').value}`,
+            type: "GET",
+            cache: false,
+            contentType: 'application/json',
+            dataType: 'json',
+            success: data => {
+              console.log(data)
+              if (data[0].barcode!=undefined){
+                document.getElementById('searcher1').value=""
+                createTable(data);
+              }else{
+                alert('Topilmadi')
+              }
+            }
+          })
+    }
+    
+  }
+      function createTable(Mahsulotlar, pagename) {
+        begin = 0;
+        end = Mahsulotlar.length;
+          s = `<tr> <th >
+        
+        <i  class="fa fa-number" >
+            </i>После.. чисел
+</th>
+            <th  >
+               
+                      </i> Наим.. товара
+</th> 
+                      <th >
+                     
+                          </i> Остаток</th> 
+                      <th  >
+
+                       
+                        </i>Пред полученная цена
+</th> 
+                        <th >
+                     
+
+                        </i> Пред цена продажи
+</th> 
+                        <th  >
+               
+              </i>Barkod</th> 
+              <th >
+                        <th>Полу... количество
+
+</th> 
+                        <th >
+              
+           
+                        </i> Входящая цена
+</th> 
+                     
+                        <th>
+                          
+                          </i>Процентов</th>
+                          <th>
+                          
+                        </i>Цена продажи
+</th>
+                   
+                        <th id="stat">
+                            </i> Добавлять</th> <th id="stat">
+                             Gen Barkod</th> </tr>`;
+          var table = document.getElementById('mahsulot')
+
+    s+=`<tr   style="font-size:20px;color:black;" id="tr${1}"><td>${0}</td><td><input type="text"  id="ssxs"></td><td>${0}</td> <td >${0}</td><td>${0}</td> 
+                  <td><input type="number" tabindex=${1 * 3 + 3} name="${document.getElementById("ssxs")}" id="a${"80S565EA"}"  soni="${0}" value="${0}" class="form-control" style="font-size:20px;color:black" /></td> <td></td>
+                  <td><input type="number" tabindex=${1 * 3 + 3} name="${document.getElementById("ssxs")}" id="s${"80S565EA"}"  soni="${0}" class="form-control" style="font-size:20px;color:black" /></td> 
+                     <td><input type="number" tabindex=${1 * 3 + 3} name="${document.getElementById("ssxs")}" id="s${"80S565EA"}"  soni="${0}" class="form-control" style="font-size:20px;color:black" /></td>
+                      <td><input type="number" tabindex=${1 * 3 + 3} name="${document.getElementById("ssxs")}" id="s${"80S565EA"}"  soni="${0}" onkeyup="foizchiqar(this.value,this.id)" class="form-control" style="font-size:20px;color:black" /></td> 
+                      <td><input type="number" tabindex=${1 * 3 + 3} name="${document.getElementById("ssxs")}" id="s${"80S565EA"}"  soni="${0}" onkeyup="narxchiqar(this.value,this.id)" class="form-control" style="font-size:20px;color:black" /></td> 
+                      <td id="stat1"> <div class="btn-group"> 
+                        <button class="btn btn-success"  id="s80S565EA" name="${0}" tabindex=${f * 3 + 4}   onclick="adds(this.id,this.name,${0})">
+                      <i class="icon_plus_alt2"></i></button> 
+            </div> </td><td><button  id="f80S565EA" type="text"   onclick=genBar(this.id)   class="btn btn-primary">GenBarkod</button></td></tr>`
+           for (var i = begin; i < end; i++) { 
+              if (dict[Mahsulotlar[i].name] == 1) {
+                stylex = "#ff2d55";
+              }
+              else {
+                stylex = "#ffffff";
+              }
+              var xbarkod=Mahsulotlar[i].barcode;
+              var xname = Mahsulotlar[i].name;
+              var xcountnum = Mahsulotlar[i].pr_count;
+              var xprice = Mahsulotlar[i].price;
+              var xbuyprice = Mahsulotlar[i].sell_price;
+              var xid = Mahsulotlar[i].product_id;
+                s += `<tr   style="font-size:20px;color:black;background-color:${stylex}" id="tr${f}"><td>${i+1}</td><td>${xname}</td><td>${xcountnum}</td> <td >${xprice}</td><td>${xbuyprice}</td> 
+                  <td><input type="number" tabindex=${f * 3 + 3} name="${xname}" id="a${xid}"  soni="${xcountnum}" value="${xbarkod}" class="form-control" style="font-size:20px;color:black" /></td> <td></td>
+                    
+                  <td><input type="number" tabindex=${f * 3 + 3} name="${xname}" id="s${xid}"  soni="${xcountnum}" class="form-control" style="font-size:20px;color:black" /></td> 
+                     <td><input type="number" tabindex=${f * 3 + 3} name="${xname}" id="s${xid}"  soni="${xcountnum}" class="form-control" style="font-size:20px;color:black" /></td>
+                      <td><input type="number" tabindex=${f * 3 + 3} name="${xname}" id="s${xid}"  soni="${xcountnum}" onkeyup="foizchiqar(this.value,this.id)" class="form-control" style="font-size:20px;color:black" /></td> 
+                      <td><input type="number" tabindex=${f * 3 + 3} name="${xname}" id="s${xid}"  soni="${xcountnum}" onkeyup="narxchiqar(this.value,this.id)" onkeypress="if(event.keyCode == 13){add(this.id,${xcountnum},${xprice},${xid})}" class="form-control" style="font-size:20px;color:black" /></td> 
+                      <td id="stat1"> <div class="btn-group"> 
+                        <button class="btn btn-success"  id="s${xid}" name="${xcountnum}" tabindex=${f * 3 + 4}   onclick="add(this.id,this.name,${xprice},${xid})">
+                      <i class="icon_plus_alt2"></i></button> 
+            </div> </td><td><button  id="f${xid}" type="text"   onclick=genBar(this.id)   class="btn btn-primary">GenBarkod</button></td></tr>`
+      } 
+        table.innerHTML = s;
+      }
+      var bc = "false";
+      var bp = "false";
+      var bn = "false";
+
+function foizchiqar(foiz,id){
+  foiz=parseFloat(foiz);
+  narx=parseFloat(document.querySelectorAll(`#${id}`)[1].value)
+  foiz=narx+((narx/100)*foiz)
+  document.querySelectorAll(`#${id}`)[3].value=foiz;
+}
+function narxchiqar(snarx,id){
+  console.log(snarx)
+  snarx=parseFloat(snarx);
+  narxi=parseFloat(document.querySelectorAll(`#${id}`)[1].value)
+  console.log(narxi)
+  foiz=((snarx*100)/narxi)-100;
+  document.querySelectorAll(`#${id}`)[2].value=foiz;
+}
+    
+  var allitems=<%- JSON.stringify(allitems) %>
+  var organs=<%- JSON.stringify(organs)%>
+  for(organ of organs){
+    document.getElementById("organnames").innerHTML+=`<option text=${organ.organ_name} value=${organ.organ_id}>${organ.organ_name}</option>`
+  }
+  Mahsulotlar = allitems
+  createTable(Mahsulotlar)
+  function getRndInteger(min, max) {
+  return Math.floor(Math.random() * (max - min) ) + min;
+}
+function getRndInteger(min, max) {
+    return Math.floor(Math.random() * (max - min) ) + min;
+  }
+function genBar(s){
+  while (true){
+    ean=getRndInteger(1000000000000,9999999999999).toString();
+    var checkSum = ean.split('').reduce(function(p,v,i) {
+        return i % 2 == 0 ? p + 1 * v : p + 3 * v;
+        }, 0);
+      if (checkSum % 10==0) {
+        document.getElementById("a"+s.slice(1)).value=ean
+        return 0;
+      }
+}
+}
+          
+          createTable(Mahsulotlar, 1);
+      function mana(s) {
+        var r = confirm('Удалить?')
+        if (r == true) {
+          $.ajax({
+            url: `/api/delete/${s}`,
+            type: 'GET', cache: false, dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+
+              if (data.status) {
+                location.reload();
+              }
+            },
+          })
+        }
+      }
+      var jami = 0;
+      var idfornews=[]
+      var allid=[]
+      var newBarkod=[]
+      var arrayFoiz=[]
+      var arrayName = []
+      var arrayCount = []
+      var arrayPrice = []
+      var arraySell = [];
+      var arrayBazaCount = [];
+      var arrayBazaNarx = [];
+      function createTable1() {
+        jami = 0;
+        arraySell = []
+        xs = `<tr style="font-family:'Arial Narrow', Arial, sans-serif;font-size:23px"> <th>#N</th>
+       <th>Имя</th>
+      <th></th>
+      <th></th>
+      <th>Новый штрих-код
+</th>
+       <th>Остаток</th>
+       
+       <th>Цена получена
+</th>
+       <th>Цена продажи
+</th>
+       <th>Общая полученная цена
+</th>
+       <th>Общая продажная цена
+</th>
+      <th id="delete">Штрих-код
+</th>
+      <th id="delete">Удалить
+</th>
+      </tr>`;
+        for (i = 0; i < arrayPrice.length; i++) {
+          jami += arrayBazaNarx[i] * arrayCount[i];
+          arraySell.push(arrayPrice[i] * arrayCount[i]);
+          xs +=`<tr style="color:black;font-size:20px;font-family:'Arial Narrow', Arial, sans-serif;" ><td>${i + 1}</td><td> <b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;">${arrayName[i]}</b><td>        
+          <td></td>
+  <td ><b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;">${newBarkod[i]}</b></td>
+          <td ><b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;" onclick="changedata(s=${i})">${arrayCount[i]}</b></td>
+        
+          <td ><b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;"  onclick="changebazanarx(s=${i})"  >${arrayBazaNarx[i]}</b> </td>
+          <td ><b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;"  onclick="changebazasotuv(s=${i})">${arrayPrice[i]}</b> </td>
+          <td><b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;">${arrayBazaNarx[i] * arrayCount[i]}<b></td>
+          <td><b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;">${arrayPrice[i] * arrayCount[i]}<b></td>
+          <td><a class="btn btn-warning" id="barkod1" target="_blank" href="/get/barkod?name=${arrayName[i]}&price=${arrayPrice[i]}&barkod=${newBarkod[i]}">Баркод</a></td>
+          <td><button class="btn btn-danger" id="delete1" onclick="addminus(s=${i})">удалить</button></td></tr>
+          `
+        }
+        
+        document.getElementById("yulduz").innerHTML=`***************************************`;
+        document.getElementById("yulduz1").innerHTML=`***************************************`;
+        document.getElementById("yulduz2").innerHTML=`=======================================`;
+        document.getElementById('all').innerHTML = `Итог:${jami}  uzs`;
+        document.getElementById('mahsulot1').innerHTML = xs;
+      }
+      function changedata(index){
+        console.log(index);
+        t=prompt("soni")
+        if (parseInt(t)){
+          arrayCount[index]=parseInt(t);
+          createTable1();
+    
+        }
+        else
+        alert("Error!")       
+      }
+      function changebazanarx(index){
+        console.log(index);
+        t=prompt("OlinganNarx")
+        if (parseInt(t)){
+          arrayBazaNarx[index]=parseInt(t);
+          createTable1();
+          ram();
+        }
+        else
+        alert("Error!")       
+      }
+      function changebazasotuv(index){
+        console.log(index);
+        t=prompt("SotuvNarxi")
+        if (parseInt(t)){
+          arrayPrice[index]=parseInt(t);
+          createTable1();
+          ram();
+        }
+        else
+        alert("Error!")       
+      }
+      var naqd, plastik, qarz, pulkochrish, kun, summa, telnumber;
+      function skidka() {
+       return 0;
+      }
+      function kurier(){
+        let  organs = document.getElementById("organnames");
+          return organs.options[organs.selectedIndex].text;
+        }
+      function money(){
+        naqd = 0;
+        plastik = 0;
+        qarz = 0;
+        pulkochrish = 0;
+        summa = jami - (jami * skidka() / 100);
+        naqd = prompt(`Наличные:${summa}`, summa);
+        summa -= naqd;
+        if (summa > 0)
+          plastik = prompt(`Пластик
+:${summa}`, summa);
+        summa -= plastik;
+        if (summa > 0) {
+          qarz = prompt(`Долг:${summa}`, summa);
+          if (qarz > 0) {
+            sss = "";
+            for (q of arrayName) {
+              sss = sss + q + " ";
+            }
+            kun = prompt('За сколько дней он будет возвращен?', 10);
+            if (!telnumber)
+              telnumber = prompt("Номер телефона", "+998941234567")
+            else {
+              telnumber = prompt("Номер телефона", telnumber)
+            }
+          }
+        }
+        summa -= qarz;
+        if (summa > 0)
+          pulkochrish = prompt(`Перевод денег:${summa}`, summa);
+        summa -= pulkochrish;
+        if (summa > 0) {
+          return 0;
+        }
+      }
+      function cliked(i) {
+        x = prompt("Остаток", arrayCount[i])
+        if (!parseFloat(x)) {
+          alert("Пожалуйста, введите номер!")
+          return 0;
+        }
+        if (parseFloat(arrayBazaCount[i]) < parseFloat(x)) {
+          alert("В базе не так уж много товаров!")
+          return 0;
+        }
+        if (parseFloat(x) < 0) {
+          alert("Была сделана попытка ввести отрицательное число! Если это повторится, администратору будет отправлена ​​жалоба на продавца! \n Примечание: Попытка обмануть систему")
+          return 0;
+        }
+        arrayCount[i] = x;
+        createTable1();
+      }
+      function clikedone(i){
+        t = prompt("Цена", arrayPrice[i])
+        if (!parseFloat(t)) {
+          alert("Пожалуйста, введите номер!")
+          return 0;
+        }
+        if (parseFloat(arrayBazaNarx[i]) >= parseFloat(t)) {
+          alert("Вы пытаетесь продать в убыток! Проверьте это!")
+          return 0;
+        }
+        arrayPrice[i] = t;
+        ram();
+        createTable1();
+      }
+      var check = true;
+      function adds(s, soni,sdd, narxi) {
+        console.log(s)
+        if (dictnames[document.getElementById("ssxs").value.trim()]==1){
+          alert("Iltimos Yangi Mahsulot nomini kiriting!")
+          return 0;
+        }
+        document.getElementById("searcher").focus();
+        var barkodx="a"+s.slice(1);
+   soni=parseFloat(document.querySelectorAll(`#${s}`)[0].value)
+   onarxi=parseFloat(document.querySelectorAll(`#${s}`)[1].value)
+   sfoiz=parseFloat(document.querySelectorAll(`#${s}`)[2].value)
+  snarxi=parseFloat(document.querySelectorAll(`#${s}`)[3].value)
+     if (!parseFloat(document.querySelectorAll(`#${s}`)[0].value) || !parseFloat(document.querySelectorAll(`#${s}`)[1].value) || !parseFloat(document.querySelectorAll(`#${s}`)[2].value) || !parseFloat(document.querySelectorAll(`#${s}`)[3].value)){
+      alert("Пожалуйста, введите информацию правильно")
+      return 0;
+     }
+          fx = 0;
+          for (let i = 0; i < arrayName.length; i++) {
+            if (arrayName[i] === document.getElementById("ssxs").value) {
+              cx = parseFloat(document.getElementById(s).value);
+                arrayCount[i] = arrayCount[i] + cx;
+                createTable1();
+              fx = 1; 
+            }
+          }
+          if (fx == 0) {
+            newBarkod.push(document.getElementById(barkodx).value);
+            if (s=="s80S565EA")
+            {
+            idfornews.push(true)
+            allid.push('xxx')
+            }
+            else
+            idfornews.push(false)
+            
+            dict[document.getElementById(s).name] = 1;
+            arrayPrice.push(parseFloat(snarxi));
+            arrayCount.push(parseFloat(document.getElementById(s).value));
+            arrayName.push(document.getElementById("ssxs").value);
+            arrayFoiz.push(sfoiz)
+            arrayBazaCount.push(soni);
+            arrayBazaNarx.push(onarxi);
+            createTable1();
+            createTable([]);
+            document.getElementById(s).value = "";
+          }
+      }
+     
+      function add(s, soni,sdd, product_id ){
+        console.log(product_id)
+        console.log(s);
+        document.getElementById("searcher").value="";
+        document.getElementById('searcher1').value="";
+        document.getElementById("searcher").focus();
+        console.log("kirildi!")
+        document.getElementById("searcher").focus();
+        var barkodx="a"+s.slice(1);
+    soni=parseFloat(document.querySelectorAll(`#${s}`)[0].value)
+    onarxi=parseFloat(document.querySelectorAll(`#${s}`)[1].value)
+    sfoiz=parseFloat(document.querySelectorAll(`#${s}`)[2].value)
+    snarxi=parseFloat(document.querySelectorAll(`#${s}`)[3].value)
+    if (!parseFloat(document.querySelectorAll(`#${s}`)[0].value) || !parseFloat(document.querySelectorAll(`#${s}`)[1].value) || !parseFloat(document.querySelectorAll(`#${s}`)[2].value) || !parseFloat(document.querySelectorAll(`#${s}`)[3].value)){
+    alert("Пожалуйста, введите информацию правильно")
+    return 0;
+     }
+          fx = 0;
+          for (let i = 0; i < arrayName.length; i++) {
+            if (arrayName[i] === document.getElementById(s).name) {
+              cx = parseFloat(document.getElementById(s).value);
+                arrayCount[i] = arrayCount[i] + cx;
+                createTable1();//check
+              fx = 1; 
+              document.getElementById(s).value = "";
+            }
+          }
+          if (fx == 0) {
+            newBarkod.push(document.getElementById(barkodx).value);
+            if (s=="s80S565EA")
+            {
+            idfornews.push(true)
+          allid.push('xxx')  
+          }
+            else
+            allid.push(product_id)
+            idfornews.push(false)
+            dict[document.getElementById(s).name] = 1;
+            arrayPrice.push(parseFloat(snarxi));
+            arrayCount.push(parseFloat(document.getElementById(s).value));
+            arrayName.push(document.getElementById(s).name);
+            arrayFoiz.push(sfoiz)
+            arrayBazaCount.push(soni);
+            arrayBazaNarx.push(onarxi);
+            createTable([])
+            createTable1();
+            // document.getElementById(s).value = "";
+          }
+       
+      }
+
+  
+      function addminus(s) {
+        dict[arrayName[s]] = 0;
+        arrayCount.splice(s, 1);
+        arrayName.splice(s, 1);
+        arrayPrice.splice(s, 1);
+        arrayBazaCount.splice(s, 1);
+        arrayBazaNarx.splice(s, 1);
+        newBarkod.splice(s, 1);
+        idfornews.splice(s,1)
+        allid.splice(s,1)
+        createTable1();
+      }
+      function CheckNull(t) {
+        if (t === null) {
+          return 0;
+        }
+        else {
+          return t;
+        }
+      }
+      function minus() {
+        //document.getElementById('puli').innerHTML = `To'lanadigan Summa:${jami - (jami * skidka() / 100)} so'm`
+        var organid= document.getElementById('organnames').value;
+        if (arrayCount.length == 0) {
+          alert("Продажа не состоялась!")
+          return 0;
+        }
+        money();
+        if (summa != 0) {
+          alert("Вы сделали ошибку при входе!")
+          return 0;
+        }
+        naqd = CheckNull(naqd);
+        plastik = CheckNull(plastik)
+        pulkochrish = CheckNull(pulkochrish)
+        qarz = CheckNull(qarz);
+        alert(`Наличные:${naqd}\n Пластик
+:${plastik}\n Перевод денег
+:${pulkochrish}\n Долг:${qarz}`)
+        var r = confirm('Подтверждать?')
+        if (r == true) {
+          var curiername;
+          $.ajax({
+            url: '/add/item',
+            type: "POST",
+            cache: false,
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify({ curiername: kurier(), summa: jami, naqd: naqd, plastik: plastik, pulkochrish: pulkochrish, qarz: qarz, minusName: arrayName, minusCount: arrayCount, payment: arraySell, organid: organid, minusPayment: arrayPrice, check: true, skidka: skidka(), bazanarx:arrayBazaNarx,barkod:newBarkod,idfornews:idfornews,allid:allid}),
+            success: data => {
+            }
+          })
+          location.reload();
+        }
+      }
+      today = new Date();
+      var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      document.getElementById('timenow').innerHTML += `Число:${new Date().getDate()}.${new Date().getMonth() + 1}.${new Date().getFullYear()} ${time}`
+    </script>
+</body>
+</html>

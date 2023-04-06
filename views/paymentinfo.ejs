@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+  <meta name="author" content="GeeksLabs">
+  <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+  <link rel="shortcut icon" href="/img/favicon.png">
+  <title>Smart Savdo</title>
+  <!-- Bootstrap CSS -->
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
+  <!-- bootstrap theme -->
+  <link href="/css/bootstrap-theme.css" rel="stylesheet">
+  <!--external css-->
+  <!-- font icon -->
+  <link href="/css/elegant-icons-style.css" rel="stylesheet" />
+  <link href="/css/font-awesome.min.css" rel="stylesheet" />
+  <!-- full calendar css-->
+  <link href="/assets/fullcalendar/fullcalendar/bootstrap-fullcalendar.css" rel="stylesheet" />
+  <link href="/assets/fullcalendar/fullcalendar/fullcalendar.css" rel="stylesheet" />
+  <!-- easy pie chart-->
+  <link href="/assets/jquery-easy-pie-chart/jquery.easy-pie-chart.css" rel="stylesheet" type="text/css" media="screen" />
+  <!-- owl carousel -->
+  <link rel="/tylesheet" href="css/owl.carousel.css" type="text/css">
+  <link href="/css/jquery-jvectormap-1.2.2.css" rel="stylesheet">
+  <!-- Custom styles -->
+  <link rel="/stylesheet" href="css/fullcalendar.css">
+  <link href="/css/widgets.css" rel="stylesheet">
+  <link href="/css/style.css" rel="stylesheet">
+  <link href="/css/style-responsive.css" rel="stylesheet" />
+  <link href="/css/xcharts.min.css" rel=" stylesheet">
+  <link href="/css/jquery-ui-1.10.4.min.css" rel="stylesheet">
+</head>
+<body>
+<%- include('nav')%>
+  <!--sidebar end-->
+
+    <!--main content start-->
+    <section id="main-content">
+      <section class="wrapper">
+        <!--overview start-->
+        <div class="row">
+          <div class="col-lg-12">
+            <ol class="breadcrumb">
+              <li><i class="fa fa-home"></i><a href="index.html">Домашняя Страница</a></li>
+              <li><i class="fa fa-laptop"></i>Основные </li>
+            </ol>
+          </div>
+        </div>
+        <input type="date" name="date" id="date">
+        <button class="btn btn-primary"  onclick="searchbydate()">Qidirish</button>
+        <input type="number" min="1900" id="year" max="2099" step="1" value="2023" />
+        <button class="btn btn-primary"  onclick="searchbyyear()">Qidirish</button>
+        <input type="month" id="month"/>
+        <button class="btn btn-primary"  onclick="searchbymonth()">Qidirish</button>
+        
+        <div class="row">
+            <center><h1 id="comment" ></h1></center>
+            <center><h1 id="comment1" ></h1></center>
+           <br>
+            <center id="allmonth"></center>
+            <br>
+            
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="sssa1">
+        
+            <div class="info-box dark-bg"   onclick="bos()" ;>
+              <i class="fa fa-money"></i>
+            
+              <div class="count" id="naqd" ></div>
+             
+          
+            
+            </div>
+        
+            <!--/.info-box-->
+          </div>
+          <!--/.col-->
+
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="sssa2">
+            <div class="info-box dark-bg" onclick="bos1()">
+              <i class="fa fa-credit-card"></i>
+              <div class="count" id="plastik"></div>
+            
+          
+           
+          
+            <!--/.info-box-->
+          </div>
+          <!--/.col-->
+
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" id="sssa3">
+            <div class="info-box dark-bg" onclick="bos2()">
+              <i class="fa fa-exchange"></i>
+              <div class="count" id="pulkochirish"></div>
+            
+            <!--/.info-box-->
+          </div>
+          <!--/.col-->
+          
+         
+       
+          <center><h1 id="hisobot"></h1></center>
+          <table class="table">
+            <tbody id="mahsulot" class="col-lg-12">
+            
+                                   </tbody>
+          </table>
+          <!--/.col-->
+
+        </div>
+
+        <!--/.row-->
+
+
+        
+  <!-- javascripts -->
+ 
+  
+    <script>
+       function searchbydate(){
+       window.location=`/calcbyday?date=${document.getElementById('date').value}`
+    }
+    function searchbyyear(){
+       window.location=`/calcbyday?year=${document.getElementById('year').value}`
+    }
+    function searchbymonth(){
+       window.location=`/calcbyday?month=${document.getElementById('month').value}`
+    }
+    const urlParams = new URLSearchParams(window.location.search);
+    document.getElementById('date').value=urlParams.get('date');
+    document.getElementById('year').value=urlParams.get('year');
+    document.getElementById('month').value=urlParams.get('month');
+    
+    
+ let data=<%- JSON.stringify(data)%>
+ console.log(data)
+ document.getElementById("pulkochirish").innerText=data.transfer+" "+"uzs";
+ document.getElementById("naqd").innerText=data.cash+" "+"uzs";
+ document.getElementById("plastik").innerText=data.card+" "+"uzs";
+    </script>
+ 
+</body>
+
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en"> 
+  <center><h3 ><%= name%></h3></center>
+    <center><h1 id="price"></h1></center>
+   <center> <svg  class="barcode" 
+   ></svg></center>
+   <!-- <center> <p><%= barkod%></p></center> -->
+    <!-- <center><h2><%= barkod%></h2></center> -->
+    
+<script src="/js/JsBarcode.all.min.js"></script>
+<script>
+  var price=<%- JSON.stringify(price)%>;
+  function numberWithSpaces(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
+  document.getElementById("price").innerHTML=numberWithSpaces(price)
+
+function man(){
+    JsBarcode(".barcode",<%-JSON.stringify(barkod)%>,{
+      format: "CODE128",
+  height:20,
+  fontSize:20
+    })
+ window.print()
+}
+man()
+window.onafterprint=()=>{
+  window.close();
+}
+</script>
+<style>
+  h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6,p {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+  @media print {
+      @page {
+        size: 30mm 21mm;
+        margin: 0;
+        padding: 0;
+      }
+      svg {
+        padding: 0px;
+        margin:0px;
+        width: 120%;
+        height: 80%;
+        max-width: 100%;
+        max-height: 80%;
+      }
+      h2{
+        padding:0px;
+        margin:0px;
+      }
+    }
+  </style>
+</html>

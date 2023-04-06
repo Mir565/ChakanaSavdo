@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        table, td, th {
+          border: 1.5px solid black;
+        }
+        
+        table {
+          width: 100%;
+          border-collapse: collapse;
+        }
+        </style>
+<body>
+  <h4>"URGUT XOS TOVAR MEHROJ"     Tel: (99)3376665  (98)1306665  (99)3316665  Xaridor Nomi:<%= cusname%></h4>
+<table id="tablehref" >
+ 
+</table>
+<center><h2 id="all"></h2></center>
+</body>
+<script>
+  var name=<%- JSON.stringify(arrayname)%>
+  var price=<%- JSON.stringify(arrayprice)%>
+  var count=<%- JSON.stringify(arraycount)%>
+function createTable(name,price,count){
+  var allprice=0;
+  console.log(name)
+  name=name.split(',');
+ ss=`<tr>
+     <th style="width:0.5%">Nomer</th>
+    <th style="width:40%">Mahsulot Nomi</th>
+    <th>Miqdori</th>
+    <th>1 Dona Narxi</th>
+    <th>Izoh</th>
+  </tr>`;
+ for (let i=0;i<price.length;i++)
+ {
+  ss+=`
+  <tr>
+    <td>${i+1}</td>
+    <td>${name[i]}</td>
+    <td>${count[i]}</td>
+    <td>${price[i]}</td>
+    <td></td>
+  </tr>
+ `
+ allprice=allprice+(parseFloat(price[i])*parseFloat(count[i]));
+ document.getElementById('all').innerHTML = `Jami ${allprice}`
+ }
+ document.getElementById('tablehref').innerHTML=ss;
+}
+createTable(name,price,count)
+  console.log(count,price,name)
+window.print();
+window.onafterprint=()=>{
+  window.close();
+}
+</script>
+</html>

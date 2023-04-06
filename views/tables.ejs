@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+  <meta name="author" content="GeeksLabs">
+  <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+  <link rel="shortcut icon" href="img/favicon.png">
+  <title>Smart Savdo</title>
+  <!-- Bootstrap CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- bootstrap theme -->
+  <link href="css/bootstrap-theme.css" rel="stylesheet">
+  <!--external css-->
+  <!-- font icon -->
+  <link href="css/elegant-icons-style.css" rel="stylesheet" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+  <!-- Custom styles -->
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style-responsive.css" rel="stylesheet" />
+  
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
+  <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+      <script src="js/lte-ie7.js"></script>
+    <![endif]-->
+
+  <!-- =======================================================
+      Theme Name: NiceAdmin
+      Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+      Author: BootstrapMade
+      Author URL: https://bootstrapmade.com
+    ======================================================= -->
+</head>
+<script>
+  document.title=document.getElementsByClassName("page-header")[0].innerText;
+  
+ </script>
+<body>
+  <!-- container section start -->
+
+
+    <!--main content start-->
+    <section id="main-content">
+      <section class="wrapper">
+        <div class="row" id="sa">
+          <div class="col-lg-12">
+     
+            </ol>
+          </div>
+        </div>
+        <select name="" id="pagenation" onchange="page(this.value)" onclick="page(this.value)"></select>
+        <center> 
+        <h3 style="color: black;" id="tovarsoni"> </h3> 
+        <h3 style="color: black;" id="tovar"></h3>
+              <h3 style="color: black;"id="sotilishi"></h3>
+              <h3 style="color: black;"id="foyda"></h3>
+            
+            </center>
+            <!-- <center><button class="btn btn-primary " onclick="print1()">Chop Etish</button></center> -->
+     
+            <div class="row">
+          <div class="col-lg-12">
+            <section class="panel">
+              <header class="panel-heading">
+                Таблица Продуктов
+              </header>
+              
+              <div class="form-check form-switch">
+        
+                <!-- <label class="form-check-label" id="kamqolgan" for="flexSwitchCheckChecked">Kam Qolgan  Mahsulotlar</label> -->
+              </div>
+            
+              <table class="table table-advance">
+                <form class="navbar-form" onsubmit="return false;">
+                  <input class="form-control" placeholder="Qidiruv"id="searcher"  onkeyup="searchBar()" type="text">
+                </form>
+               
+                <tbody id="mahsulot">
+                 
+                </tbody>
+              </table>
+            </section>
+          </div>
+        </div>
+        <!-- page end-->
+      </section>
+    </section>
+    <style>
+    </style>
+    <!--main content end-->
+    <div class="text-right">
+      <div class="credits">
+        <!--
+            All the links in the footer should remain intact.
+            You can delete the links only if you purchased the pro version.
+            Licensing information: https://bootstrapmade.com/license/
+            Purchase the pro version form: https://bootstrapmade.com/buy/?theme=NiceAdmin
+          -->
+     
+      </div>
+    </div>
+  </section>
+  <style>
+  </style>
+  <center><h2 id="xarid"></h2></center>
+  <!-- container section end -->
+  <!-- javascripts -->
+  <script>
+    document.title=document.getElementsByClassName("page-header")[0].innerText;
+    
+   </script>
+  <script src="js/jquery.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <!-- nicescroll -->
+  <script src="js/jquery.scrollTo.min.js"></script>
+  <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
+  <!--custome script for all page-->
+  <script src="js/scripts.js" ></script>
+  <script>
+  function print1(){
+    window.print();
+  }
+  var kurs,xkurs;
+  $.ajax({
+      url: `/valutainfo`,
+      type: 'GET',
+       cache: false,
+        dataType: 'json',
+      contentType: 'application/json', 
+      success: function (data) { 
+xkurs=data;
+        // console.log(data);
+ kurs=data.kurs;
+      }
+    })
+
+    var z=[];
+    var qq=[];
+    var x=0;
+    var Mahsulotlar;
+    function round(value, precision) {
+    var multiplier = Math.pow(10, precision || 0);
+    return Math.round(value * multiplier) / multiplier;
+}
+    function createTable(Mahsulotlar,pagename){
+      if (pagename=="search"){
+        begin=0;
+        if (100>Mahsulotlar.length){
+          end=Mahsulotlar.length
+        }
+        else
+        end=100;
+        // console.log(Mahsulotlar)
+      }
+      else{
+      begin=((pagename-1)*100);
+      if (pagename*100<=Mahsulotlar.length){
+        end=pagename*100;
+      }
+      else
+      end=Mahsulotlar.length
+    }
+      qq=[];
+      x++;
+      s=`<tr> <th >
+        
+        <i  class="fa fa-number" >
+            </i>Порядковый Номер</th>
+                      <th  onclick="bol(1)">
+                  <i  class="fa fa-shopping-cart" onclick="bol(1)">
+                      </i>  Название</th> <th>
+                        </i>Стоимость</th>  </tr>`;
+      var table = document.getElementById('mahsulot')
+      for (var i = begin; i < end; i++) 
+     {
+       if (x==1){
+     z.push(Mahsulotlar[i])
+       }
+       if (Mahsulotlar[i].kurs[0]==="Dollar"){
+         kurs=xkurs.kurs;
+      }
+       else{
+kurs=1;
+       }
+      s+=` <tr style="font-size:20px;color:black"  id="tr${i}"><td>${i+1}</td> <td>${Mahsulotlar[i].name[Mahsulotlar[i].name.length-1]}</td> <td>${round(Mahsulotlar[i].buyprice[Mahsulotlar[i].buyprice.length-1]*kurs,3)}</td></tr>`
+       }
+      table.innerHTML=s;
+        }
+        var bc="false";
+        var bp="false";
+        var bn="false";
+      function  bol(bb){
+        if (bb==1){
+          bn="true";
+          bc="false";
+          bp="false";
+        
+
+        }
+        if (bb==2){
+          bn="false";
+          bc="false";
+          bp="true";
+        
+        }
+        if (bb==3){
+          bn="false";
+          bc="true";
+          bp="false";
+        }
+        $.ajax({
+      url: `/api/getitemclient?count=${bc}&price=${bp}&name=${bn}`,
+      type: 'GET', cache: false, dataType: 'json',
+      contentType: 'application/json', 
+      success: function (data) { 
+        Mahsulotlar = data.items; 
+         createTable(data.items,1);
+       
+      },
+      
+    })
+      }
+      function check(){
+        t=confirm("Удалить?");
+          return t;
+      }
+      function checked1(){
+     qqs=[]
+        if (document.getElementById('flexSwitchCheckChecked').checked===true){
+    for (let i=0;i<Mahsulotlar.length;i++){
+      if(Mahsulotlar[i].countnum<=Mahsulotlar[i].countof[Mahsulotlar[i].countof.length-1]){
+        qqs.push(Mahsulotlar[i]);
+      }
+    }
+        createTable(qqs,"search");     
+      }
+      else{
+        createTable(Mahsulotlar,1)
+      }
+    } 
+    $.ajax({
+      url: `/api/getitemclient?count=${bc}&price=${bp}&name=${bn}`,
+      type: 'GET',
+       cache: false,
+        dataType: 'json',
+      contentType: 'application/json', 
+      success: function (data) { 
+        Mahsulotlar = data.items; 
+        for (i=0;i<Math.floor(data.items.length/100)+1;i++){
+           document.getElementById('pagenation').innerHTML+=`<option value="${i+1}" onclick="${page(i+1)}">${i+1}</option>`
+         }
+        var tovar=0;
+        var sotilishi=0;
+        var foyda=0;
+       for(q of data.items){
+         sotilishi+=(q.countnum*q.buyprice[q.buyprice.length-1])
+         tovar+=(q.countnum*q.price[q.price.length-1])
+         foyda=sotilishi-tovar;
+       }
+      //  console.log(tovar,sotilishi,foyda)
+          document.getElementById('tovarsoni').innerHTML+=`Общий вид продукции:${Mahsulotlar.length} ta;</br>`;
+      //  document.getElementById('tovarsoni').innerHTML+=`Olingan tovar :${tovar} so'm; </br>` ;
+      //  document.getElementById('tovarsoni').innerHTML+=`Sotiladigan tovar :${sotilishi} so'm;`;
+      //  document.getElementById('tovarsoni').innerHTML+=`Ko'riladigan foyda:${foyda} so'm;`;
+       
+       createTable(data.items,1);
+      },
+      
+    })
+     function mana(s){
+      //  console.log(s);
+      var r=confirm('Удалить?')
+      if (r==true){
+      $.ajax({
+      url: `/api/delete/${s}`,
+      type: 'GET', cache: false, dataType: 'json',
+      contentType: 'application/json', 
+      success: function (data) { 
+        // console.log(data)
+     if (data.status){
+      location.reload();
+     }
+    },
+    })
+    }
+  }
+    function searchBar(){
+    var searchText=document.getElementById('searcher').value;
+       if (searchText.length==0){
+createTable(Mahsulotlar,parseInt(document.getElementById('pagenation').value))
+    }else{
+    var searchTextArr=[]
+    for (q of Mahsulotlar){
+      // console.log(q);
+      if (q.name[q.name.length-1].toLowerCase().indexOf(searchText.toLowerCase())>-1 || q.barkod==searchText.toLowerCase().trim()){
+        // console.log(q.name)
+        searchTextArr.push(q);
+      }
+    }
+  }
+    createTable(searchTextArr,"search")
+    }
+    function page(s){
+      // console.log(s)
+      document.getElementById('searcher').value="";
+   createTable(Mahsulotlar,s)
+  }
+    // arr=[];
+    // function spiska(s){
+    //   x=0;
+    //   j=-1;
+    //   for (q of arr){
+    //     j++;
+    //     if (q==s)
+    //     {
+    //      arr[j]=""; 
+    //       s.style.color='#797979';
+    //       x=1;
+    //       break;
+    //     }
+    //   }
+    //   if (x==0){
+    //     arr.push(s);
+    //     s.style.color='#ff2d55';
+    //   }
+    //   console.log(arr)
+    //   len=0;
+    //   for (q of arr){
+    //     if (q!=""){
+    //       len++;
+    //     }
+    //   }
+    //   document.getElementById('xarid').innerHTML=`Xarid uchun ${len} ta mahsulot tanladingiz!`
+    // }
+     </script>
+</body>
+</html>

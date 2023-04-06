@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+  <meta name="author" content="GeeksLabs">
+  <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+  <link rel="shortcut icon" href="img/favicon.png">
+
+  <title>Соз.. Продавца</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- bootstrap theme -->
+  <link href="css/bootstrap-theme.css" rel="stylesheet">
+  <!--external css-->
+  <!-- font icon -->
+  <link href="css/elegant-icons-style.css" rel="stylesheet" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+  <link href="css/daterangepicker.css" rel="stylesheet" />
+  <link href="css/bootstrap-datepicker.css" rel="stylesheet" />
+  <link href="css/bootstrap-colorpicker.css" rel="stylesheet" />
+  <!-- date picker -->
+
+  <!-- color picker -->
+
+  <!-- Custom styles -->
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style-responsive.css" rel="stylesheet" />
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
+  <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+      <script src="js/lte-ie7.js"></script>
+    <![endif]-->
+
+    <!-- =======================================================
+      Theme Name: NiceAdmin
+      Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+      Author: BootstrapMade
+      Author URL: https://bootstrapmade.com
+    ======================================================= -->
+</head>
+
+<body>
+  <%- include('nav')%>
+    <!--sidebar end-->
+
+    <!--main content start-->
+    <section id="main-content">
+      <section class="wrapper">
+        <div class="row">
+          <div class="col-lg-12">
+            <h3 class="page-header"><i class="fa fa-file-text-o"></i> Данные Продавца</h3>
+            <ol class="breadcrumb">
+              <li><i class="fa fa-home"></i><a href="index.html">Домашняя страница</a></li>
+              <li><i class="icon_document_alt"></i>Данные Продавца</li>
+              <li><i class="fa fa-file-text-o"></i>Данные Продавца </li>
+            </ol>
+          </div>
+        </div>
+        <center><button  id="button1"class="btn <%= clas%>" "><%= message%></button></center>
+        <br>
+        <div class="row">
+          <div class="col-lg-12">
+            <section class="panel">
+              <header class="panel-heading"> 
+                Заполнение Данных Продавца
+              </header>
+              <div class="panel-body">
+                <form class="form-horizontal" method="POST" action="/salesman">
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Sotuvchi uchun login:</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" minlength="5" required id="input0"name="login">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Пароль для продавца:</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" minlength="5" required id="input1" name="password">
+                      
+                    </div>
+                  </div>
+               
+                     <center><button class="btn btn-primary btn-lg btn-block"  type="submit">Подтверждаю</button></center>
+                     <br>
+                     <br>
+                     <center><h1>Информация О Продавцах</h1></center>
+                     <table class="table table-advance">
+                      <form class="navbar-form">
+                      </form>
+                
+                      <tbody id="mahsulot">
+                       
+                      </tbody>
+                    </table>
+                    </div>
+                  </div>
+                
+                  </form>
+    <div class="text-right">
+      
+    </div>
+ 
+  </section>
+  <!-- container section end -->
+  <!-- javascripts -->
+  <script>
+    document.title=document.getElementsByClassName("page-header")[0].innerText;
+    
+   </script>
+  <script src="js/jquery.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <!-- nice scroll -->
+  <script src="js/jquery.scrollTo.min.js"></script>
+  <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
+
+  <!-- jquery ui -->
+  <script src="js/jquery-ui-1.9.2.custom.min.js"></script>
+
+  <!--custom checkbox & radio-->
+  <script type="text/javascript" src="js/ga.js"></script>
+  <!--custom switch-->
+  <script src="js/bootstrap-switch.js"></script>
+  <!--custom tagsinput-->
+  <script src="js/jquery.tagsinput.js"></script>
+
+  <!-- colorpicker -->
+
+  <!-- bootstrap-wysiwyg -->
+  <script src="js/jquery.hotkeys.js"></script>
+  <script src="js/bootstrap-wysiwyg.js"></script>
+  <script src="js/bootstrap-wysiwyg-custom.js"></script>
+  <script src="js/moment.js"></script>
+  <script src="js/bootstrap-colorpicker.js"></script>
+  <script src="js/daterangepicker.js"></script>
+  <script src="js/bootstrap-datepicker.js"></script>
+  <!-- ck editor -->
+  <script type="text/javascript" src="assets/ckeditor/ckeditor.js"></script>
+  <!-- custom form component script for this page-->
+  <script src="js/form-component.js"></script>
+  <!-- custome script for all page -->
+  <script src="js/scripts.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script>
+  var data=<%- JSON.stringify(data)%>
+  function createTable(Mahsulotlar){
+      var count_of=0;
+      s=`<tr> <th>Номер</th>
+  <th></th> 
+  <th></th>
+  <th  onclick="bol(1)">
+                      </i> Логин Продавца</th><th>Пароль Продавца</th>  </tr>`;
+      var table = document.getElementById('mahsulot')
+      for (var i =0;i<Mahsulotlar.length;i++) 
+     {
+       count_of++;
+       if (count_of===200)
+       break;
+     s+=` <tr id="tr${i}">  <td>${count_of}</td>
+  <td></td>
+  <td></td> <td><h4>${Mahsulotlar[i].login}</h4></td><td>${Mahsulotlar[i].password}</td> </tr>`
+      }
+      table.innerHTML=s;
+        }
+        createTable(data);
+</script>
+
+
+</body>
+
+</html>

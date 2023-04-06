@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+  <meta name="author" content="GeeksLabs">
+  <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+  <link rel="shortcut icon" href="img/favicon.png">
+  <title>Smart Savdo</title>
+  <!-- Bootstrap CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- bootstrap theme -->
+  <link href="css/bootstrap-theme.css" rel="stylesheet">
+  <!--external css-->
+  <!-- font icon -->
+  <link href="css/elegant-icons-style.css" rel="stylesheet" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+  <!-- Custom styles -->
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style-responsive.css" rel="stylesheet" />
+  
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
+  <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+      <script src="js/lte-ie7.js"></script>
+    <![endif]-->
+
+  <!-- =======================================================
+      Theme Name: NiceAdmin
+      Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+      Author: BootstrapMade
+      Author URL: https://bootstrapmade.com
+    ======================================================= -->
+</head>
+<script>
+  document.title=document.getElementsByClassName("page-header")[0].innerText;
+  
+ </script>
+<body>
+  <!-- container section start -->
+  <%- include('nav')%>
+
+    <!--main content start-->
+    <section id="main-content">
+      <section class="wrapper">
+        <div class="row" id="sa">
+          <div class="col-lg-12">
+            <h3 class="page-header"><i class="fa fa-table"></i> График задолженности</h3>
+            <ol class="breadcrumb">
+              <li><i class="fa fa-home"></i><a href="index.html">Домашняя страница</a></li>
+              <li><i class="fa fa-table"></i>Долг</li>
+              <li><i class="fa fa-th-list"></i>График задолженности</li>
+            </ol>
+          </div>
+        </div>
+       <center> <h3 style="color: black;" id="tovar"></h3>
+              <h3 style="color: black;"id="sotilishi"></h3>
+              <h3 style="color: black;"id="foyda"></h3></center>
+              <div class="row">
+                <div class="col-lg-12">
+                  <section class="panel">
+                    <header class="panel-heading"> 
+                      Заполнение информации о задолженности
+                    </header>
+                    <div class="panel-body">
+                      <form class="form-horizontal" method="POST" action="/minusdebt">
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">Имя заемщика:</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control"  id="nameofdebetor" readonly required id="input0" name="name">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">Текущая сумма полученного долга </label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" id="nowdebt"  readonly  id="input1">
+                            
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label"> Сумма вычитаемого долга </label>
+                          <div class="col-sm-10">
+                            <input type="number" class="form-control" required id="input1" name="debt">
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <label class="col-sm-2 control-label">Срок Окупаемости </label>
+                          <div class="col-sm-10">
+                            <input type="number" class="form-control"  name="day">
+                          </div>
+                        </div>
+                           <center><button class="btn btn-primary btn-lg btn-block"  type="submit">Подтверждаю</button></center>
+                          </div>
+                        </div>
+                        </form>
+          <div class="text-right">
+            
+          </div>
+            </section>
+          </div>
+        </div>
+        <!-- page end-->
+      </section>
+    </section>
+    <style>
+      
+
+    </style>
+    <!--main content end-->
+    <div class="text-right">
+      <div class="credits">
+        <!--
+            All the links in the footer should remain intact.
+            You can delete the links only if you purchased the pro version.
+            Licensing information: https://bootstrapmade.com/license/
+            Purchase the pro version form: https://bootstrapmade.com/buy/?theme=NiceAdmin
+          -->
+     
+      </div>
+    </div>
+  </section>
+  <style>
+      @media print {
+aside,#sa,header,#stat1,#stat,#searcher,#flexSwitchCheckChecked,#kamqolgan{
+  display: none;
+}
+}
+  </style>
+  <center><h2 id="xarid"></h2></center>
+  <!-- container section end -->
+  <!-- javascripts -->
+  <script>
+    document.title=document.getElementsByClassName("page-header")[0].innerText;
+    
+   </script>
+  <script src="js/jquery.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <!-- nicescroll -->
+  <script src="js/jquery.scrollTo.min.js"></script>
+  <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
+  <!--custome script for all page-->
+  <script src="js/scripts.js" ></script>
+  <script>
+    data=<%- JSON.stringify(data) %>
+  alldebt=0;
+    for (let i=0;i<data.debt.length;i++){
+    alldebt+=data.debt[i];
+    }
+    for (q of data.paydebt){
+      alldebt-=q;
+    }
+  document.getElementById('nowdebt').value=`${alldebt}`
+  document.getElementById('nameofdebetor').value=`${data.name}`
+//   function print1(){
+//     window.print();
+//   }
+//     var z=[];
+//     var qq=[];
+//     var x=0;
+//     var Mahsulotlar;
+//     function createTable(Mahsulotlar){
+//       qq=[];
+//       x++;
+//       s=`<tr> <th  onclick="bol(1)">
+//                   <i  class="fa fa-shopping-cart" onclick="bol(1)">
+//                       </i> Mahsulot nomi</th> <th  onclick="bol(2)">
+//                         <i class="fa fa-money" onclick="bol(2)">
+//                         </i>Olingan Narxi</th> <th  onclick="bol(2)">
+//                         <i class="fa fa-money" onclick="bol(2)">
+//                         </i>Sotiladigan Narxi</th> <th onclick="bol(3)"><i class="fa fa-balance-scale" onclick="bol(3)">
+//                           </i> Soni/kg</th> <th><i class="icon_calendar" ></i>Sanasi</th> 
+//                           <th id="stat"><i class="icon_cogs">
+//                             </i> Statistika</th> </tr>`;
+//       var table = document.getElementById('mahsulot')
+//       for (var i = 0; i < Mahsulotlar.length; i++) 
+//      {
+//        if (x==1){
+//      z.push(Mahsulotlar[i])
+//        }
+//        if(Mahsulotlar[i].countnum<=Mahsulotlar[i].countof[Mahsulotlar[i].countof.length-1]){
+//      s+=` <tr  style="background-color:#ff2d55;color:white;font-size:20px" id="tr${i}"> <td>${Mahsulotlar[i].name[Mahsulotlar[i].name.length-1]}</td> <td>${Mahsulotlar[i].price[Mahsulotlar[i].price.length-1]}</td><td>${Mahsulotlar[i].buyprice[Mahsulotlar[i].buyprice.length-1]}</td> <td>${Mahsulotlar[i].countnum}</td>
+//                      <td>${Mahsulotlar[i].date[Mahsulotlar[i].date.length-1]}</td> <td id="stat1"> <div class="btn-group"> <a class="btn btn-primary" href="yangilash.html?id=${Mahsulotlar[i]._id}">
+//                       <i class="icon_plus_alt2"></i></a> 
+//           <a class="btn btn-success" href="/getinfo?id=${Mahsulotlar[i]._id}" onclick="spiska(s=tr${i})"><i class="icon_check_alt2"></i></a> <a class="btn btn-danger" href="/api/delete/${Mahsulotlar[i]._id}"  rel="nofollow" href="#"><i class="icon_close_alt2"></i></a> 
+//             </div> </td> </tr>`
+//             qq.push(Mahsulotlar[i]);
+//           }
+//      else{
+     
+//       s+=` <tr style="font-size:20px;color:black"  id="tr${i}"> <td>${Mahsulotlar[i].name[Mahsulotlar[i].name.length-1]}</td> <td>${Mahsulotlar[i].price[Mahsulotlar[i].price.length-1]}</td><td>${Mahsulotlar[i].buyprice[Mahsulotlar[i].buyprice.length-1]}</td> <td>${Mahsulotlar[i].countnum}</td>
+//                      <td>${Mahsulotlar[i].date[Mahsulotlar[i].date.length-1]}</td> <td id="stat1"> <div class="btn-group"> <a class="btn btn-primary" href="yangilash.html?id=${Mahsulotlar[i]._id}">
+//                       <i class="icon_plus_alt2"></i></a> 
+//           <a class="btn btn-success" href="/getinfo?id=${Mahsulotlar[i]._id}" onclick="spiska(s=tr${i})"><i class="icon_check_alt2"></i></a> <a class="btn btn-danger" href="/api/delete/${Mahsulotlar[i]._id}"  rel="nofollow" href="#"><i class="icon_close_alt2"></i></a> 
+//             </div> </td> </tr>`
+//      }
+//       }
+
+//       table.innerHTML=s;
+//         }
+//         function checked1(){
+//       if (document.getElementById('flexSwitchCheckChecked').checked===true){
+//      createTable(qq);   
+//      console.log(qq);
+//       }
+//       else{
+//         createTable(Mahsulotlar)
+//       }
+//     }
+//         var bc="false";
+//         var bp="false";
+//         var bn="false";
+        
+
+//       function  bol(bb){
+//         if (bb==1){
+//           bn="true";
+//           bc="false";
+//           bp="false";
+        
+
+//         }
+//         if (bb==2){
+//           bn="false";
+//           bc="false";
+//           bp="true";
+        
+//         }
+//         if (bb==3){
+//           bn="false";
+//           bc="true";
+//           bp="false";
+//         }
+//         $.ajax({
+//       url: `/api/getitem?count=${bc}&price=${bp}&name=${bn}`,
+//       type: 'GET', cache: false, dataType: 'json',
+//       contentType: 'application/json', 
+//       success: function (data) { 
+//         Mahsulotlar = data.items; 
+//          createTable(data.items);
+//       },
+      
+//     })
+//       } 
+//     $.ajax({
+//       url: `/api/getitem?count=${bc}&price=${bp}&name=${bn}`,
+//       type: 'GET', cache: false, dataType: 'json',
+//       contentType: 'application/json', 
+//       success: function (data) { 
+//         Mahsulotlar = data.items; 
+//         var tovar=0;
+//         var sotilishi=0;
+//         var foyda=0;
+//        for(q of data.items){
+//          sotilishi+=(q.countnum*q.buyprice[q.buyprice.length-1])
+//          tovar+=(q.countnum*q.price[q.price.length-1])
+//          foyda=sotilishi-tovar;
+//        }
+//        console.log(tovar,sotilishi,foyda)
+//        document.getElementById('tovar').innerHTML=`Olingan tovar :${tovar} so'm`;
+//        document.getElementById('sotilishi').innerHTML=`Sotiladigan tovar :${sotilishi} so'm`;
+//        document.getElementById('foyda').innerHTML=`Ko'riladigan foyda:${foyda} so'm`;
+       
+//        createTable(data.items);
+//       },
+      
+//     })
+//      function mana(s){
+//        console.log(s);
+//       var r=confirm('O\'chirilsinmi?')
+//       if (r==true){
+//       $.ajax({
+//       url: `/api/delete/${s}`,
+//       type: 'GET', cache: false, dataType: 'json',
+//       contentType: 'application/json', 
+//       success: function (data) { 
+//         console.log(data)
+//      if (data.status){
+//       location.reload();
+//      }
+//     },
+//     })
+//     }
+//   }
+//     function searchBar(){
+//     var searchText=document.getElementById('searcher').value;
+//     var searchTextArr=[]
+//     for (q of z){
+//       console.log(q);
+//       if (q.name[q.name.length-1].toLowerCase().indexOf(searchText.toLowerCase())>-1){
+//         console.log(q.name)
+//         searchTextArr.push(q);
+//       }
+//     }
+//     createTable(searchTextArr)
+//     }
+    // arr=[];
+    // function spiska(s){
+    //   x=0;
+    //   j=-1;
+    //   for (q of arr){
+    //     j++;
+    //     if (q==s)
+    //     {
+    //      arr[j]=""; 
+    //       s.style.color='#797979';
+    //       x=1;
+    //       break;
+    //     }
+    //   }
+    //   if (x==0){
+    //     arr.push(s);
+    //     s.style.color='#ff2d55';
+    //   }
+    //   console.log(arr)
+    //   len=0;
+    //   for (q of arr){
+    //     if (q!=""){
+    //       len++;
+    //     }
+    //   }
+    //   document.getElementById('xarid').innerHTML=`Xarid uchun ${len} ta mahsulot tanladingiz!`
+    // }
+     </script>
+</body>
+</html>

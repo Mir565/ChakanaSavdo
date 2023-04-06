@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+  <meta name="author" content="GeeksLabs">
+  <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+  <link rel="shortcut icon" href="img/favicon.png">
+  <title>Smart Savdo</title>
+  <!-- Bootstrap CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- bootstrap theme -->
+  <link href="css/bootstrap-theme.css" rel="stylesheet">
+  <!--external css-->
+  <!-- font icon -->
+  <link href="css/elegant-icons-style.css" rel="stylesheet" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+  <!-- Custom styles -->
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style-responsive.css" rel="stylesheet" />
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
+  <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+      <script src="js/lte-ie7.js"></script>
+    <![endif]-->
+
+  <!-- =======================================================
+      Theme Name: NiceAdmin
+      Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+      Author: BootstrapMade
+      Author URL: https://bootstrapmade.com
+    ======================================================= -->
+</head>
+<script>
+  document.title="Проданный Товар"
+</script>
+<body>
+  <!-- container section start -->
+  <%- include('nav')%>
+
+    <!--main content start-->
+    <section id="main-content">
+      <section class="wrapper">
+        <div class="row">
+          <div class="col-lg-12">
+           <center><h1 class="text-primary" id="magazin">  </h1></center> 
+            <ol class="breadcrumb">
+              <li><i class="fa fa-home"></i><a href="index.html">Домашняя страница
+              </a></li>
+              <li><i class="fa fa-table"></i>магазины</li>
+              <li><i class="fa fa-th-list"></i>Торговый стол
+              </li>
+            </ol>
+          </div>
+        </div>
+        <form method="POST" id="searchdate" action="">
+          <input id="dateone" type="date" data-date="" data-date-format="DD MMMM YYYY" required name="date1"  >
+          <input id="datetwo" type="date"   data-date="" data-date-format="DD MMMM YYYY"  required name="date2">
+          <button class="btn btn-primary" type="submit"  >Поиск</button>
+        </form>
+        <br>
+        <a href="" id="linktoall" class="btn btn-primary" >Все </a>
+        <h2 id="datelar"></h2>
+        <div class="row">
+          <div class="col-lg-12">
+            <section class="panel">
+              <header class="panel-heading">
+                <center><h2 id="xarid"></h2></center>
+               
+                <br>
+                <select name="" id="pagenation" onchange="page(this.value)" onclick="page(this.value)"></select>
+      
+      
+                <center><h1 id="opshi"></h1></center>
+              </header>
+              <table class="table table-advance">
+             
+
+                <tbody id="mahsulot">
+                 
+                </tbody>
+              </table>
+            </section>
+          </div>
+        </div>
+        <!-- page end-->
+      </section>
+    </section>
+    <!--main content end-->
+    <div class="text-right">
+      <div class="credits">
+        <!--
+            All the links in the footer should remain intact.
+            You can delete the links only if you purchased the pro version.
+            Licensing information: https://bootstrapmade.com/license/
+            Purchase the pro version form: https://bootstrapmade.com/buy/?theme=NiceAdmin
+          -->
+     
+      </div>
+    </div>
+  </section>
+  <center><h2 id="xarid"></h2></center>
+  <script>
+    document.title=document.getElementsByClassName("page-header")[0].innerText;
+    
+   </script>
+  <!-- container section end -->
+  <!-- javascripts -->
+  <script src="js/jquery.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <!-- nicescroll -->
+  <script src="js/jquery.scrollTo.min.js"></script>
+  <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
+  <!--custome script for all page-->
+  <script src="js/scripts.js" ></script>
+  <script>
+   var data=<%- JSON.stringify(data)%>
+   var kun1=<%- JSON.stringify(kun1)%>
+  var kun2=<%- JSON.stringify(kun2)%>
+  document.getElementById("linktoall").href=`/general.html`
+  console.log(kun1)
+  console.log(data)
+  if (kun1!=""){
+    var allcount=0;
+    var alloldprice=0;
+    var allsellprice=0;
+    for(let i=0;i<data.length;i++){
+      for (let j=0;j<data[i].CustomerClothes.length;j++){
+      alloldprice+=data[i].CustomerSell[j]*data[i].CustomerBuy[j];
+      allcount+=data[i].CustomerBuy[j];
+      allsellprice+=data[i].CustomerBuyNum[j]*data[i].CustomerBuy[j];
+      }
+    }
+    document.getElementById("datelar").innerHTML=`${kun1} dan  ${kun2} gacha <br> Topildi:${data.length} <br> Barcha Sot.Miq:${allcount} ta <br> J.O.Summa:${alloldprice} <br> J.S.Summa:${allsellprice}`;
+  }
+  document.getElementById("magazin").innerHTML=`Все окна продаж
+`
+  document.getElementById("searchdate").action=`/general.html`
+  document.title=data[0].CustomerName
+var Mahsulotlar=[];
+    for (q of data){
+     for (let c=0;c<q.CustomerClothes.length;c++){
+      Mahsulotlar.push({CustomerSell:q.CustomerSell[c],CustomerClothes:q.CustomerClothes[c],CustomerBuy:q.CustomerBuy[c],CustomerBuyNum:q.CustomerBuyNum[c],CustomerName:q.CustomerName,CustomerDate:q.CustomerDate})
+     }
+        }
+    var x=0;
+ var begin,end;
+    function createTable(Mahsulotlar,pagename){
+      if (pagename=="search"){
+        begin=0;
+        if (100>Mahsulotlar.length){
+          end=Mahsulotlar.length
+        }
+        else
+        end=100;
+      }
+      else{
+      begin=((pagename-1)*100);
+      if (pagename*100<=Mahsulotlar.length){
+        end=pagename*100;
+      }
+      else
+      end=Mahsulotlar.length
+    }
+    
+      x++;
+      s=`<tr> <th>Число</th>
+  <th></th>
+  <th></th>
+  <th>Название Продукта</th><th>Сумма покупки</th><th>Стоимость полученных единиц</th><th>Итого Полученная Сумма</th><th>Цена за штуку для продажи</th><th>Общая Сумма Продаж</th><th  onclick="bol(1)">
+    </i> Название Магазина</th><th>Время Покупки</th>  </tr>`;
+      var table = document.getElementById('mahsulot')
+      for (var i = begin; i < end; i++) 
+     {
+       
+        s+=` <tr id="tr${i}">  <td>${i+1}</td>
+  <td></td>
+  <td></td> <td>${Mahsulotlar[i].CustomerClothes}</td><td>${Mahsulotlar[i].CustomerBuy}</td><td>${Mahsulotlar[i].CustomerSell}</td><td>${Mahsulotlar[i].CustomerSell*Mahsulotlar[i].CustomerBuy}</td><td>${Mahsulotlar[i].CustomerBuyNum}</td><td>${Mahsulotlar[i].CustomerBuyNum*Mahsulotlar[i].CustomerBuy}</td><td><h4>${Mahsulotlar[i].CustomerName}</h4></td><td>${Mahsulotlar[i].CustomerDate}</td>  </tr>`
+      }
+        table.innerHTML=s;
+        if (Mahsulotlar.length===0){
+       table.innerHTML=`Ничего Не Найдено:))` 
+      }
+      }
+      var zz=""
+    for (i=0;i<Math.floor(Mahsulotlar.length/100)+1;i++){
+         zz+=`<option value="${i+1}" onclick="${page(i+1)}">${i+1}</option>`
+         }
+         document.getElementById('pagenation').innerHTML=zz;
+    function page(s){
+      console.log(1)
+   createTable(Mahsulotlar,s)
+  }
+     </script>
+</body>
+</html>

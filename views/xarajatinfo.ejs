@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+  <meta name="author" content="GeeksLabs">
+  <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+  <link rel="shortcut icon" href="img/favicon.png">
+  <title>Smart Savdo</title>
+  <!-- Bootstrap CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- bootstrap theme -->
+  <link href="css/bootstrap-theme.css" rel="stylesheet">
+  <!--external css-->
+  <!-- font icon -->
+  <link href="css/elegant-icons-style.css" rel="stylesheet" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+  <!-- Custom styles -->
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style-responsive.css" rel="stylesheet" />
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
+  <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+      <script src="js/lte-ie7.js"></script>
+    <![endif]-->
+
+  <!-- =======================================================
+      Theme Name: NiceAdmin
+      Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+      Author: BootstrapMade
+      Author URL: https://bootstrapmade.com
+    ======================================================= -->
+</head>
+
+<body>
+  <!-- container section start -->
+  <%- include('nav')%>
+
+    <!--main content start-->
+    <section id="main-content">
+      <section class="wrapper">
+        <div class="row">
+          <div class="col-lg-12">
+            <h3 class="page-header"><i class="fa fa-file-text-o"></i>  Новые расходы
+            </h3>
+            <ol class="breadcrumb">
+              <li><i class="fa fa-home"></i><a href="index.html">Домашняя страница</a></li>
+              <li><i class="icon_document_alt"></i>Новые расходы
+              </li>
+              <li><i class="fa fa-file-text-o"></i> Новые расходы
+              </li>
+            </ol>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <section class="panel">
+              <header class="panel-heading">
+                <center><select name="" id="selectyear" onchange="changed()">Год</select><select name=""  id="selectmonth" onchange="changed()">Месяц</select><select name="" id="selectday" ></select></center>
+                <center> <button class="btn btn-primary" onclick="clicked()"><i class="fa fa-search"></i>Qidiruv</button>  <button class="btn btn-primary" onclick="clicked1()"><i class="fa fa-money"></i>Все</button></center> 
+                <center><h1 id="opshi"></h1></center>
+              </header>
+              <table class="table table-advance">
+             
+
+                <tbody id="mahsulot">
+                 
+                </tbody>
+              </table>
+            </section>
+          </div>
+        </div>
+        <!-- page end-->
+      </section>
+    </section>
+    <!--main content end-->
+    <div class="text-right">
+      <div class="credits">
+        <!--
+            All the links in the footer should remain intact.
+            You can delete the links only if you purchased the pro version.
+            Licensing information: https://bootstrapmade.com/license/
+            Purchase the pro version form: https://bootstrapmade.com/buy/?theme=NiceAdmin
+          -->
+     
+      </div>
+    </div>
+  </section>
+  <center><h2 id="xarid"></h2></center>
+  <!-- container section end -->
+  <!-- javascripts -->
+  <script src="js/jquery.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <!-- nicescroll -->
+  <script src="js/jquery.scrollTo.min.js"></script>
+  <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
+  <!--custome script for all page-->
+  <script src="js/scripts.js" ></script>
+  <script>
+    document.title=document.getElementsByClassName("page-header")[0].innerText;
+    
+   </script>
+  <script>
+    function daysInMonth (month, year) {
+    return new Date(year, month, 0).getDate();
+}
+document.getElementById('selectyear').innerHTML+=`<option value="">Год</option>`;
+document.getElementById('selectmonth').innerHTML+=`<option value="">Месяц</option>`;
+document.getElementById('selectday').innerHTML+=`<option value="">День</option>`;
+yearx=`<option value="">Год</option>`;
+for (let i=2021;i<=2099;i++){
+yearx+=`<option value="${i}">${i}</option>`
+}
+monthx=`<option value="">Месяц</option>`;
+
+for (let i=1;i<=12;i++){
+  monthx+=`<option value="${i}">${i}</option>`
+}
+document.getElementById('selectmonth').innerHTML=monthx;
+document.getElementById('selectyear').innerHTML=yearx;
+function changed(){
+ 
+  sx=`<option value="">Kun</option>`;
+  if (document.getElementById('selectyear').value!="" &&  document.getElementById('selectmonth').value!="")
+ {
+   var daysmonth=daysInMonth(document.getElementById('selectmonth').value,document.getElementById('selectyear').value);
+  for (let i=1;i<=daysmonth;i++){
+  sx+=`<option value="${i}">${i}</option>`
+  }
+  document.getElementById('selectday').innerHTML=sx;
+}
+}
+    var z=[];
+    var x=0;
+    function createTable(Mahsulotlar){
+      x++;
+      s=`<tr> <th>Номер</th>
+  <th></th>
+  <th></th>
+  <th  onclick="bol(1)">
+                      </i> Стоит </th><th>День Расходов</th><th>Сумма затрат</th> </tr>`;
+      var table = document.getElementById('mahsulot')
+      for (var i = 0; i < Mahsulotlar.length; i++) 
+     {
+     s+=` <tr id="tr${i}">  <td>${i+1}</td>
+  <td></td>
+  <td></td> <td><h4>${Mahsulotlar[i].comment}</h4></td><td>${Mahsulotlar[i].date}</td><td>${Mahsulotlar[i].summa}</td> </tr>`
+      }
+      table.innerHTML=s;
+        }
+    var arr=[]
+    data=<%- JSON.stringify(data)%>
+//  console.log(data)
+    var jami=0;
+    for (let i=0;i<data.length;i++){
+jami+=data[i].summa;
+    }
+    document.getElementById('opshi').innerHTML=`Общая Сумма-${jami} so'm`
+    var set1=new Set();
+        createTable(data);
+    function searchBar(){
+      var searchTextArr=[]
+    var searchText=document.getElementById('searcher').value;
+    for (q of arr){
+      if (q.toLowerCase().indexOf(searchText.toLowerCase())==0){
+        searchTextArr.push(q);
+      }
+    }
+    createTable(searchTextArr)
+    }
+    function clicked(){
+        var yymmdd=""
+      var monthy=document.getElementById('selectmonth').value;
+      var yeary=document.getElementById('selectyear').value;
+      var dayy=document.getElementById('selectday').value;
+      if (yeary!=""){
+        yymmdd=yeary;
+      }
+      if (monthy!=""){
+          yymmdd+="-"+monthy+"-";
+      }
+      if (dayy!=""){
+          yymmdd+=dayy+" ";
+      }
+    //  console.log(yymmdd) 
+     var arraysearchdays=[];
+      for (q of data){
+        if (q.date.indexOf(yymmdd)===0)
+        {
+        // console.log(yymmdd)
+     arraysearchdays.push(q)
+        }
+      }
+      createTable(arraysearchdays);
+      
+    }
+    function clicked1(){
+      createTable(data);
+    }
+    // arr=[];
+    // function spiska(s){
+    //   x=0;
+    //   j=-1;
+    //   for (q of arr){
+    //     j++;
+    //     if (q==s)
+    //     {
+    //      arr[j]=""; 
+    //       s.style.color='#797979';
+    //       x=1;
+    //       break;
+    //     }
+    //   }
+    //   if (x==0){
+    //     arr.push(s);
+    //     s.style.color='#ff2d55';
+    //   }
+    //   console.log(arr)
+    //   len=0;
+    //   for (q of arr){
+    //     if (q!=""){
+    //       len++;
+    //     }
+    //   }
+    //   document.getElementById('xarid').innerHTML=`Xarid uchun ${len} ta mahsulot tanladingiz!`
+    // }
+     </script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+{
+    "app": {
+        "PORT": 2000,
+        "SECRET_KEY": "abcd&sdfg&1234567890&exe&nima&exeee"
+    },
+    "db": {
+        "host": "localhost",
+        "user": "root",
+        "password": "salom1234",
+        "database": "drugoy"
+    },
+    "about": {
+        "NAME": "Ibrohim Shop",
+        "SECRET_KEY": "1234567890",
+        "QS": false,
+        "IMAGE": ""
+    }
+}

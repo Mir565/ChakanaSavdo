@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+  <meta name="author" content="GeeksLabs">
+  <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+  <link rel="shortcut icon" href="img/favicon.png">
+  <title>Организации</title>
+  <!-- Bootstrap CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- bootstrap theme -->
+  <link href="css/bootstrap-theme.css" rel="stylesheet">
+  <!--external css-->
+  <!-- font icon -->
+  <link href="css/elegant-icons-style.css" rel="stylesheet" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+  <!-- Custom styles -->
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style-responsive.css" rel="stylesheet" />
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
+  <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+      <script src="js/lte-ie7.js"></script>
+    <![endif]-->
+
+  <!-- =======================================================
+      Theme Name: NiceAdmin
+      Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+      Author: BootstrapMade
+      Author URL: https://bootstrapmade.com
+    ======================================================= -->
+</head>
+
+<body>
+  <!-- container section start -->
+  <%- include('nav')%>
+
+    <!--main content start-->
+    <section id="main-content">
+      <form class="wrapper">
+        <div class="row">
+          <div class="col-lg-12">
+            <h3 class="page-header" id="title1"><i class="fa fa-table"></i> </h3>
+            <ol class="breadcrumb">
+              <li><i class="fa fa-home"></i><a href="index.html">Домашняя страница</a></li>
+              <li><i class="fa fa-table"></i>Организации</li>
+              <li><i class="fa fa-th-list"></i>Таблица организаций</li>
+            </ol>
+          </div>
+        </div>
+        <form method="POST" action="/tashkilotinfo"  >
+        <input id="dateone" type="date" data-date="" data-date-format="DD MMMM YYYY" required name="date1"  >
+        <input id="datetwo" type="date"   data-date="" data-date-format="DD MMMM YYYY"  required name="date2">
+      <button class="btn btn-primary" type="submit"  >Поиск</button> 
+      </form>
+      <form action="/tashkilotinfo">
+        <button class="btn btn-primary" >Все</button>
+        </form>
+      <h2 id="datelar"></h2>
+        <h3 id="searchlen"></h3>
+        <div class="row">
+          <div class="col-lg-12">
+            <section class="panel">
+              <header class="panel-heading">
+                Таблица Организаций
+              </header>
+              <br>
+              <select name="" id="pagenation" onchange="page(this.value)" onclick="page(this.value)"></select>
+      <br>
+              <table class="table table-advance">
+            
+                <tbody id="mahsulot">
+                 
+                </tbody>
+              </table>
+            </section>
+          </div>
+        </div>
+        <!-- page end-->
+      </section>
+    </section>
+    <!--main content end-->
+   
+  </section>
+  <center><h2 id="xarid"></h2></center>
+  <!-- container section end -->
+  <!-- javascripts -->
+
+  <script src="js/jquery.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <!-- nicescroll -->
+  <script src="js/jquery.scrollTo.min.js"></script>
+  <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
+  <!--custome script for all page-->
+  <script src="js/scripts.js" ></script>
+  <script>
+        let now = new Date();
+        // now.getDate()  + '/' +  + '/' +;
+  document.getElementById("dateone").value=`${ now.getFullYear()}-${(now.getMonth() + 1)}-01`;
+  document.getElementById("datetwo").value=`${ now.getFullYear()}-${(now.getMonth() + 1)}-${now.getDate()}`;
+  x=0;
+  var begin,end;
+       function createTable(Mahsulotlar,pagename){
+        if (pagename=="search"){
+        begin=0;
+        if (100>Mahsulotlar.length){
+          end=Mahsulotlar.length
+        }
+        else
+        end=100;
+      }
+      else{
+      begin=((pagename-1)*100);
+      if (pagename*100<=Mahsulotlar.length){
+        end=pagename*100;
+      }
+      else
+      end=Mahsulotlar.length
+    }
+      s=`<tr> <th>Номер</th>
+  <th></th>
+  <th></th>
+  <th  onclick="bol(1)">
+                      </i> Наименование организации</th><th>Количество изделий</th> <th>Итого Полученная Цена</th><th>Общая Цена Продажи</th><th>Дата</th><th>Информация</th> </tr>`;
+      var table = document.getElementById('mahsulot')
+      for (var i =begin; i <end; i++) 
+     {
+    //    if (x==1){
+    //  z.push(Mahsulotlar[i])
+    //    }
+ 
+     s+=` <tr id="tr${i}">  <td>${i+1}</td>
+  <td></td>
+  <td></td> <td><h4>${Mahsulotlar[i].name}</h4></td><td>${Mahsulotlar[i].countof}</td><td>${Mahsulotlar[i].oldprice}</td><td>${Mahsulotlar[i].price}</td> <td>${Mahsulotlar[i].date}</td><td><a href="/tashkilot?id=${Mahsulotlar[i].id}" class="btn btn-primary">Информация</a></td></tr>`
+      }
+      table.innerHTML=s;
+        }
+  var Mahsulotlar=<%- JSON.stringify(data)%>
+  var kun1=<%- JSON.stringify(kun1)%>
+  var kun2=<%- JSON.stringify(kun2)%>
+  if (kun1!=""){
+    document.getElementById("datelar").innerHTML=`C ${kun1} по   ${kun2}  <br> Нашел:${Mahsulotlar.length}`;
+  }
+  function myfunc(){
+    var searcharr=[];
+      var date1=document.getElementById("dateone").value.replace("/","-");
+      var date2=document.getElementById("datetwo").value.replace("/","-");
+      for (let i=0;i<Mahsulotlar.length;i++){
+        var z= Mahsulotlar[i].date.substring(0,Mahsulotlar[i].date.indexOf(" "));
+      if (new Date(date1).getTime()<=new Date(z).getTime() && new Date(date1).getTime()>=new Date(z).getTime() );
+      searcharr.push(Mahsulotlar[i]);
+    }
+    createTable(searcharr,1)
+  
+  }
+  document.getElementById('title1').innerHTML='Организации';
+      var arr=[];
+      var price=0;
+      var oldprice=0;
+      var count=0;
+      for (var i = 0; i < Mahsulotlar.length; i++) 
+     {
+       price=0;
+       oldprice=0;
+       count=0;
+       console.log(Mahsulotlar[i].kurs)
+         for (let j=0;j<Mahsulotlar[i].count.length;j++){
+    
+            count+=Mahsulotlar[i].count[j];
+            price+=Mahsulotlar[i].count[j]*Mahsulotlar[i].price[j];
+            oldprice+=Mahsulotlar[i].oldprice[j]*Mahsulotlar[i].count[j];
+            console.log(count)
+          }
+         arr.push({id:Mahsulotlar[i].id,date:Mahsulotlar[i].date,name:Mahsulotlar[i].name,price:price,oldprice:oldprice,countof:count})
+     }
+     var zz="";
+     for (i=0;i<Math.floor(arr.length/100)+1;i++){
+         zz+=`<option value="${i+1}" onclick="${page(i+1)}">${i+1}</option>`
+         }
+         document.getElementById('pagenation').innerHTML=zz;
+    createTable(arr,1);
+    function soat(array){
+      return new Date(parseInt(array[0]),parseInt(array[1]),parseInt(array[2]));
+    }
+    function myfunc(){
+    var searcharr=[];
+      var date1=document.getElementById("dateone").value.replace("/","-");
+      var date2=document.getElementById("datetwo").value.replace("/","-");
+      for (let i=0;i<arr.length;i++){
+        var z= arr[i].date.substring(0,arr[i].date.indexOf(" ")).split('-');
+        var time1=date1.split("-");
+        var time2=date2.split("-");
+    if (soat(z).getTime()>=soat(time1).getTime() && soat(time2).getTime()>=soat(z).getTime())
+    {
+      searcharr.push(arr[i]);
+    }
+    }
+    document.getElementById("searchlen").innerHTML=`Нашел:${searcharr.length}`
+    console.log(searcharr)
+    createTable(searcharr,1)
+    }
+    function page(s){
+   createTable(arr,s)
+  }
+     </script>
+</body>
+</html>

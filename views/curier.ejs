@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+  <meta name="author" content="GeeksLabs">
+  <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+  <link rel="shortcut icon" href="img/favicon.png">
+  <title>Курьеры</title>
+  <!-- Bootstrap CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- bootstrap theme -->
+  <link href="css/bootstrap-theme.css" rel="stylesheet">
+  <!--external css-->
+  <!-- font icon -->
+  <link href="css/elegant-icons-style.css" rel="stylesheet" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+  <!-- Custom styles -->
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style-responsive.css" rel="stylesheet" />
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
+  <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+      <script src="js/lte-ie7.js"></script>
+    <![endif]-->
+
+  <!-- =======================================================
+      Theme Name: NiceAdmin
+      Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+      Author: BootstrapMade
+      Author URL: https://bootstrapmade.com
+    ======================================================= -->
+</head>
+
+<body>
+  <!-- container section start -->
+  <%- include('nav')%>
+
+    <!--main content start-->
+    <section id="main-content">
+      <section class="wrapper">
+        <div class="row">
+          <div class="col-lg-12">
+            <h3 class="page-header"><i class="fa fa-table"></i>Таблица курьеров
+            </h3>
+            <ol class="breadcrumb">
+              <li><i class="fa fa-home"></i><a href="index.html">Домашняя страница
+              </a></li>
+              <li><i class="fa fa-table"></i>Курьеры</li>
+              <li><i class="fa fa-th-list"></i>Таблица курьеров
+              </li>
+            </ol>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <section class="panel">
+              <header class="panel-heading">
+                График клиента
+
+              </header>
+              <table class="table table-advance">
+                <form class="navbar-form">
+                  <input class="form-control" placeholder="Qidiruv"id="searcher" onkeypress="searchBar()" onkeyup="searchBar()" type="text">
+                </form>
+
+                <tbody id="mahsulot">
+                 
+                </tbody>
+              </table>
+            </section>
+          </div>
+        </div>
+        <!-- page end-->
+      </section>
+    </section>
+    <!--main content end-->
+    <div class="text-right">
+      <div class="credits">
+        <!--
+            All the links in the footer should remain intact.
+            You can delete the links only if you purchased the pro version.
+            Licensing information: https://bootstrapmade.com/license/
+            Purchase the pro version form: https://bootstrapmade.com/buy/?theme=NiceAdmin
+          -->
+     
+      </div>
+    </div>
+  </section>
+  <center><h2 id="xarid"></h2></center>
+  <!-- container section end -->
+  <!-- javascripts -->
+  <script>
+    document.title=document.getElementsByClassName("page-header")[0].innerText;
+    
+   </script>
+  <script src="js/jquery.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <!-- nicescroll -->
+  <script src="js/jquery.scrollTo.min.js"></script>
+  <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
+  <!--custome script for all page-->
+  <script src="js/scripts.js" ></script>
+
+  <script>
+    
+    var z=[];
+    var x=0;
+    function createTable(Mahsulotlar){
+      x++;
+      s=`<tr> <th>Число</th>
+  <th></th>
+  <th></th>
+  <th  onclick="bol(1)">
+                      </i> Имя курьера
+</th><th> Сумма
+</th><th>Сброс настроек
+</th><th>Удалить
+</th>  </tr>`;
+      var table = document.getElementById('mahsulot')
+      for (var i = 0; i < Mahsulotlar.length; i++) 
+     {
+     s+=` <tr id="tr${i}">  <td>${i+1}</td>
+  <td></td>
+  <td></td> <td><h4>${Mahsulotlar[i].curiername}</h4></td><td onclick=foiz(${Mahsulotlar[i].summa})>${Mahsulotlar[i].summa}</td><td><a class="btn btn-primary" onclick="return check1()" href="/curiernol?id=${Mahsulotlar[i].id}">Nolga Tushirish</a></td><td><a class="btn btn-danger"  onclick="return check(event)" href="/curierdelete?id=${Mahsulotlar[i].id}">O'chirish</a></td>  </tr>`
+      }
+      table.innerHTML=s;
+        }
+   function check(e){
+     t=confirm("Согласны ли вы удалить?");
+    return t;
+   }
+   function check1(e){
+     t=confirm("Хотите сбросить ?");
+    return t;
+   }
+    data=<%- JSON.stringify(data)%>
+    // console.log(data)
+    
+        createTable(data)
+       
+    function searchBar(){
+      var searchTextArr=[]
+    var searchText=document.getElementById('searcher').value;
+    for (q of data){
+      if (q.curiername.toLowerCase().indexOf(searchText.toLowerCase())>-1){
+        searchTextArr.push(q);
+      }
+    }
+    createTable(searchTextArr)
+    }
+    function foiz(kuriyersumma){
+   
+      foizson=prompt("Введите процент!",1)
+      if (!parseFloat(foizson)){
+        alert('Введите номер брат!')
+      }
+      else{
+        alert((kuriyersumma*parseFloat(foizson))/100)
+      }
+
+    }
+    // arr=[];
+    // function spiska(s){
+    //   x=0;
+    //   j=-1;
+    //   for (q of arr){
+    //     j++;
+    //     if (q==s)
+    //     {
+    //      arr[j]=""; 
+    //       s.style.color='#797979';
+    //       x=1;
+    //       break;
+    //     }
+    //   }
+    //   if (x==0){
+    //     arr.push(s);
+    //     s.style.color='#ff2d55';
+    //   }
+    //   console.log(arr)
+    //   len=0;
+    //   for (q of arr){
+    //     if (q!=""){
+    //       len++;
+    //     }
+    //   }
+    //   document.getElementById('xarid').innerHTML=`Xarid uchun ${len} ta mahsulot tanladingiz!`
+    // }
+     </script>
+</body>
+</html>

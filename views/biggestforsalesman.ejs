@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+  <meta name="author" content="GeeksLabs">
+  <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+  <link rel="shortcut icon" href="img/favicon.png">
+  <title>Продажа</title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="css/bootstrap-theme.css" rel="stylesheet">
+  <link href="css/elegant-icons-style.css" rel="stylesheet" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style-responsive.css" rel="stylesheet" />
+
+</head>
+
+<body>
+  <%- include('nav')%>
+
+    <section id="main-content">
+      <section class="wrapper">
+        <div class="row" id="sa">
+          <div class="col-lg-12">
+            <ol class="breadcrumb">
+              <li><i class="fa fa-home"></i><a href="index.html">Uy sahifasi</a></li>
+              <li><i class="fa fa-table"></i>Sotish</li>
+              <li><i class="fa fa-th-list"></i>Katta Ro'yhat</li>
+            </ol>
+          </div>
+        </div>
+        <center>
+
+          <center> <input type="text"   placeholder="Xaridor Nomi" class="form-control" onchange="debtor(this.value)"
+              onkeypress="debtor(this.value)" onkeyup="debtor(this.value)" list="customernames" id="customername">
+          </center>
+
+          <h3 id="debtorofdebt"></h3>
+
+          <input type="text" placeholder="Kuriyer Nomi" value="" list="curiernames" class="form-control"
+            id="curiername">
+          <br>
+          <input type="number" placeholder="Chegirma" value="" class="form-control" id="skidka">
+          <br>
+          <datalist id="curiernames">
+
+
+          </datalist>
+          <datalist id="customernames">
+
+          </datalist>
+
+
+          <h3 style="color: black;" id="tovarsoni"> </h3>
+          <h3 style="color: black;" id="tovar"></h3>
+          <h3 style="color: black;" id="sotilishi"></h3>
+          <h3 style="color: black;" id="foyda"></h3>
+        </center>
+        <select name="" style="color: white;background-color:#688a7e" id="pagenation" onchange="page(this.value)"
+          onclick="page(this.value)"></select>
+          <button class="btn btn-primary" id="seepricex"  onclick="checksee()"><i class="fa fa-eye"></i> Ko'rish</button>
+        <br>
+        <br>
+       
+        <section id="kill">
+          <div class="row">
+            <div class="col-lg-12">
+              <section class="panel">
+                <div class="form-check form-switch">
+                </div>
+
+                <table class="table table-advance">
+                  <input class="form-control" placeholder="Qidiruv" id="searcher" tabindex="0" onkeyup="searchBar()"
+                    type="text">
+
+
+                  <tbody id="mahsulot">
+
+                  </tbody>
+                </table>
+              </section>
+        </section>
+        </div>
+        </div>
+
+      </section>
+    </section>
+
+    <style>
+    </style>
+    <!--main content end-->
+    </section>
+    <div style="padding-left:16%;padding-right:1% ;" id="sabzi">
+      <table class="table table-striped table-advance table-hover" id="salom">
+        <!-- <div class="clear"></div> -->
+    </div>
+    </center>
+    <center><button style="margin-bottom: 5px;" class="btn btn-primary" onclick="minus()" id="tas">Tasdiqlash</button> <a  id="tablehref" target="_blank" href='/print?table=[salom,saddd]'style="margin-bottom: 5px;" class="btn btn-primary" >Chop Etish</a>
+    </center>
+    <center>
+      <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" checked id="flexCheckIndeterminate">
+        <label class="form-check-label" for="flexCheckIndeterminate" id="saqlash">
+          Xaridor Xaridini Saqlash
+        </label>
+        <center>
+          <b id="nameofMarket" style="display: none;color:black;font-size: 57px;font-family:'Arial Narrow', Arial, sans-serif;;"></b>
+        </center>
+        <br>
+        <b id="nameofCustomer" style="display: none;font-size:30px;font-family:'Arial Narrow', Arial, sans-serif;color:black"></b>
+        <b id="telofMarket" style="display: none;font-size:30px;font-family:'Arial Narrow', Arial, sans-serif;color:black"></b>
+        <b id="timenow" style="display:none;font-size:30px;font-family:'Arial Narrow', Arial, sans-serif;color:black"></b>
+<b id="yulduz"  style="display: none;color:black;font-size: 40px;font-family:'Arial Narrow', Arial, sans-serif;" ></b>
+<br>
+
+      </div>
+    </center>
+    <tbody id="mahsulot1">
+
+    </tbody>
+    </table>
+    <b id="yulduz1" style="display: none;color:black;font-size: 40px;font-family:'Arial Narrow', Arial, sans-serif;" ></b>
+    <center>
+      <b style="font-size: 45px;font-family:'Arial Narrow', Arial, sans-serif;" id="all"></b>
+    </center>
+    <center>
+      <b style="font-size: 45px;font-family:'Arial Narrow', Arial, sans-serif;" id="skidkani"></b>
+    </center>
+    <center>
+      <b style="font-size: 45px;font-family:'Arial Narrow', Arial, sans-serif;" id="puli"></b>
+    </center>
+    <b id="yulduz2"  style="display: none;color:black;font-size: 40px;font-family:'Arial Narrow', Arial, sans-serif;" ></b>
+    <center>
+      <b style="font-size: 25px;font-family:'Arial Narrow', Arial, sans-serif;" id="commentofMarket" style="display: none;color:black"></b>
+    </center>
+
+     </div>
+    <style>
+      @media print {
+        body {
+          margin: 0;
+          padding: 0;
+        }
+
+        #customername,
+        #pagenation,
+        #delete,
+        #delete1,
+        section,
+        .row,
+        #flexCheckIndeterminate,
+        #saqlash,
+        #tas,
+        #mahsulot,
+        aside,
+        #sa,
+        header,
+        #stat1,
+        #stat,
+        #searcher,
+        #flexSwitchCheckChecked,
+        #kamqolgan {
+          display: none;
+        }
+
+        br {
+          display: none;
+        }
+
+      }
+    </style>
+    <center>
+      <h2 id="xarid"></h2>
+    </center>
+    <!-- container section end -->
+    <script>
+      document.title=document.getElementsByClassName("page-header")[0].innerText;
+     </script>
+    <!-- javascripts -->
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <!-- nicescroll -->
+    <script src="js/jquery.scrollTo.min.js"></script>
+    <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
+    <!--custome script for all page-->
+    <script src="js/scripts.js"></script>
+    <script>
+      window.onload = function() {
+  var inputs = document.getElementsByTagName('input');
+  for (var i = 0; i < inputs.length; i++) {
+    if (inputs[i].type == 'text') {
+      inputs[i].onchange = function() {
+        this.value = this.value.replace(/^\s+/, '').replace(/\s+$/, '');
+      };
+    }
+  }
+}
+ 
+ if (localStorage.getItem("seeprice")=="true"){
+      document.getElementById("seepricex").innerHTML="Olingan Narx Ko'rinmoqda"
+      document.getElementById("seepricex").className="btn btn-primary";}
+      else{
+        document.getElementById("seepricex").innerHTML=`<i class="fa fa-eye"></i> Olingan Narx Ko'rish`
+        document.getElementById("seepricex").className="btn btn-danger"  
+      }
+     
+      var rol =<%- JSON.stringify(rol) %>
+        // console.log(rol)
+      var dict = {}
+
+      var CustomerNames1 =<%- JSON.stringify(Customers) %>
+
+
+    var CustomerNames =<%- JSON.stringify(data) %>
+
+    var Curiernames =<%- JSON.stringify(datacurier) %>
+
+    var telnumber;
+      for (q of Curiernames) {
+        document.getElementById('curiernames').innerHTML += `<option value=${q.curiername}></option>`
+      }
+      // console.log(Curiernames)
+      var CustomerNamesSet = new Set();
+      for (q of CustomerNames) {
+        CustomerNamesSet.add(q.name);
+
+
+      }
+      // console.log(CustomerNames1)
+      for (q of CustomerNames1) {
+        CustomerNamesSet.add(q.CustomerName);
+      }
+      for (q of CustomerNamesSet) {
+        document.getElementById('customernames').innerHTML += `<option value="${q}">${q}</option>`
+      }
+      function debtor(s) {
+        // console.log(s);
+        document.title = s;
+        for (q of CustomerNames) {
+          if (q.name === s) {
+            debtjami = 0;
+            telnumber = q.telnumber;
+            for (v of q.debt) {
+              debtjami += v;
+            }
+            for (i of q.paydebt) {
+              debtjami -= i;
+            }
+            if (debtjami > 0)
+              document.getElementById('debtorofdebt').innerHTML = `Qarzdorlik aniqlandi:${debtjami} so'm`
+            else {
+              document.getElementById('debtorofdebt').innerHTML = `Qarzdorlik aniqlanmadi!`
+            }
+            return 0;
+          }
+          else {
+            document.getElementById('debtorofdebt').innerHTML = `Qarzdorlik aniqlanmadi!`
+          }
+        }
+      }
+      document.getElementById('customername').focus();
+      function print1() {
+        window.print();
+      }
+      var kurs;
+      $.ajax({
+        url: `/valutainfo`,
+        type: 'GET',
+        cache: false,
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+          kurs = data.kurs;
+
+        }
+      })
+      var z = [];
+      var qq = [];
+      var x = 0;
+      var Mahsulotlar;
+      function round(value, precision) {
+    var multiplier = Math.pow(10, precision || 0);
+    return Math.round(value * multiplier) / multiplier;
+}
+      function createTable(Mahsulotlar, pagename) {
+        begin = 0;
+        end = Mahsulotlar.length;
+        qq = [];
+        x++;
+        if (rol == "Admin" && localStorage.getItem("seeprice")=="true") 
+      {
+          s = `<tr> <th >
+        
+        <i  class="fa fa-number" >
+            </i>Tartib Raqami</th>
+            <th  >
+                  <i  class="fa fa-shopping-cart">
+                      </i> Mahsulot nomi</th> 
+                      <th ><i class="fa fa-balance-scale">
+                          </i> Soni/kg</th> 
+                      <th  >
+                        <i class="fa fa-money" >
+                        </i>Olingan Narxi</th> 
+                        <th >
+                        <i class="fa fa-money" >
+
+                        </i>Sotiladigan Narxi</th> <th><i class="icon_calendar" ></i>Sotiladigan Miqdori</th> 
+                          <th id="stat"><i class="icon_cogs">
+                            </i> Qo'shish</th>  <th id="stat">
+                             Rasm</th><th id="stat">
+                             Ro'yhat</th> </tr>`;
+          var table = document.getElementById('mahsulot')
+          var f = 0;
+          if (pagename == "search") {
+            for (var i = begin; i < end; i++) {
+              if (dict[Mahsulotlar[i].name[Mahsulotlar[i].name.length - 1]] == 1) {
+                stylex = "#ff2d55";
+              }
+              else {
+                stylex = "#ffffff";
+              }
+              var xname = Mahsulotlar[i].name[Mahsulotlar[i].name.length - 1];
+              var xcountnum = Mahsulotlar[i].countnum;
+              var xprice =Mahsulotlar[i].kurs[Mahsulotlar[i].kurs.length - 1] == "Dollar" ? round(Mahsulotlar[i].price[Mahsulotlar[i].price.length - 1] * kurs,3) : round(Mahsulotlar[i].price[Mahsulotlar[i].price.length - 1],3);
+              var xbuyprice = Mahsulotlar[i].kurs[Mahsulotlar[i].kurs.length - 1] == "Dollar" ? round(Mahsulotlar[i].buyprice[Mahsulotlar[i].buyprice.length - 1] * kurs,3) :round (Mahsulotlar[i].buyprice[Mahsulotlar[i].buyprice.length - 1],3)
+              var xid = Mahsulotlar[i].id;
+              var xcountof = Mahsulotlar[i].countof[Mahsulotlar[i].countof.length - 1];
+              if (x == 1) {
+                z.push(Mahsulotlar[i])
+              }
+
+              if (xcountnum <= xcountof) {
+                s += `<tr   style="font-size:20px;color:black;background-color:${stylex}" id="tr${f}"><td>${f + 1}</td><td>${xname}</td><td>${xcountnum}</td> <td >${xprice}</td><td><input  type="number" tabindex=${f * 3 + 2} name="${xid}" placeholder="${xbuyprice}" value="${xbuyprice}" style="font-size:20px;color:black" class="form-control"  /></td> 
+                     <td><input type="number" tabindex=${f * 3 + 3} name="${xname}" id="${xid}"  soni="${xcountnum}" class="form-control" style="font-size:20px;color:black" /></td> <td id="stat1"> <div class="btn-group"> <button class="btn btn-success"  id="${xid}" name="${xcountnum}" tabindex=${f * 3 + 4}   onclick="add(this.id,this.name,${xprice})">
+                      <i class="icon_plus_alt2"></i>Qo'shish</button> 
+            </div> </td><td><a target="_blank" class="btn btn-warning" href="/rasm?id=${xname}">Rasm</a></td><td><a href="#tas" class="btn btn-primary">Spiskani Ko'rish</a></td></tr>`
+                qq.push(Mahsulotlar[i]);
+              }
+              else {
+                // console.log(1);
+                s += ` <tr   style="font-size:20px;color:black;background-color:${stylex}" id="tr${f}"><td>${f + 1}</td><td>${xname}</td><td>${xcountnum}</td> <td >${xprice}</td><td><input  type="number" tabindex=${f * 3 + 2} name="${xid}" placeholder="${xbuyprice}" value="${xbuyprice}" style="font-size:20px;color:black" class="form-control"  /></td> 
+                     <td><input type="number" tabindex=${f * 3 + 3} name="${xname}" id="${xid}"  soni="${xcountnum}" class="form-control" style="font-size:20px;color:black" /></td> <td id="stat1"> <div class="btn-group"> <button class="btn btn-success"  id="${xid}" name="${xcountnum}" tabindex=${f * 3 + 4}   onclick="add(this.id,this.name,${xprice})">
+                      <i class="icon_plus_alt2"></i>Qo'shish</button> 
+            </div> </td><td><a  target="_blank" class="btn btn-warning" href="/rasm?id=${xname}">Rasm</a></td><td><a href="#tas" class="btn btn-primary">Spiskani Ko'rish</a></td>  </tr>`
+              }
+              f++;
+              if (f == 100) {
+                break;
+              }
+            }
+          }
+          else {
+            f = 0;
+            for (var i = begin; i < end; i++) {
+              if (dict[Mahsulotlar[i].name[Mahsulotlar[i].name.length - 1]] == 1) {
+                stylex = "#ff2d55";
+              }
+              else {
+                stylex = "#ffffff";
+              }
+              var xname = Mahsulotlar[i].name[Mahsulotlar[i].name.length - 1];
+              var xcountnum = Mahsulotlar[i].countnum;
+              var xprice =Mahsulotlar[i].kurs[Mahsulotlar[i].kurs.length - 1] == "Dollar" ? round(Mahsulotlar[i].price[Mahsulotlar[i].price.length - 1] * kurs,3) : round(Mahsulotlar[i].price[Mahsulotlar[i].price.length - 1],3);
+              var xbuyprice = Mahsulotlar[i].kurs[Mahsulotlar[i].kurs.length - 1] == "Dollar" ? round(Mahsulotlar[i].buyprice[Mahsulotlar[i].buyprice.length - 1] * kurs,3) :round (Mahsulotlar[i].buyprice[Mahsulotlar[i].buyprice.length - 1],3)
+              var xid = Mahsulotlar[i].id;
+              var xcountof = Mahsulotlar[i].countof[Mahsulotlar[i].countof.length - 1];
+              if (Mahsulotlar[i].bulim === pagename) {
+                f++;
+                if (f==100)
+                break
+
+                if (x == 1) {
+                  z.push(Mahsulotlar[i])
+                }
+                if (xcountnum <= xcountof) {
+                  s += `<tr   style="font-size:20px;color:black;background-color:${stylex}" id="tr${f}"><td>${f + 1}</td><td>${xname}</td><td>${xcountnum}</td> <td >${xprice}</td><td><input  type="number" tabindex=${f * 3 + 2} name="${xid}" placeholder="${xbuyprice}" value="${xbuyprice}" style="font-size:20px;color:black" class="form-control"  /></td> 
+                     <td><input type="number" tabindex=${f * 3 + 3} name="${xname}" id="${xid}"  soni="${xcountnum}" class="form-control" style="font-size:20px;color:black" /></td> <td id="stat1"> <div class="btn-group"> <button class="btn btn-success"  id="${xid}" name="${xcountnum}" tabindex=${f * 3 + 4}   onclick="add(this.id,this.name,${xprice})">
+                      <i class="icon_plus_alt2"></i>Qo'shish</button> 
+            </div> </td><td><a target="_blank" class="btn btn-warning" href="/rasm?id=${xname}">Rasm</a></td><td><a href="#tas" class="btn btn-primary">Spiskani Ko'rish</a></td>  </tr>`
+                  qq.push(Mahsulotlar[i]);
+                }
+                else {
+                  s += `  <tr   style="font-size:20px;color:black;background-color:${stylex}" id="tr${f}"><td>${f + 1}</td><td>${xname}</td><td>${xcountnum}</td> <td>${xprice}</td><td><input  type="number" tabindex=${f * 3 + 2} name="${xid}" placeholder="${xbuyprice}" value="${xbuyprice}" style="font-size:20px;color:black" class="form-control"  /></td> 
+                     <td><input type="number" tabindex=${f * 3 + 3} name="${xname}" id="${xid}"  soni="${xcountnum}" class="form-control" style="font-size:20px;color:black" /></td> <td id="stat1"> <div class="btn-group"> <button class="btn btn-success"  id="${xid}" name="${xcountnum}" tabindex=${f * 3 + 4}   onclick="add(this.id,this.name,${xprice})">
+                      <i class="icon_plus_alt2"></i>Qo'shish</button> 
+            </div> </td><td><a target="_blank" class="btn btn-warning" href="/rasm?id=${xname}">Rasm</a></td><td><a href="#tas" class="btn btn-primary">Spiskani Ko'rish</a></td>  </tr>`
+                }
+              
+              }
+            }
+          }
+        }
+        //for salesman;
+        else{
+
+          s = `<tr> <th >
+        
+        <i  class="fa fa-number" >
+            </i>Tartib Raqami</th>
+            <th  >
+                  <i  class="fa fa-shopping-cart">
+                      </i> Mahsulot nomi</th> 
+                      <th ><i class="fa fa-balance-scale">
+                          </i> Soni/kg
+                          </th>
+
+                  <th>
+                        <i class="fa fa-money" >
+
+
+                        </i>Sotiladigan Narxi</th> <th><i class="icon_calendar" ></i>Sotiladigan Miqdori</th> 
+                          <th id="stat"><i class="icon_cogs">
+                            </i> Qo'shish</th>  <th id="stat">
+                             Rasm</th><th id="stat">
+                             Ro'yhat</th> </tr>`;
+          var table = document.getElementById('mahsulot')
+          var f = 0;
+          if (pagename == "search") {
+            for (var i = begin; i < end; i++) {
+              if (dict[Mahsulotlar[i].name[Mahsulotlar[i].name.length - 1]] == 1) {
+                stylex = "#ff2d55";
+              }
+              else {
+                stylex = "#ffffff";
+              }
+              var xname = Mahsulotlar[i].name[Mahsulotlar[i].name.length - 1];
+              var xcountnum = Mahsulotlar[i].countnum;
+              var xprice =Mahsulotlar[i].kurs[Mahsulotlar[i].kurs.length - 1] == "Dollar" ? round(Mahsulotlar[i].price[Mahsulotlar[i].price.length - 1] * kurs,3) : round(Mahsulotlar[i].price[Mahsulotlar[i].price.length - 1],3);
+              var xbuyprice = Mahsulotlar[i].kurs[Mahsulotlar[i].kurs.length - 1] == "Dollar" ? round(Mahsulotlar[i].buyprice[Mahsulotlar[i].buyprice.length - 1] * kurs,3) :round (Mahsulotlar[i].buyprice[Mahsulotlar[i].buyprice.length - 1],3)
+              var xid = Mahsulotlar[i].id;
+              var xcountof = Mahsulotlar[i].countof[Mahsulotlar[i].countof.length - 1];
+              if (x == 1) {
+                z.push(Mahsulotlar[i])
+              }
+              if (xcountnum <= xcountof) {
+                s += `<tr   style="font-size:20px;color:black;background-color:${stylex}" id="tr${f}"><td>${f + 1}</td><td>${xname}</td><td>${xcountnum}</td><td><input  type="number" tabindex=${f * 3 + 2} name="${xid}" placeholder="${xbuyprice}" value="${xbuyprice}" style="font-size:20px;color:black" class="form-control"  /></td> 
+                     <td><input type="number" tabindex=${f * 3 + 3} name="${xname}" id="${xid}"  soni="${xcountnum}" class="form-control" style="font-size:20px;color:black" /></td> <td id="stat1"> <div class="btn-group"> <button class="btn btn-success"  id="${xid}" name="${xcountnum}" tabindex=${f * 3 + 4}   onclick="add(this.id,this.name,${xprice})">
+                      <i class="icon_plus_alt2"></i>Qo'shish</button> 
+            </div> </td><td><a target="_blank" class="btn btn-warning" href="/rasm?id=${xname}">Rasm</a></td><td><a href="#tas" class="btn btn-primary">Spiskani Ko'rish</a></td></tr>`
+                qq.push(Mahsulotlar[i]);
+              }
+              else {
+                // console.log(1);
+                s += ` <tr   style="font-size:20px;color:black;background-color:${stylex}" id="tr${f}"><td>${f + 1}</td><td>${xname}</td><td>${xcountnum}</td><td><input  type="number" tabindex=${f * 3 + 2} name="${xid}" placeholder="${xbuyprice}" value="${xbuyprice}" style="font-size:20px;color:black" class="form-control"  /></td> 
+                     <td><input type="number" tabindex=${f * 3 + 3} name="${xname}" id="${xid}"  soni="${xcountnum}" class="form-control" style="font-size:20px;color:black" /></td> <td id="stat1"> <div class="btn-group"> <button class="btn btn-success"  id="${xid}" name="${xcountnum}" tabindex=${f * 3 + 4}   onclick="add(this.id,this.name,${xprice})">
+                      <i class="icon_plus_alt2"></i>Qo'shish</button> 
+            </div> </td><td><a  target="_blank" class="btn btn-warning" href="/rasm?id=${xname}">Rasm</a></td><td><a href="#tas" class="btn btn-primary">Spiskani Ko'rish</a></td>  </tr>`
+              }
+              f++;
+              if (f == 100) {
+                break;
+              }
+            }
+          }
+          else {
+            f = 0;
+            for (var i = begin; i < end; i++) {
+              if (dict[Mahsulotlar[i].name[Mahsulotlar[i].name.length - 1]] == 1) {
+                stylex = "#ff2d55";
+              }
+              else {
+                stylex = "#ffffff";
+              }
+              var xname = Mahsulotlar[i].name[Mahsulotlar[i].name.length - 1];
+              var xcountnum = Mahsulotlar[i].countnum;
+              var xprice =Mahsulotlar[i].kurs[Mahsulotlar[i].kurs.length - 1] == "Dollar" ? round(Mahsulotlar[i].price[Mahsulotlar[i].price.length - 1] * kurs,3) : round(Mahsulotlar[i].price[Mahsulotlar[i].price.length - 1],3);
+              var xbuyprice = Mahsulotlar[i].kurs[Mahsulotlar[i].kurs.length - 1] == "Dollar" ? round(Mahsulotlar[i].buyprice[Mahsulotlar[i].buyprice.length - 1] * kurs,3) :round (Mahsulotlar[i].buyprice[Mahsulotlar[i].buyprice.length - 1],3)
+              var xid = Mahsulotlar[i].id;
+              var xcountof = Mahsulotlar[i].countof[Mahsulotlar[i].countof.length - 1];
+              if (Mahsulotlar[i].bulim === pagename) {
+              
+                if (x == 1) {
+                  z.push(Mahsulotlar[i])
+                }
+                if (xcountnum <= xcountof) {
+                  s += `<tr   style="font-size:20px;color:black;background-color:${stylex}" id="tr${f}"><td>${f + 1}</td><td>${xname}</td><td>${xcountnum}</td> <td><input  type="number" tabindex=${f * 3 + 2} name="${xid}" placeholder="${xbuyprice}" value="${xbuyprice}" style="font-size:20px;color:black" class="form-control"  /></td> 
+                     <td><input type="number" tabindex=${f * 3 + 3} name="${xname}" id="${xid}"  soni="${xcountnum}" class="form-control" style="font-size:20px;color:black" /></td> <td id="stat1"> <div class="btn-group"> <button class="btn btn-success"  id="${xid}" name="${xcountnum}" tabindex=${f * 3 + 4}   onclick="add(this.id,this.name,${xprice})">
+                      <i class="icon_plus_alt2"></i>Qo'shish</button> 
+            </div> </td><td><a target="_blank" class="btn btn-warning" href="/rasm?id=${xname}">Rasm</a></td><td><a href="#tas" class="btn btn-primary">Spiskani Ko'rish</a></td>  </tr>`
+                  qq.push(Mahsulotlar[i]);
+                }
+                else {
+                  s += `  <tr   style="font-size:20px;color:black;background-color:${stylex}" id="tr${f}"><td>${f + 1}</td><td>${xname}</td><td>${xcountnum}</td> <td><input  type="number" tabindex=${f * 3 + 2} name="${xid}" placeholder="${xbuyprice}" value="${xbuyprice}" style="font-size:20px;color:black" class="form-control"  /></td> 
+                     <td><input type="number" tabindex=${f * 3 + 3} name="${xname}" id="${xid}"  soni="${xcountnum}" class="form-control" style="font-size:20px;color:black" /></td> <td id="stat1"> <div class="btn-group"> <button class="btn btn-success"  id="${xid}" name="${xcountnum}" tabindex=${f * 3 + 4}   onclick="add(this.id,this.name,${xprice})">
+                      <i class="icon_plus_alt2"></i>Qo'shish</button> 
+            </div> </td><td><a target="_blank" class="btn btn-warning" href="/rasm?id=${xname}">Rasm</a></td><td><a href="#tas" class="btn btn-primary">Spiskani Ko'rish</a></td>  </tr>`
+                }
+                f++;
+              if (f == 100) {
+                break;
+              }
+              }
+            }
+          }
+        }
+
+        table.innerHTML = s;
+      }
+
+      var bc = "false";
+      var bp = "false";
+      var bn = "false";
+
+
+      function bol(bb) {
+        if (bb == 1) {
+          bn = "true";
+          bc = "false";
+          bp = "false";
+
+
+        }
+        if (bb == 2) {
+          bn = "false";
+          bc = "false";
+          bp = "true";
+
+        }
+        if (bb == 3) {
+          bn = "false";
+          bc = "true";
+          bp = "false";
+        }
+        $.ajax({
+          url: `/api/getitem?count=${bc}&price=${bp}&name=${bn}`,
+          type: 'GET', cache: false, dataType: 'json',
+          contentType: 'application/json',
+          success: function (data) {
+            Mahsulotlar = data.items;
+            createTable(data.items, data.items[0].bulim);
+          },
+
+        })
+      }
+      function checksee(){
+    if (localStorage.getItem("seeprice")=="true") 
+    localStorage.setItem("seeprice","false");
+    else{
+      localStorage.setItem("seeprice","true");
+    }
+    if (localStorage.getItem("seeprice")=="true"){
+      document.getElementById("seepricex").innerHTML="Olingan Narx Ko'rinmoqda"
+      document.getElementById("seepricex").className="btn btn-primary";}
+      else{
+        document.getElementById("seepricex").innerHTML=`<i class="fa fa-eye"></i> Olingan Narx Ko'rish`
+        document.getElementById("seepricex").className="btn btn-danger"  
+      }
+  createTable(Mahsulotlar,Mahsulotlar[0].bulim)
+  }
+      function checked1() {
+        qqs = []
+        if (document.getElementById('flexSwitchCheckChecked').checked === true) {
+          for (let i = 0; i < Mahsulotlar.length; i++) {
+            if (Mahsulotlar[i].countnum <= Mahsulotlar[i].countof[Mahsulotlar[i].countof.length - 1]) {
+              qqs.push(Mahsulotlar[i]);
+            }
+          }
+          createTable(qqs, "search");
+        }
+        else {
+          createTable(Mahsulotlar, Mahsulotlar[0].bulim)
+        }
+      }
+      $.ajax({
+        url: `/api/getitem?count=${bc}&price=${bp}&name=${bn}`,
+        type: 'GET',
+        cache: false,
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+          Mahsulotlar = data.items;
+          myset = new Set();
+
+          for (i = 0; i < Mahsulotlar.length; i++) {
+            myset.add(Mahsulotlar[i].bulim)
+          }
+          for (v of myset) {
+            document.getElementById('pagenation').innerHTML += `<option value="${v}" onclick="${v}">${v}</option>`
+          }
+          createTable(Mahsulotlar, Mahsulotlar[0].bulim);
+          var tovar = 0;
+          var sotilishi = 0;
+          var foyda = 0;
+          for (q of data.items) {
+            sotilishi += (q.countnum * q.buyprice[q.buyprice.length - 1])
+            tovar += (q.countnum * q.price[q.price.length - 1])
+            foyda = sotilishi - tovar;
+          }
+
+
+          createTable(data.items, data.items[0].bulim);
+        },
+
+      })
+      function mana(s) {
+
+        var r = confirm('O\'chirilsinmi?')
+        if (r == true) {
+          $.ajax({
+            url: `/api/delete/${s}`,
+            type: 'GET', cache: false, dataType: 'json',
+            contentType: 'application/json',
+            success: function (data) {
+
+              if (data.status) {
+                location.reload();
+              }
+            },
+          })
+        }
+      }
+      function searchBar() {
+        var searchText = document.getElementById('searcher').value;
+        $.ajax({
+        url: `/api/searchitem?search=${searchText}`,
+        type: "GET",
+        dataType: 'json',
+        cache: false,
+        contentType: 'application/json',
+        success: data => {
+          createTable(data.data, data.data[0].bulim);
+                 }
+      })
+      }
+      function page(s) {
+        document.getElementById('searcher').value = "";
+        createTable(Mahsulotlar, s)
+      }
+      var jami = 0;
+      var arrayName = []
+      var arrayCount = []
+      var arrayPrice = []
+      var arraySell = [];
+      var arrayBazaCount = [];
+      var arrayBazaNarx = [];
+      function createTable1() {
+        jami = 0;
+        arraySell = []
+        xs = `<tr style="font-family:'Arial Narrow', Arial, sans-serif;font-size:23px"> <th>#N</th>
+       <th>Nomi</th>
+      <th></th>
+      <th></th>
+       <th>Soni</th>
+       <th>Narxi</th>
+       <th>Jami</th>
+      <th id="delete">O'chirish</th>
+      </tr>`;
+        for (i = 0; i < arrayPrice.length; i++) {
+          jami += round(arrayPrice[i] * arrayCount[i],3);
+          arraySell.push(round(arrayPrice[i] * arrayCount[i],3));
+          xs +=`<tr style="color:black;font-size:20px;font-family:'Arial Narrow', Arial, sans-serif;" ><td>${i + 1}</td><td> <b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;">${arrayName[i]}</b><td>        
+          <td></td>
+          <td onclick="cliked(${i})"><b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;">${arrayCount[i]}</b></td>
+          <td onclick="cliked(${i})"><b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;">${arrayPrice[i]}</b> </td>
+          <td><b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;">${round(arrayPrice[i] * arrayCount[i],3)}<b></td>
+          <td><button class="btn btn-danger" id="delete1" onclick="addminus(s=${i})">O'chirish</button></td></tr>
+          `
+        }
+        document.getElementById('skidkani').innerHTML = `Chegirma:${skidka()}%`
+        document.getElementById("yulduz").innerHTML=`***************************************`;
+        document.getElementById("yulduz1").innerHTML=`***************************************`;
+        document.getElementById("yulduz2").innerHTML=`=======================================`;
+        document.getElementById('puli').innerHTML = `Summa:${jami - (jami * skidka() / 100)} so'm`
+        document.getElementById('all').innerHTML = `Jami:${jami} so'm`;
+        document.getElementById('mahsulot1').innerHTML = xs;
+      }
+      var naqd, plastik, qarz, pulkochrish, kun, summa, telnumber;
+      function skidka() {
+        if (!parseFloat(document.getElementById('skidka').value)) {
+          return 0;
+        }
+        else {
+          return parseFloat(document.getElementById('skidka').value)
+        }
+      }
+      function kurier() {
+        if (!document.getElementById("curiername").value) {
+          return "Ko'rsatilmagan"
+        }
+        else {
+          return document.getElementById("curiername").value;
+        }
+      }
+      function money() {
+        naqd = 0;
+        plastik = 0;
+        qarz = 0;
+        pulkochrish = 0;
+        summa = jami - (jami * skidka() / 100);
+        naqd = prompt(`Naqd pul:${summa}`, summa);
+        summa -= naqd;
+        if (summa > 0)
+          plastik = prompt(`Plastik:${summa}`, summa);
+        summa -= plastik;
+        if (summa > 0) {
+          qarz = prompt(`Qarz:${summa}`, summa);
+          if (qarz > 0) {
+            sss = "";
+            for (q of arrayName) {
+              sss = sss + q + " ";
+            }
+            kun = prompt('Necha kunda qaytariladi?', 10);
+            if (!telnumber)
+              telnumber = prompt("Telefon raqami", "+998941234567")
+            else {
+              telnumber = prompt("Telefon raqami", telnumber)
+            }
+          }
+        }
+        summa -= qarz;
+        if (summa > 0)
+          pulkochrish = prompt(`Pul ko\'chirish:${summa}`, summa);
+        summa -= pulkochrish;
+        if (summa > 0) {
+          return 0;
+        }
+      }
+
+
+
+      function cliked(i) {
+        x = prompt("Soni", arrayCount[i])
+        if (!parseFloat(x)) {
+          alert("Iltimos son kiriting!")
+          return 0;
+        }
+        //  console.log(arrayBazaCount[i])
+        if (parseFloat(arrayBazaCount[i]) < parseFloat(x)) {
+          alert("Bazada buncha mahsulot mavjud emas!")
+          return 0;
+        }
+        if (parseFloat(x) < 0) {
+          alert("Manfiy Son Kiritshga harakat aniqlandi!Yana shunday xolat qaytarilsan adminga sotuvchini ustidan shikoyat xati yuboriladi!\n Izoh:Tizimni aldashga urinish")
+          return 0;
+        }
+        arrayCount[i] = x;
+        var cusname=document.getElementById('customername').value
+        console.log(cusname);
+        document.getElementById("tablehref").href=`/print?arraycount=${[arrayCount]}&arrayname=${arrayName}&arrayprice=${[arrayPrice]}&cusname=${cusname}`
+       
+        createTable1();
+      }
+      function cliked1(i) {
+        t = prompt("Narxi", arrayPrice[i])
+        if (!parseFloat(t)) {
+          alert("Iltimos son kiriting!")
+          return 0;
+        }
+        //  console.log(arrayBazaNarx[i])
+        if (parseFloat(arrayBazaNarx[i]) >= parseFloat(t)) {
+          alert("Zararga sotishga urinyapsiz!tekshirib ko'ring!")
+          return 0;
+        }
+        arrayPrice[i] = t;
+        var cusname=document.getElementById('customername').value;
+        document.getElementById("tablehref").href=`/print?arraycount=${[arrayCount]}&arrayname=${[arrayName]}&arrayprice=${[arrayPrice]}&cusname=${cusname}`
+       
+        createTable1();
+      }
+      var check = document.getElementById('flexCheckIndeterminate')
+      function add(s, soni, narxi) {
+        var cusname
+        // console.log(narxi)
+        // console.log(s);
+        // console.log(soni)
+        // console.log(parseFloat(document.getElementsByName(s)[0].value))
+        if (parseFloat(document.getElementById(s).value) <= 0) {
+          document.getElementById(s).value = ""
+          alert("Kechirasiz siz manfiy son kiritdingiz!Tekshirib qayta urinib ko'ring!")
+          return 0;
+        }
+        if (parseFloat(narxi) >= (parseFloat(document.getElementsByName(s)[0].value))) {
+          alert('Siz mahsulotni zararga sotishga urinyapsiz!Tekshirib Ko\'ring!')
+          return 0;
+        }
+        if (parseFloat(soni) < parseFloat(document.getElementById(s).value)) {
+          alert("Bazada buncha mahsulot yo'q!")
+          document.getElementById(s).value = "";
+
+        }
+        if (document.getElementById(s).value.length > 0 && document.getElementById(s).name.length && document.getElementsByName(s)[0].value.length > 0) {
+          fx = 0;
+          for (let i = 0; i < arrayName.length; i++) {
+            if (arrayName[i] === document.getElementById(s).name) {
+              cx = parseFloat(document.getElementById(s).value);;
+              if (arrayBazaCount[i] >= arrayCount[i] + cx) {
+                arrayCount[i] = arrayCount[i] + cx;
+                 cusname=document.getElementById('customername').value;
+                document.getElementById("tablehref").href=`/print?arraycount=${[arrayCount]}&arrayname=${[arrayName]}&arrayprice=${[arrayPrice]}&cusname=${cusname}`
+       
+                createTable1();
+              }
+              else {
+                alert("Bazada buncha mahsulot yo'q!Xatolikka yo'l qo'yildi!")
+              }
+              fx = 1;
+              x++;
+              document.getElementById(s).value = "";
+            }
+          }
+          if (fx == 0) {
+            dict[document.getElementById(s).name] = 1;
+            arrayPrice.push(parseFloat(document.getElementsByName(s)[0].value));
+            arrayCount.push(parseFloat(document.getElementById(s).value));
+            arrayName.push(document.getElementById(s).name);
+            arrayBazaCount.push(soni);
+            arrayBazaNarx.push(narxi);
+            createTable(Mahsulotlar, document.getElementById('pagenation').value)
+          cusname=document.getElementById('customername').value;
+            console.log(cusname)
+            document.getElementById("tablehref").href=`/print?arraycount=${[arrayCount]}&arrayname=${[arrayName]}&arrayprice=${[arrayPrice]}&cusname=${cusname}`
+       
+            createTable1();
+            x++;
+            document.getElementById(s).value = "";
+          }
+        }
+      }
+      $.ajax({
+        url: `/api/getitem`,
+        type: "GET",
+        dataType: 'json',
+        cache: false,
+        contentType: 'application/json',
+        success: data => {
+          datalar = data
+          // console.log(data)
+          // console.log(data.customers)
+          document.getElementById('nameofMarket').innerHTML = `"${data.pasport.marketname}"`
+          document.getElementById('telofMarket').innerHTML = `Tel:${data.pasport.telnumber}`
+          document.getElementById('commentofMarket').innerHTML = `${data.pasport.comment}`
+        }
+      })
+      function addminus(s) {
+        dict[arrayName[s]] = 0;
+        arrayCount.splice(s, 1);
+        arrayName.splice(s, 1);
+        arrayPrice.splice(s, 1);
+        arrayBazaCount.splice(s, 1);
+        arrayBazaNarx.splice(s, 1);
+        var cusname=document.getElementById('customername').value;
+        document.getElementById("tablehref").href=`/print?arraycount=${[arrayCount]}&arrayname=${[arrayName]}&arrayprice=${[arrayPrice]}&cusname=${cusname}`
+       
+        createTable(Mahsulotlar, document.getElementById('pagenation').value);
+        createTable1();
+      }
+      function CheckNull(t) {
+        if (t === null) {
+          return 0;
+        }
+        else {
+          return t;
+        }
+      }
+      
+      function minus() {
+        document.getElementById('skidkani').innerHTML = `Chegirma:${skidka()}%`
+        document.getElementById('puli').innerHTML = `To'lanadigan Summa:${jami - (jami * skidka() / 100)} so'm`
+        var customername = document.getElementById('customername').value;
+        if (customername.length == 0) {
+          alert("Xaridor nomini kiritng")
+          return 0;
+        }
+        if (arrayCount.length == 0) {
+          alert("Savdo amalga oshrilmadi!")
+          return 0;
+        }
+        document.getElementById('nameofCustomer').innerHTML = `Xaridor:${customername}`;
+        document.getElementById('nameofMarket').style.display ="flex"
+        document.getElementById('telofMarket').style.display = "flex"
+        document.getElementById('commentofMarket').style.display = "flex"
+        document.getElementById('nameofCustomer').style.display = "flex"
+        document.getElementById('timenow').style.display = "flex"
+        document.getElementById("yulduz").style.display="flex"
+       document.getElementById("yulduz1").style.display="flex"
+       document.getElementById("yulduz2").style.display="flex"
+        document.getElementById("sabzi").style.paddingLeft="5%";
+        document.getElementById("sabzi").style.paddingLeft = "16%";
+        money();
+        if (summa != 0) {
+          alert("Siz kiritishda xatolikka yo'l qo'ydingiz!")
+          return 0;
+        }
+        naqd = CheckNull(naqd);
+        plastik = CheckNull(plastik)
+        pulkochrish = CheckNull(pulkochrish)
+        qarz = CheckNull(qarz);
+        alert(`Naqd:${naqd}\n Plastik:${plastik}\n Pul Ko\'chirish:${pulkochrish}\n Qarz:${qarz}`)
+        var r = confirm('Tasdiqlansinmi?')
+        document.getElementById('nameofMarket').style.display = "none"
+        document.getElementById('telofMarket').style.display = "none"
+        document.getElementById('commentofMarket').style.display = "none"
+        document.getElementById('nameofCustomer').style.display = "none"
+        document.getElementById('timenow').style.display = "none"
+       document.getElementById("yulduz").style.display="none"
+       document.getElementById("yulduz1").style.display="none"
+       document.getElementById("yulduz2").style.display="none"
+       
+        if (r == true) {
+          $.ajax({
+            url: '/odebtplus?sotish=1',
+            type: "POST",
+            cache: false,
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify({ debt: qarz, name: document.getElementById('customername').value, why: sss, day: kun, telnumber: telnumber }),
+            success: data => {
+
+            }
+          })
+          var curiername = document.getElementById('curiername').value;
+
+          $.ajax({
+            url: '/api/minusitem',
+            type: "POST",
+            cache: false,
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify({ curiername: kurier(), summa: jami, naqd: naqd, plastik: plastik, pulkochrish: pulkochrish, qarz: qarz, minusName: arrayName, minusCount: arrayCount, payment: arraySell, CustomerName: customername, minusPayment: arrayPrice, check: check.checked, skidka: skidka(), bazanarx: arrayBazaNarx }),
+            success: data => {
+
+            }
+          })
+          location.reload();
+        }
+      }
+      today = new Date();
+      var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+      document.getElementById('timenow').innerHTML += `Sana:${new Date().getDate()}.${new Date().getMonth() + 1}.${new Date().getFullYear()} ${time}`
+      
+    </script>
+</body>
+
+</html>

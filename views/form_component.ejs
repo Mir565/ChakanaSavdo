@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Creative - Bootstrap 3 Responsive Admin Template">
+  <meta name="author" content="GeeksLabs">
+  <meta name="keyword" content="Creative, Dashboard, Admin, Template, Theme, Bootstrap, Responsive, Retina, Minimal">
+  <link rel="shortcut icon" href="img/favicon.png">
+
+  <title>Smart Savdo</title>
+
+  <!-- Bootstrap CSS -->
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <!-- bootstrap theme -->
+  <link href="css/bootstrap-theme.css" rel="stylesheet">
+  <!--external css-->
+  <!-- font icon -->
+  <link href="css/elegant-icons-style.css" rel="stylesheet" />
+  <link href="css/font-awesome.min.css" rel="stylesheet" />
+  <link href="css/daterangepicker.css" rel="stylesheet" />
+  <link href="css/bootstrap-datepicker.css" rel="stylesheet" />
+  <link href="css/bootstrap-colorpicker.css" rel="stylesheet" />
+  <!-- date picker -->
+
+  <!-- color picker -->
+
+  <!-- Custom styles -->
+  <link href="css/style.css" rel="stylesheet">
+  <link href="css/style-responsive.css" rel="stylesheet" />
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
+  <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+      <script src="js/respond.min.js"></script>
+      <script src="js/lte-ie7.js"></script>
+    <![endif]-->
+
+    <!-- =======================================================
+      Theme Name: NiceAdmin
+      Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
+      Author: BootstrapMade
+      Author URL: https://bootstrapmade.com
+    ======================================================= -->
+</head>
+<script>
+  document.title="Доб.. продукта"
+</script>
+<body>
+  <%- include('nav')%>
+    <!--sidebar end-->
+
+    <!--main content start-->
+    <section id="main-content">
+      <section class="wrapper">
+        <div class="row">
+          <div class="col-lg-12">
+            <h3 class="page-header"><i class="fa fa-file-text-o"></i>   Создать новый продукт
+            </h3>
+            <ol class="breadcrumb">
+              <li><i class="fa fa-home"></i><a href="index.html">Домашняя страница
+              </a></li>
+              <li><i class="icon_document_alt"></i>Продукт</li>
+              <li><i class="fa fa-file-text-o"></i>Добавить товар              </li>
+            </ol>
+          </div>
+        </div>
+        <center><button  id="button1"class=""  style="display: none;">Успешный!
+        </button></center>
+        <br>
+        <div class="row">
+          <div class="col-lg-12">
+            <section class="panel">
+              <header class="panel-heading">
+                Создать новый продукт
+
+              </header>
+              <div class="panel-body">
+                <form class="form-horizontal"  id="form1" method="POST" action="/api/additem"  enctype="multipart/form-data" >
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Наименование товара:
+                    </label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode==32) || (event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 1040 && event.charCode <= 1071)|| (event.charCode >= 1072 && event.charCode <= 1103)  "  name="name" id="input0" required>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Валюта Выбрать
+                    </label>
+                    <div class="col-sm-10">
+                      <select class="form-control" id="kurs" required name="kurs">
+                      <option value="So'm">So'm</option>  
+                      <option value="Dollar">Dollar</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Выберите раздел
+                    </label>
+                    <div class="col-sm-10">
+                   <input type="text" class="form-control"  onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode==32) || (event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 1040 && event.charCode <= 1071)|| (event.charCode >= 1072 && event.charCode <= 1103)  " id="bulim" required name="bulim" list="bulimlar">  
+                   <datalist id="bulimlar">
+                     
+                   </datalist>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Штрих-код                    </label>
+                    <div class="col-sm-10">
+                   <input type="text" class="form-control"  id="barkod" required name="barkod" list="bulimlar">  
+                   
+                   <br>
+               
+                   <button class="btn btn-success" type="button" onclick="genBar()">Генерация штрих-кода
+                  </button>
+                    </div>
+                  </div>
+                  
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Цена продукта
+                      :</label>
+                    <div class="col-sm-10">
+                      <input type="number"  step=any class="form-control" name="price" required onkeypress="man(this)" onkeyup="man(this)" id="input1" >
+                      
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Цена продажи товара
+                      :</label>
+                    <div class="col-sm-10">
+                      <input type="number"   step=any class="form-control" required name="buyprice" onkeypress="man(this)"  onkeyup="man(this)" id="input5">
+                      
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Название организации, закупающей продукт
+                      :</label>
+
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="input3" onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode==32) || (event.charCode >= 48 && event.charCode <= 57) || (event.charCode >= 1040 && event.charCode <= 1071)|| (event.charCode >= 1072 && event.charCode <= 1103)  "   required name="nameof" list="tashkilot">
+                    <datalist id="tashkilot">
+                    </datalist>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Добавьте в список, сколько продуктов осталось
+                      :</label>
+                    <div class="col-sm-10">
+                      <input type="number"  step=any class="form-control" required onkeypress="man(this)" name="countof" id="input4">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-sm-2 control-label">Изображение продукта
+                    </label>
+                    <div class="col-sm-10">
+                      <input type="file" class="form-control" name="file">
+                    </div>
+                  </div>
+                      <div class="form-group">
+                        <label class="col-sm-2 control-label">Кол-во продуктов / кг:
+                        </label>
+                        <div class="col-sm-10">
+                          <input type="number"  step=any class="form-control" required onkeypress="man(this)" onkeyup="man(this)" name="count" id="input2">
+                          <br>
+                     <center><button class="btn btn-primary btn-lg btn-block" onclick="return checker(e)" type="submit">Послать</button></center>
+                
+                    </div>
+                  </div>
+                  </form>
+    <div class="text-right">
+      
+    </div>
+  </section>
+  <!-- container section end -->
+  <!-- javascripts -->
+  <script>
+    document.title=document.getElementsByClassName("page-header")[0].innerText;
+    
+   </script>
+  <script src="js/jquery.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <!-- nice scroll -->
+  <script src="js/jquery.scrollTo.min.js"></script>
+  <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
+
+  <!-- jquery ui -->
+  <script src="js/jquery-ui-1.9.2.custom.min.js"></script>
+
+  <!--custom checkbox & radio-->
+  <script type="text/javascript" src="js/ga.js"></script>
+  <!--custom switch-->
+  <script src="js/bootstrap-switch.js"></script>
+  <!--custom tagsinput-->
+  <script src="js/jquery.tagsinput.js"></script>
+
+  <!-- colorpicker -->
+
+  <!-- bootstrap-wysiwyg -->
+  <script src="js/jquery.hotkeys.js"></script>
+  <script src="js/bootstrap-wysiwyg.js"></script>
+  <script src="js/bootstrap-wysiwyg-custom.js"></script>
+  <script src="js/moment.js"></script>
+  <script src="js/bootstrap-colorpicker.js"></script>
+  <script src="js/daterangepicker.js"></script>
+  <script src="js/bootstrap-datepicker.js"></script>
+  <!-- ck editor -->
+  <script type="text/javascript" src="assets/ckeditor/ckeditor.js"></script>
+  <!-- custom form component script for this page-->
+  <script src="js/form-component.js"></script>
+  <!-- custome script for all page -->
+  <script src="js/scripts.js"></script>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+
+  window.onload = function() {
+  var inputs = document.getElementsByTagName('input');
+  for (var i = 0; i < inputs.length; i++) {
+    if (inputs[i].type == 'text') {
+      inputs[i].onchange = function() {
+        this.value = this.value.replace(/^\s+/, '').replace(/\s+$/, '');
+      };
+    }
+  }
+}
+  var data=<%- JSON.stringify(data)%>
+  function getRndInteger(min, max) {
+  return Math.floor(Math.random() * (max - min) ) + min;
+}
+function genBar(){
+    z=getRndInteger(1000000000000,9999999999999).toString();
+    if (detectbar(z))
+    {
+    document.getElementById("barkod").value=z;
+    }
+    else{
+      genBar();
+    }
+  }
+  function  detectbar(a){
+    for (let i=0;i<data.length;i++){
+      if (data[i].barkod===a){
+        console.log(false)
+        return false;
+      }
+    
+    }
+    console.log(true)
+    return true;
+
+  }
+  var z={}
+  // console.log(data)
+  for (let i=0;i<data.length;i++){
+    z[data[i].name[data[i].name.length-1].toLowerCase()]=1;
+  }
+// console.log(z);
+function checker(e){
+  if (z[document.getElementById('input0').value.toLowerCase()]==1){
+    alert("Товар есть в базе!")
+return false;
+}
+  else{
+    // document.getElementById("form1").submit();
+  return true;
+  }
+}
+
+  function man(s){
+  if (parseFloat(s.value)<0){
+    alert("Вы вводите отрицательное число!")
+
+    document.getElementById(`${s.id}`).value="";
+  }
+    }
+  document.getElementById('input0').focus();
+  function send(){
+//     var file=document.getElementById("foo").value;
+//     var buyprice=document.getElementById('input5').value;
+//     var nameof=document.getElementById('input3').value;
+//     var countof=document.getElementById('input4').value;
+//     var button=document.getElementById('button1');
+//     var name=document.getElementById('input0').value;
+//     var price=document.getElementById('input1').value;
+//     var soni=document.getElementById('input2').value;
+//     var kurs=document.getElementById('kurs').value;
+//     var bulim=document.getElementById('bulim').value;
+// $.ajax({ 
+//            url: '/api/additem',
+//            type: 'POST',
+//            cache: false, 
+//            dataType: 'json',
+//            contentType: 'application/json',
+//            data: JSON.stringify({ name: name, price: price, count: soni,nameof:nameof,countof:countof,buyprice:buyprice,kurs:kurs,bulim:bulim}), 
+//            success: function(data){
+//             // console.log(data)
+//             if(data.status==0){
+// button.style.display="block"
+// button.className="btn btn-danger"
+// button.innerHTML=data.message;
+
+//             }
+//             else{
+//               button.style.display="block"
+//               button.className="btn btn-success"
+//               button.innerHTML=data.message;
+//               location.reload();
+//             }
+              
+//            },
+//         })  
+location.reload()
+}
+$.ajax({
+  url:'/api/getitem',
+  type:"GET",
+  cache:false,
+  dataType:"json",
+  contentType:"application/json",
+  success:data=>{
+    var set1=new Set();
+    // console.log(data);
+    for (q of data.items){
+      for (v of q.nameof){
+set1.add(v);
+      }
+    }
+    for (v of set1){
+      document.getElementById('tashkilot').innerHTML+=`<option value="${v}"></option>`
+    }
+  }
+
+})
+  
+</script>
+
+
+</body>
+
+</html>
