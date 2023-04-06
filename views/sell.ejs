@@ -31,7 +31,10 @@
             </ol>
           </div>
         </div>
-        <center> <select  class="form-control" name="" id="usernames"></select>
+        <center> 
+       <input type="text" id="customername" class="form-control" placeholder="Xaridor Nomi">
+       <br>
+       <input type="text" id="curiername" class="form-control" placeholder="Kurier Nomi">
         </center>
         <br>
         <div  id="sabzi">
@@ -180,19 +183,15 @@
     <script src="/js/scripts.js"></script>
     <script>
            
-        
-        // console.log(rol)
+           function xaridorgen(){
+  var uniq = 'id' + (new Date()).getTime();
+document.getElementById("customername").value=uniq;
+}
+xaridorgen()
       var dict = {};
       var dictnames={};
+      var telnumber;
 
-    var telnumber;
-     
-      // console.log(CustomerNames1)
-    
-      // console.log(CustomerNames1)
-   
-
-    
       var Mahsulotlar;
     function searchBar(event){
       if (event.key ==="Enter"){
@@ -225,7 +224,6 @@
             success: data => {
               console.log(data)
                 createTable(data);
-              
             }
           })
     }
@@ -290,72 +288,18 @@
             } 
         table.innerHTML = s;
       }
-      var bc = "false";
-      var bp = "false";
-      var bn = "false";
+  
 
-function foizchiqar(foiz,id){
-  foiz=parseFloat(foiz);
-  narx=parseFloat(document.querySelectorAll(`#${id}`)[1].value)
-  foiz=narx+((narx/100)*foiz)
-  document.querySelectorAll(`#${id}`)[3].value=foiz;
-}
-function narxchiqar(snarx,id){
-  console.log(snarx)
-  snarx=parseFloat(snarx);
-  narxi=parseFloat(document.querySelectorAll(`#${id}`)[1].value)
-  console.log(narxi)
-  foiz=((snarx*100)/narxi)-100;
-  document.querySelectorAll(`#${id}`)[2].value=foiz;
-}
+
     
   var allitems=<%- JSON.stringify(allitems) %>
   var organs=<%- JSON.stringify(organs)%>
-  for(organ of organs){
-    document.getElementById("usernames").innerHTML+=`<option text=${organ.email} value=${organ.user_id}>${organ.email}</option>`
-  }
+
   Mahsulotlar = allitems
   createTable(Mahsulotlar)
-  function getRndInteger(min, max) {
-  return Math.floor(Math.random() * (max - min) ) + min;
-}
-function genBar(s){
-  var xbrakods=getRndInteger(1000000000000,9999999999999).toString();
-  if (detectbar(xbrakods))
-  {
- document.getElementById("a"+s.slice(1)).value=xbrakods
- return 0;
-  }
- else{
-   genBar(s);
- }
-}
-function  detectbar(a){
-    for (let i=0;i<Mahsulotlar.length;i++){
-      if (Mahsulotlar[i].barkod===a){
-        return false;
-      }
-    }
-    return true;
-  }
           
           createTable(Mahsulotlar, 1);
-      function mana(s) {
-        var r = confirm('Удалить?')
-        if (r == true) {
-          $.ajax({
-            url: `/api/delete/${s}`,
-            type: 'GET', cache: false, dataType: 'json',
-            contentType: 'application/json',
-            success: function (data) {
-
-              if (data.status) {
-                location.reload();
-              }
-            },
-          })
-        }
-      }
+     
       var jami = 0;
       var idfornews=[]
       var allid=[]
@@ -428,10 +372,7 @@ function  detectbar(a){
       function skidka() {
        return 0;
       }
-      function kurier(){
-        let  organs = document.getElementById("usernames").value;
-          return organs
-        }
+  
       function money(){
         naqd = 0;
         plastik = 0;
@@ -498,54 +439,13 @@ function  detectbar(a){
         ram();
         createTable1();
       }
-      var check = true;
-      function adds(s, soni,sdd, narxi) {
-        console.log(s)
-        if (dictnames[document.getElementById("ssxs").value.trim()]==1){
-          alert("Iltimos Yangi Mahsulot nomini kiriting!")
-          return 0;
-        }
-        document.getElementById("searcher").focus();
-        var barkodx="a"+s.slice(1);
-   soni=parseFloat(document.querySelectorAll(`#${s}`)[0].value)
-   onarxi=parseFloat(document.querySelectorAll(`#${s}`)[1].value)
-   sfoiz=parseFloat(document.querySelectorAll(`#${s}`)[2].value)
-  snarxi=parseFloat(document.querySelectorAll(`#${s}`)[3].value)
-     if (!parseFloat(document.querySelectorAll(`#${s}`)[0].value) || !parseFloat(document.querySelectorAll(`#${s}`)[1].value) || !parseFloat(document.querySelectorAll(`#${s}`)[2].value) || !parseFloat(document.querySelectorAll(`#${s}`)[3].value)){
-      alert("Пожалуйста, введите информацию правильно")
-      return 0;
-     }
-          fx = 0;
-          for (let i = 0; i < arrayName.length; i++) {
-            if (arrayName[i] === document.getElementById("ssxs").value) {
-              cx = parseFloat(document.getElementById(s).value);
-                arrayCount[i] = arrayCount[i] + cx;
-                createTable1();
-              fx = 1; 
-            }
-          }
-          if (fx == 0) {
-            newBarkod.push(document.getElementById(barkodx).value);
-            if (s=="s80S565EA")
-            idfornews.push(true)
-            else
-            idfornews.push(false)
-            dict[document.getElementById(s).name] = 1;
-            arrayPrice.push(parseFloat(snarxi));
-            arrayCount.push(parseFloat(document.getElementById(s).value));
-            arrayName.push(document.getElementById(s).name);
-            arrayFoiz.push(sfoiz)
-            arrayBazaCount.push(soni);
-            arrayBazaNarx.push(onarxi);
-            createTable1();
-            createTable([]);
-            document.getElementById(s).value = "";
-          }
-      }
      
       function add(s, soni,sdd, narxi) {
         console.log(s);
         console.log(allid)
+        soni=parseFloat(document.querySelectorAll(`#${s}`)[0].value)
+   onarxi=parseFloat(document.querySelectorAll(`#${s}`)[1].value)
+   sfoiz=parseFloat(document.querySelectorAll(`#${s}`)[2].value)
         document.getElementById("searcher").value="";
         document.getElementById('searcher1').value="";
         document.getElementById("searcher").focus();
@@ -553,6 +453,7 @@ function  detectbar(a){
         document.getElementById("searcher").focus();
         var barkodx="a"+s.slice(1);
    soni=parseFloat(document.querySelectorAll(`#${s}`)[0].value)
+   console.log(soni)
           fx = 0;
           for (let i = 0; i < arrayName.length; i++) {
             if (arrayName[i] === document.getElementById(s).name) {
@@ -567,13 +468,11 @@ function  detectbar(a){
             allid.push(s.slice(1))
             dict[document.getElementById(s).name] = 1;
             arrayName.push(document.getElementById(s).name);
-
             arrayCount.push(parseFloat(document.getElementById(s).value));
             createTable([])
             createTable1();
             document.getElementById(s).value = "";
           }
-       
       }
 
   
@@ -599,7 +498,9 @@ function  detectbar(a){
       }
       function minus() {
         //document.getElementById('puli').innerHTML = `To'lanadigan Summa:${jami - (jami * skidka() / 100)} so'm`
-        var organid= document.getElementById('usernames').value;
+        var organid=1
+        var customername=document.getElementById('customername').value;
+        var curiername=document.getElementById('curiername').value;
         if (arrayCount.length == 0) {
           alert("Продажа не состоялась!")
           return 0;
@@ -618,23 +519,19 @@ function  detectbar(a){
 :${pulkochrish}\n Долг:${qarz}`)
         var r = confirm('Подтверждать?')
         if (r == true) {
-          var curiername;
-          $.ajax({
+                   $.ajax({
             url: '/add/sell',
             type: "POST",
             cache: false,
             contentType: 'application/json',
             dataType: 'json',
-            data: JSON.stringify({ curiername: kurier(), summa: jami, naqd: naqd, plastik: plastik, pulkochrish: pulkochrish, qarz: qarz, minusName: arrayName, minusCount: arrayCount, payment: arraySell, organid: organid, minusPayment: arrayPrice, check: true, skidka: skidka(), bazanarx:arrayBazaNarx,barkod:newBarkod,idfornews:idfornews,allid:allid}),
+            data: JSON.stringify({customername:customername,curiername:curiername, summa: jami, naqd: naqd, plastik: plastik, pulkochrish: pulkochrish, qarz: qarz, minusName: arrayName, minusCount: arrayCount, payment: arraySell, organid: organid, minusPayment: arrayPrice, check: true, skidka: skidka(), bazanarx:arrayBazaNarx,barkod:newBarkod,idfornews:idfornews,allid:allid}),
             success: data => {
             }
           })
           location.reload();
         }
       }
-      today = new Date();
-      var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-      document.getElementById('timenow').innerHTML += `Число:${new Date().getDate()}.${new Date().getMonth() + 1}.${new Date().getFullYear()} ${time}`
     </script>
 </body>
 </html>

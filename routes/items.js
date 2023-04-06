@@ -55,7 +55,7 @@ router.get('/search/item', async (req, res) => {
     }
 })
 router.get('/search/itemText', async (req, res) => {
-    const item = await RunSQL("Select * from products pr join filial_count fc on fc.product_id=pr.product_id  where fc.user_id=? and  name like ? limit 20", [req.session.user_id,"%" + req.query.name + "%"])
+    const item = await RunSQL("Select * from products pr join filial_count fc on fc.product_id=pr.product_id  where fc.pr_user_id=? and  name like ? limit 20", [req.session.user_id,"%" + req.query.name + "%"])
     if (item) {
         res.json(item);
     } else {
