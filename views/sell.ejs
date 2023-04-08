@@ -280,9 +280,9 @@ xaridorgen()
                 s += `<tr   style="font-size:20px;color:black;background-color:${stylex}" id="tr${f}"><td>${i+1}</td><td>${xname}</td><td>${xcountnum}</td> <td >${xprice}</td><td>${xbuyprice}</td> 
                   <td> <td>${xbarkod}</td>
                     
-                  <td><input type="number" tabindex=${f * 3 + 3} name="${xname}" id="s${xid}"  soni="${xcountnum}" class="form-control" style="font-size:20px;color:black" /></td> 
+                  <td><input type="number" tabindex=${f * 3 + 3} name="${xname}" id="soni${xid}"  soni="${xcountnum}" class="form-control" style="font-size:20px;color:black" /></td> 
                       <td id="stat1"> <div class="btn-group"> 
-                        <button class="btn btn-success"  id="s${xid}" name="${xcountnum}" tabindex=${f * 3 + 4}   onclick="add(this.id,this.name,${xprice})">
+                        <button class="btn btn-success"  id="s${xid}" name="${xcountnum}" tabindex=${f * 3 + 4}   onclick="add(${xid},'${xname}',${xcountnum},${xprice},${xbuyprice},'${xbarkod}')">
                       <i class="icon_plus_alt2"></i></button> 
             </div>`
             } 
@@ -372,13 +372,12 @@ xaridorgen()
       function skidka() {
        return 0;
       }
-  
       function money(){
         naqd = 0;
         plastik = 0;
         qarz = 0;
         pulkochrish = 0;
-        summa = jami - (jami * skidka() / 100);
+        summa = calcSumma(arrayPrice)
         naqd = prompt(`Наличные:${summa}`, summa);
         summa -= naqd;
         if (summa > 0)
@@ -388,11 +387,6 @@ xaridorgen()
         if (summa > 0) {
           qarz = prompt(`Долг:${summa}`, summa);
           if (qarz > 0) {
-            sss = "";
-            for (q of arrayName) {
-              sss = sss + q + " ";
-            }
-            kun = prompt('За сколько дней он будет возвращен?', 10);
             if (!telnumber)
               telnumber = prompt("Номер телефона", "+998941234567")
             else {
@@ -436,42 +430,35 @@ xaridorgen()
           return 0;
         }
         arrayPrice[i] = t;
-        ram();
         createTable1();
       }
      
-      function add(s, soni,sdd, narxi) {
-        console.log(s);
-        console.log(allid)
-        soni=parseFloat(document.querySelectorAll(`#${s}`)[0].value)
-   onarxi=parseFloat(document.querySelectorAll(`#${s}`)[1].value)
-   sfoiz=parseFloat(document.querySelectorAll(`#${s}`)[2].value)
+      function add(xid,xname,xcountnum,xprice,xbuyprice,xbarkod) {
+        count=parseFloat(document.getElementById('soni'+xid).value);
         document.getElementById("searcher").value="";
         document.getElementById('searcher1').value="";
         document.getElementById("searcher").focus();
-        console.log("kirildi!")
         document.getElementById("searcher").focus();
-        var barkodx="a"+s.slice(1);
-   soni=parseFloat(document.querySelectorAll(`#${s}`)[0].value)
-   console.log(soni)
-          fx = 0;
+          flag = 0;
           for (let i = 0; i < arrayName.length; i++) {
-            if (arrayName[i] === document.getElementById(s).name) {
-              cx = parseFloat(document.getElementById(s).value);
-                arrayCount[i] = arrayCount[i] + cx;
-                createTable1();//check
-              fx = 1; 
-              document.getElementById(s).value = "";
+            if (arrayName[i] === xname) {
+                arrayCount[i]+=count;
+                arrayCount[i] = arrayCount[i] + count;
+                createTable1();
+                createTable([])
+                flag = 1; 
             }
           }
-          if (fx == 0) {
-            allid.push(s.slice(1))
-            dict[document.getElementById(s).name] = 1;
-            arrayName.push(document.getElementById(s).name);
-            arrayCount.push(parseFloat(document.getElementById(s).value));
-            createTable([])
-            createTable1();
-            document.getElementById(s).value = "";
+          if (flag == 0) {
+        arrayCount.push(count);
+        arrayName.push(xname);
+        arrayPrice.push(xbuyprice);
+        arrayBazaCount.push(xcountnum);
+        arrayBazaNarx.push(xprice);
+        allid.push(xid);
+        dict[xname] = 1;
+        createTable([])
+        createTable1();
           }
       }
 
@@ -483,8 +470,6 @@ xaridorgen()
         arrayPrice.splice(s, 1);
         arrayBazaCount.splice(s, 1);
         arrayBazaNarx.splice(s, 1);
-        newBarkod.splice(s, 1);
-        idfornews.splice(s,1)
         allid.splice(s,1);
         createTable1();
       }
@@ -496,8 +481,15 @@ xaridorgen()
           return t;
         }
       }
+      function calcSumma(arrayPrice){
+        let summa=0;
+        for(let i=0;i<arrayPrice.length;i++){
+summa+=arrayPrice[i];
+        }
+      return summa
+      }
+
       function minus() {
-        //document.getElementById('puli').innerHTML = `To'lanadigan Summa:${jami - (jami * skidka() / 100)} so'm`
         var organid=1
         var customername=document.getElementById('customername').value;
         var curiername=document.getElementById('curiername').value;
@@ -525,7 +517,7 @@ xaridorgen()
             cache: false,
             contentType: 'application/json',
             dataType: 'json',
-            data: JSON.stringify({customername:customername,curiername:curiername, summa: jami, naqd: naqd, plastik: plastik, pulkochrish: pulkochrish, qarz: qarz, minusName: arrayName, minusCount: arrayCount, payment: arraySell, organid: organid, minusPayment: arrayPrice, check: true, skidka: skidka(), bazanarx:arrayBazaNarx,barkod:newBarkod,idfornews:idfornews,allid:allid}),
+            data: JSON.stringify({telnumber:telnumber,customername:customername,curiername:curiername, summa: summa, cash: parseFloat(naqd), card: parseFloat(plastik), transfer: parseFloat(pulkochrish), debt: parseFloat(qarz), minusName: arrayName, minusCount: arrayCount,  organid: organid, minusPayment: arrayPrice, skidka: skidka(), bazanarx:arrayBazaNarx,allid:allid}),
             success: data => {
             }
           })

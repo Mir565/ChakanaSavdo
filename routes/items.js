@@ -106,7 +106,6 @@ router.get('/sold/items',checker, async (req, res) => {
     const alltranz = await RunSQL("SELECT tranzfilial.cr_date,pr.name,tranzfilial.product_id,sum(tranzfilial.pr_count) as pr_count from tranzfilial  join products pr on pr.product_id=tranzfilial.product_id where (DATE(tranzfilial.cr_date)=? and tranzfilial.magid=?)   group by tranzfilial.product_id  limit 100 offset ?", [req.query.date,req.session.user_id,(parseInt(req.query.getpage) - 1) * 100])
     console.log(alltranz,req.session.user_id)
     const count = await RunSQLOne("SELECT count(*) as cnt from tranzfilial  join products pr on pr.product_id=tranzfilial.product_id where DATE(tranzfilial.cr_date)=? and tranzfilial.magid=?   group by tranzfilial.product_id", [req.query.date,req.session.user_id])
-    
     console.log(count)
     if (count==undefined){
         res.render('solditems',{

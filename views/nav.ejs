@@ -51,55 +51,66 @@
               console.log(data)
               if (data.rol==="admin" && data.user=="admin"){
               document.getElementById('sidebar5655').innerHTML=`
+              <li class="sub-menu" id="c">
+            <a  href="/sold/items" class="">
+                          <i class="icon_desktop"></i>
+                          <span>Asosiy</span>
+                      </a>
+          </li>
           <li class="sub-menu" id="c">
             <a  href="/sold/items" class="">
                           <i class="icon_desktop"></i>
-                          <span>Проданный Товар</span>
+                          <span>Sotilgan Mahsulot</span>
+                      </a>
+          </li>
+          <li class="sub-menu" id="c">
+            <a  href="/get/debt?getpage=1" class="">
+                          <i class="icon_book"></i>
+                          <span>Qarz Daftar</span>
                       </a>
           </li>
           <li class="sub-menu"  id="d">
             <a class="" href="/get/sell">
                           <i class="icon_piechart"></i>
-                          <span>Продажа</span>
+                          <span>Sotish</span>
                       </a>
           </li>
           <li class="sub-menu" id="e">
             <a  href="/add/item" class="">
                           <i class="icon_table"></i>
-                          <span>Обн.. Продукта</span>             
+                          <span>Mahsulot Qo'shish</span>             
                       </a>
            </li>
            <li class="sub-menu" id="al">
             <a  href="/get/items?getpage=1" class="">
                           <i class="fa fa-shopping-bag"></i>
-                          <span>Все Продукты</span>
+                          <span>Barcha Mahsulotlar</span>
                      
                       </a>
            </li>
            <li class="sub-menu" id="f">
             <a  href="/add/organizations" class="">
                           <i class="icon_calendar"></i>
-                          <span>Организации</span>
+                          <span>Tashkilotlar</span>
                      
                       </a>
            </li>
-
            <li class="sub-menu" id="g">
             <a  href="/all/magtranzactions?getpage=1" class="">
                           <i class="fa fa-users"></i>
-                          <span id="xaridor">Отчет по точкам</span>
+                          <span id="xaridor">Xaridorlar</span>
                       </a>
            </li>
            <li class="sub-menu" id="g">
-            <a  href="/all/users?getpage=1" class="">
-                          <i class="fa fa-users"></i>
-                          <span id="xaridor">Mагазины</span>
+            <a  href="/all/magtranzactions?getpage=1" class="">
+                          <i class="fa fa-user"></i>
+                          <span id="xaridor">Kurierlar</span>
                       </a>
            </li>
            <li class="sub-menu" id="h">
             <a  href="/exit" class="">
                           <i class="fa fa-sign-out"></i>
-                          <span>Выход</span>
+                          <span>Chiqish</span>
                       </a>
            </li>`
           }
