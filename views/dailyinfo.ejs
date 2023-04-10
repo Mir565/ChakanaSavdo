@@ -58,12 +58,7 @@
             </ol>
           </div>
         </div>
-        <br>
         <select name="" id="pagenation" onchange="changelocation(this.value)" ></select>
-        <br>
-      <div>
-      
-      </div>
         <center> 
         <h3 style="color: black;" id="tovarsoni"> </h3> 
         <h3 style="color: black;" id="tovar"></h3>
@@ -82,6 +77,9 @@
               
               
               <table class="table table-advance" id="tbl_exporttable_to_xls">
+                <form class="navbar-form" onsubmit="return false;">
+                  <input class="form-control" placeholder="Qidiruv"id="searcher"  onkeyup="searchBar(event)" type="text">
+                </form>
                
                 <tbody id="mahsulot">
                  
@@ -128,15 +126,20 @@ aside,#sa,header,#stat1,#stat,#searcher,#flexSwitchCheckChecked,#kamqolgan{
   <!--custome script for all page-->
   <script src="/js/scripts.js" ></script>
   <script>
-    
+    function searchBar(e){
+      if (e.keyCode==13)
+      window.location=`/get/debt?getpage=1&organ_name=${document.getElementById('searcher').value}`;
+    }
     let z=[];
     let qq=[];
     let x=0;
-    let alltranz=<%- JSON.stringify(alltranz)%>;
-     let count=<%- JSON.stringify(count)%>;
-     console.log(alltranz)
+    let dailyinfodata=<%- JSON.stringify(dailyinfodata)%>;
+    let count=<%- JSON.stringify(count)%>;
+    //console.log(count)
     const urlParams = new URLSearchParams(window.location.search);
 const pagenumber = parseInt(urlParams.get('getpage'));
+
+
 
 var select = document.getElementById("pagenation");
     for(let i=1;i<(count/100)+1;i++){
@@ -147,53 +150,57 @@ if (pagenumber==i){
     option.selected="selected";
 }
 select.appendChild(option);
-    //     if (pagenumber==i) 
-    //   document.getElementById('pagenation').innerHTML+=`<option selected="selected">${i}</option>`
-    //   else
-    //   document.getElementById('pagenation').innerHTML+=`<option >${i}</option>`
-      
     }
     function changelocation(pagenum){
-    //  console.log(pagenum)
-    window.location=`/sold/itemsinfo?getpage=${pagenum}&date=${document.getElementById('date').value}&product_id=${urlParams.get('product_id')}`
-
+      window.location=`/get/debt?getpage=${pagenum}`
     }
-    createTable(alltranz)
+    createTable(dailyinfodata)
     
-    function createTable(alltranz){
+    function createTable(dailyinfodata){
       qq=[];
       x++;
-      s=`<tr> <th >
-        <i  class="fa fa-number" >
-            </i>Порядковый Номер</th>
-                      <th onclick="sorting1(1)" ondblclick="sorting2(1)" >
-                  <i  class="fa fa-shopping-cart" >
-                      </i>  Название</th><th><i class="icon_calendar" ></i>Soni</th><th>CustomerName<th/> <th><i class="icon_calendar" ></i>Sanasi</th> 
-                           </tr>`;
+      s=`<tr> <th >Tartib R..</th>
+                      <th>Nomi</th>  
+                      <th>Barkod</th>
+                      <th>Narxi</th>
+                      <th>Sanasi</th></tr>`      
       var table = document.getElementById('mahsulot')
-      for (var i = 0; i < alltranz.length; i++) 
+      for (var i = 0; i < dailyinfodata.length; i++) 
      {
-      s+=` <tr style="font-size:20px;color:black"  id="tr${i}"><td>${((pagenumber-1)*100)+i+1}</td><td>${alltranz[i].name}</td>  <td>${alltranz[i].pr_count}</td><td>${alltranz[i].customername}</td> <td></td><td>${alltranz[i].cr_date}</td>  </tr>`
+      s+=` <tr style="font-size:20px;color:black"  id="tr${i}"><td>${((pagenumber-1)*100)+i+1}</td><td>${dailyinfodata[i].name}</td> <td>${dailyinfodata[i].barcode}</td> <td>${dailyinfodata[i].sellprice}</td><td>${dailyinfodata[i].cr_date}</td> <td><a class="btn btn-primary" href="yangilash.html?id">
+                      <i class="fa fa-edit"></i></a> 
+        
+       <a class="btn btn-danger" onclick="return check()" href="/api/delete/"  rel="nofollow" href="#"><i class="fa fa-trash"></i></a> 
+            </div> </td> </tr>`
        }
       table.innerHTML=s;
-        }       
-      function ExportToExcel(type, fn, dl) {
-       var elt = document.getElementById('tbl_exporttable_to_xls');
-       var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
-       return dl ?
-         XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
-         XLSX.writeFile(wb, fn || ('MySheetName.' + (type || 'xlsx')));
-    }
-      function round(value, precision) {
-    var multiplier = Math.pow(10, precision || 0);
-    return Math.round(value * multiplier) / multiplier;
-}
+        }
+       
+       
+  
       function check(){
         t=confirm("Ochirilsinmi?");
           return t;
       }
       
      
+     function mana(s){
+      //  console.log(s);
+      var r=confirm('Удалить?')
+      if (r==true){
+      $.ajax({
+      url: `/api/delete/${s}`,
+      type: 'GET', cache: false, dataType: 'json',
+      contentType: 'application/json', 
+      success: function (data) { 
+        // console.log(data)
+     if (data.status){
+      location.reload();
+     }
+    },
+    })
+    }
+  }
      </script>
     
 </body>
