@@ -74,8 +74,9 @@
                 Таблица продуктов
 
               </header>
-              
-              
+              <center><h1 id="qarz"></h1></center>
+              <center>  <a href="" id="pay" class="btn btn-primary" >To'lash</a></center>
+              <br>
               <table class="table table-advance" id="tbl_exporttable_to_xls">
                 <form class="navbar-form" onsubmit="return false;">
                   <input class="form-control" placeholder="Qidiruv"id="searcher"  onkeyup="searchBar(event)" type="text">
@@ -84,6 +85,7 @@
                  
                 </tbody>
               </table>
+          
             </section>
           </div>
         </div>
@@ -132,14 +134,17 @@ aside,#sa,header,#stat1,#stat,#searcher,#flexSwitchCheckChecked,#kamqolgan{
     let z=[];
     let qq=[];
     let x=0;
-    let debtor=<%- JSON.stringify(debtor)%>;
+    let payed=<%- JSON.stringify(payed)%>;
+    
     let count=<%- JSON.stringify(count)%>;
+    let payeddebt=<%- JSON.stringify(payeddebt)%>;
+    let debt=<%- JSON.stringify(alldebt)%>;
+    let debtor_name=<%- JSON.stringify(debtor_name)%>;
+document.getElementById('qarz').innerHTML=`Qarzdor:${debtor_name}<br>Qarz:${(debt-payeddebt)}`
     //console.log(count)
     const urlParams = new URLSearchParams(window.location.search);
 const pagenumber = parseInt(urlParams.get('getpage'));
-
-
-
+document.getElementById('pay').href=`/paydebt?debtor_id=${urlParams.get('debtor_id')}`
 var select = document.getElementById("pagenation");
     for(let i=1;i<(count/100)+1;i++){
         var option = document.createElement("option");
@@ -155,26 +160,30 @@ select.appendChild(option);
       window.location=`/get/debt?getpage=${pagenum}`
 
     }
-    createTable(debtor)
+    createTable(payed)
     
-    function createTable(debtor){
+    function createTable(payed){
       qq=[];
       x++;
       s=`<tr> <th >
         <i  class="fa fa-number" >
             </i>Порядковый Номер</th>
-                      <th onclick="sorting1(1)" ondblclick="sorting2(1)" >
-                  <i  class="fa fa-shopping-cart" >
-                      </i>  Название</th>  <th><i class="icon_calendar" ></i>Sanasi</th> 
-                          <th id="stat"><i class="icon_cogs">
-                            </i> Статистика</th> </tr>`;
+                      <th >
+                  
+                       Naqd</th> 
+                       <th >
+                  
+                        Plastik</th>
+                  <th >
+                  
+                  Pul Ko'chirish</th>
+                   <th>Sanasi</th> 
+                         </tr>`;
       var table = document.getElementById('mahsulot')
-      for (var i = 0; i < debtor.length; i++) 
+      for (var i = 0; i < payed.length; i++) 
      {
-      s+=` <tr style="font-size:20px;color:black"  id="tr${i}"><td>${((pagenumber-1)*100)+i+1}</td><td>${debtor[i].debtor_name}</td>  <td>${debtor[i].debtor_number}</td> <td><a class="btn btn-primary" href="/get/debtinfo?debtor_id=${debtor[i].debtor_id}&getpage=1">
-                     Olingan Qarzlar</a> 
-        
-       <a class="btn btn-success"    rel="nofollow" href="/paydebtinfo?debtor_id=${debtor[i].debtor_id}&getpage=1">To'langan Qarzlar</a> 
+      s+=` <tr style="font-size:20px;color:black"  id="tr${i}"><td>${((pagenumber-1)*100)+i+1}</td><td>${payed[i].cash}</td>  <td>${payed[i].card}</td><td>${payed[i].transfer}</td><td>${payed[i].cr_date}</td> 
+       
             </div> </td> </tr>`
        }
       table.innerHTML=s;

@@ -233,6 +233,7 @@
     }
     
   }
+
       function createTable(Mahsulotlar, pagename) {
         begin = 0;
         end = Mahsulotlar.length;
@@ -270,10 +271,12 @@
            
                         </i> Входящая цена
 </th> 
-                     
+<th>
+                          
+                        </i>KURSNI Tanlang</th>  
                         <th>
                           
-                          </i>Процентов</th>
+                          </i>Процентов</th>  
                           <th>
                           
                         </i>Цена продажи
@@ -283,12 +286,13 @@
                             </i> Добавлять</th> <th id="stat">
                              Gen Barkod</th> </tr>`;
           var table = document.getElementById('mahsulot')
-
+f=1
     s+=`<tr   style="font-size:20px;color:black;" id="tr${1}"><td>${0}</td><td><input type="text"  id="ssxs"></td><td>${0}</td> <td >${0}</td><td>${0}</td> 
                   <td><input type="number" tabindex=${1 * 3 + 3} name="${document.getElementById("ssxs")}" id="a${"80S565EA"}"  soni="${0}" value="${0}" class="form-control" style="font-size:20px;color:black" /></td> <td></td>
                   <td><input type="number" tabindex=${1 * 3 + 3} name="${document.getElementById("ssxs")}" id="s${"80S565EA"}"  soni="${0}" class="form-control" style="font-size:20px;color:black" /></td> 
                      <td><input type="number" tabindex=${1 * 3 + 3} name="${document.getElementById("ssxs")}" id="s${"80S565EA"}"  soni="${0}" class="form-control" style="font-size:20px;color:black" /></td>
-                      <td><input type="number" tabindex=${1 * 3 + 3} name="${document.getElementById("ssxs")}" id="s${"80S565EA"}"  soni="${0}" onkeyup="foizchiqar(this.value,this.id)" class="form-control" style="font-size:20px;color:black" /></td> 
+                     <td><select tabindex=${1 * 3 + 3} name="${document.getElementById("ssxs")}" id="s${"80S565EA"}"  soni="${0}" class="form-control" style="font-size:20px;color:black"><option value="1">UZS</option><option value="0">USD</option></select></td> 
+                     <td><input type="number" tabindex=${1 * 3 + 3} name="${document.getElementById("ssxs")}" id="s${"80S565EA"}"  soni="${0}" onkeyup="foizchiqar(this.value,this.id)" class="form-control" style="font-size:20px;color:black" /></td> 
                       <td><input type="number" tabindex=${1 * 3 + 3} name="${document.getElementById("ssxs")}" id="s${"80S565EA"}"  soni="${0}" onkeyup="narxchiqar(this.value,this.id)" class="form-control" style="font-size:20px;color:black" /></td> 
                       <td id="stat1"> <div class="btn-group"> 
                         <button class="btn btn-success"  id="s80S565EA" name="${0}" tabindex=${f * 3 + 4}   onclick="adds(this.id,this.name,${0})">
@@ -312,8 +316,12 @@
                     
                   <td><input type="number" tabindex=${f * 3 + 3} name="${xname}" id="s${xid}"  soni="${xcountnum}" class="form-control" style="font-size:20px;color:black" /></td> 
                      <td><input type="number" tabindex=${f * 3 + 3} name="${xname}" id="s${xid}"  soni="${xcountnum}" class="form-control" style="font-size:20px;color:black" /></td>
-                      <td><input type="number" tabindex=${f * 3 + 3} name="${xname}" id="s${xid}"  soni="${xcountnum}" onkeyup="foizchiqar(this.value,this.id)" class="form-control" style="font-size:20px;color:black" /></td> 
+                     <td><select tabindex=${1 * 3 + 3} name="${xname}" id="s${"80S565EA"}"  soni="${0}" class="form-control" style="font-size:20px;color:black"><option value="1">UZS</option><option value="0">USD</option></select></td> 
+                     
+                     <td><input type="number" tabindex=${f * 3 + 3} name="${xname}" id="s${xid}"  soni="${xcountnum}" onkeyup="foizchiqar(this.value,this.id)" class="form-control" style="font-size:20px;color:black" /></td> 
+                      
                       <td><input type="number" tabindex=${f * 3 + 3} name="${xname}" id="s${xid}"  soni="${xcountnum}" onkeyup="narxchiqar(this.value,this.id)" onkeypress="if(event.keyCode == 13){add(this.id,${xcountnum},${xprice},${xid})}" class="form-control" style="font-size:20px;color:black" /></td> 
+                      
                       <td id="stat1"> <div class="btn-group"> 
                         <button class="btn btn-success"  id="s${xid}" name="${xcountnum}" tabindex=${f * 3 + 4}   onclick="add(this.id,this.name,${xprice},${xid})">
                       <i class="icon_plus_alt2"></i></button> 
@@ -329,7 +337,7 @@ function foizchiqar(foiz,id){
   foiz=parseFloat(foiz);
   narx=parseFloat(document.querySelectorAll(`#${id}`)[1].value)
   foiz=narx+((narx/100)*foiz)
-  document.querySelectorAll(`#${id}`)[3].value=foiz;
+  document.querySelectorAll(`#${id}`)[4].value=foiz;
 }
 function narxchiqar(snarx,id){
   console.log(snarx)
@@ -337,7 +345,7 @@ function narxchiqar(snarx,id){
   narxi=parseFloat(document.querySelectorAll(`#${id}`)[1].value)
   console.log(narxi)
   foiz=((snarx*100)/narxi)-100;
-  document.querySelectorAll(`#${id}`)[2].value=foiz;
+  document.querySelectorAll(`#${id}`)[3].value=foiz;
 }
     
   var allitems=<%- JSON.stringify(allitems) %>
@@ -384,6 +392,7 @@ function genBar(s){
         }
       }
       var jami = 0;
+      var kurs=[];
       var idfornews=[]
       var allid=[]
       var newBarkod=[]
@@ -559,9 +568,11 @@ function genBar(s){
         var barkodx="a"+s.slice(1);
    soni=parseFloat(document.querySelectorAll(`#${s}`)[0].value)
    onarxi=parseFloat(document.querySelectorAll(`#${s}`)[1].value)
-   sfoiz=parseFloat(document.querySelectorAll(`#${s}`)[2].value)
-  snarxi=parseFloat(document.querySelectorAll(`#${s}`)[3].value)
-     if (!parseFloat(document.querySelectorAll(`#${s}`)[0].value) || !parseFloat(document.querySelectorAll(`#${s}`)[1].value) || !parseFloat(document.querySelectorAll(`#${s}`)[2].value) || !parseFloat(document.querySelectorAll(`#${s}`)[3].value)){
+   kursValue=parseFloat(document.querySelectorAll(`#${s}`)[2].value)
+   sfoiz=parseFloat(document.querySelectorAll(`#${s}`)[3].value)
+  snarxi=parseFloat(document.querySelectorAll(`#${s}`)[4].value)
+  console.log(soni,onarxi,kursValue,sfoiz,snarxi)
+     if (!parseFloat(document.querySelectorAll(`#${s}`)[0].value) || !parseFloat(document.querySelectorAll(`#${s}`)[1].value)  || !parseFloat(document.querySelectorAll(`#${s}`)[3].value)){
       alert("Пожалуйста, введите информацию правильно")
       return 0;
      }
@@ -588,6 +599,7 @@ function genBar(s){
             arrayPrice.push(parseFloat(snarxi));
             arrayCount.push(parseFloat(document.getElementById(s).value));
             arrayName.push(document.getElementById("ssxs").value);
+            kurs.push(kursValue)
             arrayFoiz.push(sfoiz)
             arrayBazaCount.push(soni);
             arrayBazaNarx.push(onarxi);
@@ -638,6 +650,7 @@ function genBar(s){
             arrayPrice.push(parseFloat(snarxi));
             arrayCount.push(parseFloat(document.getElementById(s).value));
             arrayName.push(document.getElementById(s).name);
+            kurs.push(kursValue)
             arrayFoiz.push(sfoiz)
             arrayBazaCount.push(soni);
             arrayBazaNarx.push(onarxi);
@@ -647,12 +660,13 @@ function genBar(s){
           }
        
       }
-
+createTable([])
   
       function addminus(s) {
         dict[arrayName[s]] = 0;
         arrayCount.splice(s, 1);
         arrayName.splice(s, 1);
+        kurs.splice(s,1);
         arrayPrice.splice(s, 1);
         arrayBazaCount.splice(s, 1);
         arrayBazaNarx.splice(s, 1);
@@ -697,7 +711,7 @@ function genBar(s){
             cache: false,
             contentType: 'application/json',
             dataType: 'json',
-            data: JSON.stringify({ curiername: kurier(), summa: jami, naqd: naqd, plastik: plastik, pulkochrish: pulkochrish, qarz: qarz, minusName: arrayName, minusCount: arrayCount, payment: arraySell, organid: organid, minusPayment: arrayPrice, check: true, skidka: skidka(), bazanarx:arrayBazaNarx,barkod:newBarkod,idfornews:idfornews,allid:allid}),
+            data: JSON.stringify({ curiername: kurier(), summa: jami, naqd: naqd, plastik: plastik, pulkochrish: pulkochrish, qarz: qarz, minusName: arrayName,kurs:kurs, minusCount: arrayCount, payment: arraySell, organid: organid, minusPayment: arrayPrice, check: true, skidka: skidka(), bazanarx:arrayBazaNarx,barkod:newBarkod,idfornews:idfornews,allid:allid}),
             success: data => {
             }
           })

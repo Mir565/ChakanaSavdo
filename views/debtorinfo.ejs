@@ -60,6 +60,7 @@
         </div>
         <select name="" id="pagenation" onchange="changelocation(this.value)" ></select>
         <center> 
+          <h1 id="qarz"></h1>
         <h3 style="color: black;" id="tovarsoni"> </h3> 
         <h3 style="color: black;" id="tovar"></h3>
               <h3 style="color: black;"id="sotilishi"></h3>
@@ -75,16 +76,17 @@
 
               </header>
               
-              
+              <center>  <a href="" id="pay" class="btn btn-primary" >To'lash</a></center>
+              <br>
               <table class="table table-advance" id="tbl_exporttable_to_xls">
                 <form class="navbar-form" onsubmit="return false;">
                   <input class="form-control" placeholder="Qidiruv"id="searcher"  onkeyup="searchBar(event)" type="text">
                 </form>
-               
                 <tbody id="mahsulot">
                  
                 </tbody>
               </table>
+          
             </section>
           </div>
         </div>
@@ -126,6 +128,7 @@ aside,#sa,header,#stat1,#stat,#searcher,#flexSwitchCheckChecked,#kamqolgan{
   <!--custome script for all page-->
   <script src="/js/scripts.js" ></script>
   <script>
+    
     function searchBar(e){
       if (e.keyCode==13)
       window.location=`/get/debt?getpage=1&organ_name=${document.getElementById('searcher').value}`;
@@ -133,12 +136,18 @@ aside,#sa,header,#stat1,#stat,#searcher,#flexSwitchCheckChecked,#kamqolgan{
     let z=[];
     let qq=[];
     let x=0;
-    let debtor=<%- JSON.stringify(debtor)%>;
+    let debtor=<%- JSON.stringify(debtor)%>
+    let payed=<%- JSON.stringify(payed)%>
+    let debt=<%- JSON.stringify(alldebt)%>
+    let debtor_name=<%- JSON.stringify(debtor_name)%>
+console.log(debt-payed)
+document.getElementById('qarz').innerHTML=`Qarzdor:${debtor_name}<br>Qarz:${(debt-payed)}`
+
     let count=<%- JSON.stringify(count)%>;
     //console.log(count)
     const urlParams = new URLSearchParams(window.location.search);
 const pagenumber = parseInt(urlParams.get('getpage'));
-
+document.getElementById('pay').href=`/paydebt?debtor_id=${debtor[0].debtor_id}`
 
 
 var select = document.getElementById("pagenation");
@@ -172,10 +181,8 @@ select.appendChild(option);
       var table = document.getElementById('mahsulot')
       for (var i = 0; i < debtor.length; i++) 
      {
-      s+=` <tr style="font-size:20px;color:black"  id="tr${i}"><td>${((pagenumber-1)*100)+i+1}</td><td>${debtor[i].debt}</td>  <td>${debtor[i].debt_order_id}</td> <td><a class="btn btn-primary" href="yangilash.html?id">
-                      <i class="fa fa-edit"></i></a> 
-        
-       <a class="btn btn-danger" onclick="return check()" href="/api/delete/"  rel="nofollow" href="#"><i class="fa fa-trash"></i></a> 
+      s+=` <tr style="font-size:20px;color:black"  id="tr${i}"><td>${((pagenumber-1)*100)+i+1}</td><td>${debtor[i].debt}</td>  <td>${debtor[i].cr_date}</td> <td><a class="btn btn-primary" href="/get/dailyinfo?order_id=${debtor[i].debt_order_id}&getpage=1">
+                    Malumot</a> 
             </div> </td> </tr>`
        }
       table.innerHTML=s;

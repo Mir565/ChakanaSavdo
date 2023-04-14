@@ -10,6 +10,7 @@ router.get('/get/daily',checker,async(req,res)=>{
 })
 router.get('/get/dailyinfo',checker,async(req,res)=>{
     dailyinfodata=await RunSQL("select * from tranzactions join products on products.product_id=tranzactions.product_id  where order_id=?",[req.query.order_id])
+    console.log(dailyinfodata)
     res.render('dailyinfo',{
         dailyinfodata:dailyinfodata,
         count:0

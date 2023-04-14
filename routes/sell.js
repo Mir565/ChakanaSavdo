@@ -46,10 +46,16 @@ router.post('/add/sell',async(req,res)=>{
     for(let i=0;i<req.body.minusCount.length;i++){
         insertfortranz.push([allid[i],minusCount[i],1,order_id])
         if (debt>0){
+            const debtorid=await RunSQLOne("Select debtor_id from debtor where debtor_name like ? limit 1",[customername])
+            console.log(debtorid)
+            if(debtorid){
+                await RunSQL("INSERT INTO debt(debtor_id,debt,debt_order_id,debt_descript)values(?,?,?,?)",[debtorid.debtor_id,debt,order_id,""])           
+            }else{
             const data1=await RunSQL("INSERT INTO debtor(debtor_id,debtor_name,debtor_number)values(?,?,?)",[debtor_id,customername,telnumber])
             console.log(data1)
             await RunSQL("INSERT INTO debt(debtor_id,debt,debt_order_id,debt_descript)values(?,?,?,?)",[debtor_id,debt,order_id,""])
         }
+    }
     await RunSQL("INSERT INTO allsumma(cash,card,transfer,debt,order_id,user_id) Values(?,?,?,?,?,?)",[cash,card,transfer,debt,order_id,req.session.user_id])
     await RunSQL("INSERT INTO tranzactions(product_id,pr_count,price,sellprice,organ_id,order_id,customername,curiername) Values(?,?,?,?,?,?,?,?)",[allid[i],minusCount[i],bazanarx[i],minusPayment[i],organid,order_id,customername,curiername])
     await RunSQLOne("SELECT count(*)as cnt from filial_count where product_id=? and pr_user_id=?",[allid[i],1])

@@ -13,15 +13,13 @@ router.get('/update/tranzactioninfo',async(req,res)=>{
     let newCount=parseInt(req.query.count)-parseInt(req.query.prev_count);
     const updateitem=await RunSQL('UPDATE products SET pr_count=pr_count+? where product_id=?',[newCount,req.query.product_id])
     console.log(updateitem)
-    const data=await RunSQL('UPDATE tranzactions SET pr_count=? where tranz_id=?',[parseInt(req.query.count),parseInt(req.query.tranz_id)])
+    const data=await RunSQL('UPDATE organtranzactions SET pr_count=? where tranz_id=?',[parseInt(req.query.count),parseInt(req.query.tranz_id)])
     res.json({msg:'updated'})
 })
 
 router.get('/get/tranzactioninfo',async(req,res)=>{
-    const alltranzinfo=await RunSQL("SELECT  tr.*,pr.name,pr.barcode,pr.product_id FROM  tranzactions tr join products pr on  pr.product_id=tr.product_id  where order_id=? limit ? offset ?",[req.query.order_id,100,(parseInt(req.query.getpage)-1)*100]);
-   console.log(alltranzinfo)
-    const count=await RunSQLOne("SELECT count(*) as cnt FROM  tranzactions tr where order_id=?",[req.query.order_id]);
-    console.log(count)
+    const alltranzinfo=await RunSQL("SELECT  tr.*,pr.name,pr.barcode,pr.product_id FROM  organtranzactions tr join products pr on  pr.product_id=tr.product_id  where order_id=? limit ? offset ?",[req.query.order_id,100,(parseInt(req.query.getpage)-1)*100]);
+    const count=await RunSQLOne("SELECT count(*) as cnt FROM  organtranzactions tr where order_id=?",[req.query.order_id]);
     res.render('alltranzinfo',{
         alltranzinfo:alltranzinfo,
         count:count.cnt

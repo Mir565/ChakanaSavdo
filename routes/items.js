@@ -9,7 +9,7 @@ router.get('/add/item', checker, async (req, res) => {
     })
 })
 router.post('/add/item', async(req, res) => {
-    const {allid, minusName, minusCount, minusPayment, bazanarx, barkod, idfornews, organid, curiername, summa } = req.body;
+    const {kurs,allid, minusName, minusCount, minusPayment, bazanarx, barkod, idfornews, organid, curiername, summa } = req.body;
     console.log(allid)
     let inserting = []
     let updating = []
@@ -17,19 +17,18 @@ router.post('/add/item', async(req, res) => {
     let inserttranzfororgan = []
     order_id = "id" + Math.random().toString(16).slice(2)
     inserttranzfororgan.push([curiername, summa, organid, order_id])
-    for (let i = 0; i < req.body.minusName.length; i++) {
+    for (let i = 0; i < req.body.minusName.length; i++){
         insertfortranz.push([minusCount[i], bazanarx[i], parseInt(organid), order_id])
-        if (idfornews[i])
-            
+        if (idfornews[i])   
         {
-            inserting.push([minusName[i], barkod[i],1,bazanarx[i], minusPayment[i]])
+            inserting.push([minusName[i], barkod[i],1,bazanarx[i], minusPayment[i],kurs[i]])
         }
         else{
-            await RunSQL("UPDATE products SET  price=?,sell_price=? WHERE product_id=?", [bazanarx[i], minusPayment[i], allid[i]])
+            await RunSQL("UPDATE products SET  price=?,sell_price=?,ISSUM=?  WHERE product_id=?", [bazanarx[i], minusPayment[i], kurs[i],allid[i]])
             await RunSQL("UPDATE filial_count SET  pr_count=pr_count+? WHERE product_id=? and pr_user_id=?", [minusCount[i],allid[i],req.session.user_id])
         }
         }
-        await RunSQL("INSERT INTO products(name, barcode,category_id,price,sell_price) VALUES ?", [inserting])
+        const datalog=await RunSQL("INSERT INTO products(name, barcode,category_id,price,sell_price,ISSUM) VALUES ?", [inserting])
         for (let i = 0; i < minusCount.length; i++) {
         let { product_id } = await RunSQLOne("SELECT product_id from products where barcode=?", [barkod[i]])
         if (idfornews[i])
@@ -41,9 +40,9 @@ router.post('/add/item', async(req, res) => {
             }
         insertfortranz[i].push(product_id)
     }
-    const insertingfortranz = await RunSQL("INSERT INTO tranzactions(pr_count,price,organ_id,order_id,product_id) VALUES ?", [insertfortranz])
+    const insertingfortranz = await RunSQL("INSERT INTO organtranzactions(pr_count,price,organ_id,order_id,product_id) VALUES ?", [insertfortranz])
     const insertfortranzall = await RunSQL("INSERT INTO tranzbyorderid(organ_name,summa,organ_id,order_id) VALUES ?", [inserttranzfororgan])
-    console.log(insertfortranzall)
+
     res.json([]);
 })
 router.get('/search/item', async (req, res) => {
