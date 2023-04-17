@@ -1,6 +1,6 @@
 const checkerAdmin=async(req,res,next)=>{
     if (req.session.rol=="admin"){
-        console.log(req.session.rol)
+      
         next()
     }
     else{

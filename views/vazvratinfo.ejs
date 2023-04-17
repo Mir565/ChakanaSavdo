@@ -58,7 +58,7 @@
             </ol>
           </div>
         </div>
-      
+        <select name="" id="pagenation" onchange="changelocation(this.value)" ></select>
         <center> 
         <h3 style="color: black;" id="tovarsoni"> </h3> 
         <h3 style="color: black;" id="tovar"></h3>
@@ -78,28 +78,14 @@
               
               <table class="table table-advance" id="tbl_exporttable_to_xls">
                 <form class="navbar-form" onsubmit="return false;">
-                  <label for="searcherbarkod">Barkod</label>
-                  <input class="form-control" placeholder="Qidiruv Barkod" id="searcherbarkod"  onkeyup="searchBar(event)" type="text">
-                
-                  <label for="searchertext">Nomi</label>
-                  <input class="form-control" placeholder="Qidiruv Nomi" id="searchertext"  onkeyup="searchText(event)" type="text">
+                  <input class="form-control" placeholder="Qidiruv"id="searcher"  onkeyup="searchBar(event)" type="text">
                 </form>
-               <br>
+               
                 <tbody id="mahsulot">
+                 
                 </tbody>
               </table>
             </section>
-           <center>
-            <h1>Jadval</h1>
-          <button type="submit" class="btn btn-primary" onclick="send()">Tasdiqlash</button> 
-          <br>
-          </center> 
-           
-            <table class="table table-advance" id="tbl_exporttable_to_xls">
-              <tbody id="vazvrattable">
-                 
-              </tbody>
-            </table>
           </div>
         </div>
         <!-- page end-->
@@ -142,11 +128,7 @@ aside,#sa,header,#stat1,#stat,#searcher,#flexSwitchCheckChecked,#kamqolgan{
   <script>
     function searchBar(e){
       if (e.keyCode==13)
-      window.location=`/get/vazvrat/searchbybarkod?barkod=${document.getElementById('searcherbarkod').value}&order_id=${urlParams.get('order_id')}`;
-    }
-    function searchText(e){
-      if (e.keyCode==13)
-      window.location=`/get/vazvrat/searchbytext?name=${document.getElementById('searchertext').value}&order_id=${urlParams.get('order_id')}`;
+      window.location=`/get/debt?getpage=1&organ_name=${document.getElementById('searcher').value}`;
     }
     let z=[];
     let qq=[];
@@ -182,103 +164,25 @@ select.appendChild(option);
                       <th>Soni</th>    
                       <th>Barkod</th>
                       <th>Narxi</th>
-                      <th>Sanasi</th>
-                      <th>Qaytarib Ol Soni </th>
-                      <th>Qaytarib Olinadigan Narxi</th>
-                      <th>Qo'shish</th>
-                      </tr>`      
+                      <th>Sanasi</th></tr>`      
       var table = document.getElementById('mahsulot')
       for (var i = 0; i < dailyinfodata.length; i++) 
      {
-      s+=` <tr style="font-size:20px;color:black"  id="tr${i}"><td>${i+1}</td><td>${dailyinfodata[i].name}</td><td>${dailyinfodata[i].pr_count}</td> <td>${dailyinfodata[i].barcode}</td> <td>${dailyinfodata[i].sellprice}</td><td>${dailyinfodata[i].cr_date}</td> <td> <input  id="soni${dailyinfodata[i].tranz_id}" type="number" class="form-control" />
-        <td/><input id="narxi${dailyinfodata[i].tranz_id}"  type="number" class="form-control" /> <td/>  <a class="btn btn-primary" onclick="add('${dailyinfodata[i].tranz_id}')">
-                 
-        <i class="fa fa-plus"></i></a> 
+      s+=` <tr style="font-size:20px;color:black"  id="tr${i}"><td>${i+1}</td><td>${dailyinfodata[i].name}</td><td>${dailyinfodata[i].vazvratcount}</td> <td>${dailyinfodata[i].barcode}</td> <td>${dailyinfodata[i].vazvratprice}</td><td>${dailyinfodata[i].cr_date}</td> 
       
             </div> </td> </tr>`
        }
       table.innerHTML=s;
         }
        
-       function createTableForVazvrat(data){
- s=`<tr> <th >Tartib R..</th>
-                      <th>Nomi</th>
-                      <th>Qaytarib Ol Soni </th>
-                      <th>Qaytarib Olinadigan Narxi</th>
-                      <th>O'chirish</th>
-                      </tr>`  
-                      var table = document.getElementById('vazvrattable')
-      for (var i = 0; i < data.length; i++) 
-      {
-      s+=` <tr style="font-size:20px;color:black"  id="tr${i}"><td>${i+1}</td><td>${data[i].old.name}</td><td>${data[i].vazvratcount}</td><td>${data[i].vazvratprice}</td><td><button class="btn btn-danger" onclick="deletefromtable('id${data[i].old.tranz_id}')">O'chirish</button></td>
-            </div> </td> </tr>`
-      }
-      table.innerHTML=s;
-       }
-     
+       
+  
       function check(){
         t=confirm("Ochirilsinmi?");
           return t;
       }
-      let data=[]
-      if(localStorage.getItem('data')==null){
-        console.log(1)
-        data=[]
-      }else{
-        data=JSON.parse(localStorage.getItem('data'));
-       console.log(data)
-        createTableForVazvrat(data);
-      }
-      function add(order_id){
-console.log(order_id)
-let vazvratcount=parseFloat(document.getElementById(`soni${order_id}`).value);
-let vazvratprice=parseFloat(document.getElementById(`narxi${order_id}`).value);
-console.log(vazvratcount,vazvratprice)
-        for(let i=0;i<dailyinfodata.length;i++){
-          flag=0;
-          if (dailyinfodata[i].tranz_id==order_id){
-            for(let j=0;j<data.length;j++){
-              if (data[j].old.name==dailyinfodata[i].name){
-                if (data[j].vazvratcount+vazvratcount>data[j].old.pr_count){
-                  alert("Mahsulot oldin qo'shilgan! Hisoblashda xatolik tekshiring iltimos!!!")
-                  return 0;
-                }else{
-                data[j].vazvratcount+=vazvratcount;
-                data[j].vazvratprice=vazvratprice;
-                flag=1;
-                }
-              }
-            }
-            if (flag==0){
-              console.log(dailyinfodata[i])
-              if (vazvratcount>dailyinfodata[i].pr_count){
-                  alert("Buncha mahsulot sotilmagan! Hisoblashda xatolik tekshiring iltimos!!! ")
-                  return 0;
-                }else
-            data.push({"old":dailyinfodata[i],"vazvratcount":vazvratcount,"vazvratprice":vazvratprice});
-            }
-          }
-          if (flag){
-            break;
-          }
-        }
-        createTableForVazvrat(data)
-        localStorage.setItem('data',JSON.stringify(data));
-        document.getElementById(`soni${order_id}`).value=""
-        document.getElementById(`narxi${order_id}`).value=""
-      }
-      function deletefromtable(tranz_id){
-        console.log(tranz_id)
-        for (let i=0;i<data.length;i++){
-          console.log(data[i].old.tranz_id)
-          if ("id"+data[i].old.tranz_id==tranz_id){
-            data.splice(i,1);
-          }
-        }
-        localStorage.setItem('data',JSON.stringify(data));
-        createTableForVazvrat(data)
-      }
-
+      
+     
      function mana(s){
       //  console.log(s);
       var r=confirm('Удалить?')
@@ -296,23 +200,6 @@ console.log(vazvratcount,vazvratprice)
     })
     }
   }
-  function send(){
-    console.log(data[0].old)
-        $.ajax({
-            url: '/post/vazvrat',
-            type: "POST",
-            cache: false,
-            contentType: 'application/json',
-            dataType: 'json',
-            data: JSON.stringify({data:data}),
-            success: data => {
-              localStorage.clear();
-          location.reload();
-            }
-          })
-         
-
-       }
      </script>
     
 </body>

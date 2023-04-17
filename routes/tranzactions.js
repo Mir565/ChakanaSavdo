@@ -9,10 +9,10 @@ router.get('/all/tranzactions',async(req,res)=>{
     })
 })
 router.get('/update/tranzactioninfo',async(req,res)=>{
-    console.log(req.query)
+   
     let newCount=parseInt(req.query.count)-parseInt(req.query.prev_count);
     const updateitem=await RunSQL('UPDATE products SET pr_count=pr_count+? where product_id=?',[newCount,req.query.product_id])
-    console.log(updateitem)
+   
     const data=await RunSQL('UPDATE organtranzactions SET pr_count=? where tranz_id=?',[parseInt(req.query.count),parseInt(req.query.tranz_id)])
     res.json({msg:'updated'})
 })

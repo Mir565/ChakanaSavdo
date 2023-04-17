@@ -231,36 +231,15 @@ xaridorgen()
       function createTable(Mahsulotlar, pagename) {
         begin = 0;
         end = Mahsulotlar.length;
-          s = `<tr> <th >
-        
-        <i  class="fa fa-number" >
-            </i>После.. чисел
-</th>
-            <th  >
-               
-                      </i> Наим.. товара
-</th> 
-                      <th >
-                     
-                          </i> Остаток</th> 
-                      <th  >
-
-                       
-                        </i>Пред полученная цена
-</th> 
-                        <th >
-                     
-
-                        </i> Пред цена продажи
-</th> 
-                        <th  >
-               
-              </i>Barkod</th> 
-              <th >
-                        <th>Полу... количество
-
-</th> 
-                       
+          s = `<tr><th>После.. чисел</th>
+            <th>Tovar Nomi</th>
+            <th>Soni</th>
+                      <th>Olingan Narxi</th> 
+                        <th> Sotiladigan Narxi</th> 
+                        <th>Barkod</th> 
+                        <th>Sonini Kiriting</th> 
+                        <th>Narxi Kiriting</th> 
+                        <th>Qo'shish</th> 
                        </tr>`;
           var table = document.getElementById('mahsulot')
 
@@ -278,12 +257,13 @@ xaridorgen()
               var xbuyprice = Mahsulotlar[i].sell_price;
               var xid = Mahsulotlar[i].product_id;
                 s += `<tr   style="font-size:20px;color:black;background-color:${stylex}" id="tr${f}"><td>${i+1}</td><td>${xname}</td><td>${xcountnum}</td> <td >${xprice}</td><td>${xbuyprice}</td> 
-                  <td> <td>${xbarkod}</td>
+                 <td>${xbarkod}</td>
                     
-                  <td><input type="number" tabindex=${f * 3 + 3} name="${xname}" id="soni${xid}"  soni="${xcountnum}" class="form-control" style="font-size:20px;color:black" /></td> 
+                  <td><input type="number" tabindex=${f * 3 + 3} id="soni${xid}"  class="form-control" /></td>
+                  <td><input type="number" tabindex=${f * 3 + 3} id="narxi${xid}"  class="form-control" /></td>  
                       <td id="stat1"> <div class="btn-group"> 
                         <button class="btn btn-success"  id="s${xid}" name="${xcountnum}" tabindex=${f * 3 + 4}   onclick="add(${xid},'${xname}',${xcountnum},${xprice},${xbuyprice},'${xbarkod}')">
-                      <i class="icon_plus_alt2"></i></button> 
+                      <i class="icon_plus_alt2"></i></button> </td>
             </div>`
             } 
         table.innerHTML = s;
@@ -315,20 +295,19 @@ xaridorgen()
         jami = 0;
         arraySell = []
         xs = `<tr style="font-family:'Arial Narrow', Arial, sans-serif;font-size:23px"> <th>#N</th>
-       <th>Имя</th>
-      <th></th>
-      <th></th>
-        <th>Остаток</th>
-       
-    
+       <th>Nomi</th>
+        <th>Soni</th>
+        <th>Narxi</th>
+        <th>Jami</th>
       <th id="delete">Удалить
 </th>
       </tr>`;
         for (i = 0; i < arrayCount.length; i++) {
-          xs +=`<tr style="color:black;font-size:20px;font-family:'Arial Narrow', Arial, sans-serif;" ><td>${i + 1}</td><td> <b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;">${arrayName[i]}</b><td>        
-          <td></td>
-          <td ><b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;" onclick="changedata(s=${i})">${arrayCount[i]}</b></td>
+          xs +=`<tr style="color:black;font-size:20px;font-family:'Arial Narrow', Arial, sans-serif;" ><td>${i + 1}</td><td> <b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;">${arrayName[i]}</b></td>        
         
+          <td ><b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;" onclick="changedata(s=${i})">${arrayCount[i]}</b></td>
+          <td ><b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;" onclick="changebazanarx(s=${i})">${arrayPrice[i]}</b></td>
+          <td ><b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;" onclick="changedata(s=${i})">${arrayPrice[i]*arrayCount[i]}</b></td>
           <td><button class="btn btn-danger" id="delete1" onclick="addminus(s=${i})">удалить</button></td></tr>
           `
         }
@@ -337,9 +316,8 @@ xaridorgen()
         document.getElementById('mahsulot1').innerHTML = xs;
       }
       function changedata(index){
-        console.log(index);
         t=prompt("soni")
-        if (parseInt(t)){
+        if (parseInt(t) && parseInt(t)<=arrayBazaCount[i]){
           arrayCount[index]=parseInt(t);
           createTable1();
         }
@@ -347,26 +325,14 @@ xaridorgen()
         alert("Error!")       
       }
       function changebazanarx(index){
-        console.log(index);
-        t=prompt("OlinganNarx")
-        if (parseInt(t)){
-          arrayBazaNarx[index]=parseInt(t);
-          createTable1();
-          ram();
-        }
-        else
-        alert("Error!")       
-      }
-      function changebazasotuv(index){
-        console.log(index);
-        t=prompt("SotuvNarxi")
-        if (parseInt(t)){
+      
+        t=prompt("Narxni kiriting")
+        if (parseInt(t)&& arrayBazaNarx[i]<t){
           arrayPrice[index]=parseInt(t);
           createTable1();
-          ram();
         }
         else
-        alert("Error!")       
+        alert("Mahsulot zararga sotilyapti yoki boshqa error!")       
       }
       var naqd, plastik, qarz, pulkochrish, kun, summa, telnumber;
       function skidka() {
@@ -433,8 +399,17 @@ xaridorgen()
         createTable1();
       }
      
-      function add(xid,xname,xcountnum,xprice,xbuyprice,xbarkod) {
+      function add(xid,xname,xcountnum,xprice,xbuyprice,xbarkod){
         count=parseFloat(document.getElementById('soni'+xid).value);
+        narxi=parseFloat(document.getElementById('narxi'+xid).value);
+        if (xprice>=narxi){
+          alert("Mahsulotni zararga sotib bo'lmaydi")
+          return 0;
+        }
+        if (xcountnum<count){
+                  alert ("bazada buncha mahsulot mavjud emas!")
+                  return 0;
+                }
         document.getElementById("searcher").value="";
         document.getElementById('searcher1').value="";
         document.getElementById("searcher").focus();
@@ -442,7 +417,11 @@ xaridorgen()
           flag = 0;
           for (let i = 0; i < arrayName.length; i++) {
             if (arrayName[i] === xname) {
-                arrayCount[i]+=count;
+                if (arrayCount[i]+count>xcountnum){
+                  alert ("bazada buncha mahsulot mavjud emas!")
+                  return 0;
+                } 
+                arrayPrice[i]=narxi;
                 arrayCount[i] = arrayCount[i] + count;
                 createTable1();
                 createTable([])
@@ -452,7 +431,7 @@ xaridorgen()
           if (flag == 0) {
         arrayCount.push(count);
         arrayName.push(xname);
-        arrayPrice.push(xbuyprice);
+        arrayPrice.push(narxi);
         arrayBazaCount.push(xcountnum);
         arrayBazaNarx.push(xprice);
         allid.push(xid);
@@ -461,8 +440,6 @@ xaridorgen()
         createTable1();
           }
       }
-
-  
       function addminus(s) {
         dict[arrayName[s]] = 0;
         arrayCount.splice(s, 1);

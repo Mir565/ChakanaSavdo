@@ -8,8 +8,7 @@ router.get('/mag/get/sell',async(req,res)=>{
     })
 })
 router.post('/mag/add/sell',async(req,res)=>{
-    console.log(req.body)
-    console.log(req.session.user_id)
+   
     const{pulkochrish,plastik,naqd,minusName,minusCount,minusPayment,bazanarx,barkod,idfornews,organid,curiername,summa,allid}=req.body;
     let inserting=[]
     let updating=[]
@@ -47,12 +46,11 @@ router.post('/add/sell',async(req,res)=>{
         insertfortranz.push([allid[i],minusCount[i],1,order_id])
         if (debt>0){
             const debtorid=await RunSQLOne("Select debtor_id from debtor where debtor_name like ? limit 1",[customername])
-            console.log(debtorid)
-            if(debtorid){
+             if(debtorid){
                 await RunSQL("INSERT INTO debt(debtor_id,debt,debt_order_id,debt_descript)values(?,?,?,?)",[debtorid.debtor_id,debt,order_id,""])           
             }else{
             const data1=await RunSQL("INSERT INTO debtor(debtor_id,debtor_name,debtor_number)values(?,?,?)",[debtor_id,customername,telnumber])
-            console.log(data1)
+           
             await RunSQL("INSERT INTO debt(debtor_id,debt,debt_order_id,debt_descript)values(?,?,?,?)",[debtor_id,debt,order_id,""])
         }
     }

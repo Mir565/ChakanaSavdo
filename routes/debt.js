@@ -1,7 +1,7 @@
 router.get('/get/debt',checker,async(req,res)=>{
     const debtor=await RunSQL("select * from debtor  limit 100 offset ?",[(parseInt(req.query.getpage) - 1) * 100]);
     const count =await RunSQLOne("select  count(*) as cnt from debtor");
-    console.log(count)
+   
     res.render('debt',{
         debtor:debtor,
         count:count.cnt

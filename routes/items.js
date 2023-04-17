@@ -10,7 +10,7 @@ router.get('/add/item', checker, async (req, res) => {
 })
 router.post('/add/item', async(req, res) => {
     const {kurs,allid, minusName, minusCount, minusPayment, bazanarx, barkod, idfornews, organid, curiername, summa } = req.body;
-    console.log(allid)
+ 
     let inserting = []
     let updating = []
     let insertfortranz = []
@@ -33,10 +33,9 @@ router.post('/add/item', async(req, res) => {
         let { product_id } = await RunSQLOne("SELECT product_id from products where barcode=?", [barkod[i]])
         if (idfornews[i])
             {
-                console.log('entered')
-                console.log(req.session.user_id)
+               
                 const data1=await RunSQL("INSERT INTO filial_count(product_id,pr_count,pr_user_id) VALUES (?,?,?)", [product_id,minusCount[i],req.session.user_id])  
-           console.log(data1)
+         
             }
         insertfortranz[i].push(product_id)
     }
@@ -78,13 +77,13 @@ router.get('/get/barkod', async (req, res) => {
 })
 router.get('/update/item', checkerAdmin,async (req, res) => {
     const data = await RunSQL("SELECT * FROM  products pr join filial_count fc on pr.product_id=fc.product_id where fc.pr_user_id=? and fc.product_id=?", [req.session.user_id,req.query.id])
-    console.log(data)
+   
     res.render('updateitem', {
         data: data
     })
 })
 router.post('/update/item', checkerAdmin,async (req, res) => {
-    console.log(req.body)
+    
     const { name, price, sell_price, barkod, pr_count } = req.body;
     const data = await RunSQL('UPDATE products set name=?,price=?,sell_price=?,barcode=? where product_id=?', [name, price, sell_price, barkod, req.query.id])
     await  RunSQL('UPDATE filial_count set pr_count=? where product_id=? and pr_user_id=?', [pr_count,req.query.id,req.session.user_id])
@@ -92,10 +91,10 @@ router.post('/update/item', checkerAdmin,async (req, res) => {
 })
 
 router.get('/get/items', checker,async (req, res) => {
-    console.log(req.session.user_id)
+    
     const items = await RunSQL('Select * from  products pr join filial_count fc on pr.product_id=fc.product_id  where fc.pr_user_id=? limit ? offset ?', [req.session.user_id,100, (parseInt(req.query.getpage) - 1) * 100]);
     const count = await RunSQLOne('Select count(*) as cnt from products pr join filial_count fc on pr.product_id=fc.product_id where fc.pr_user_id=?',[req.session.user_id]);
-    console.log(items)
+ 
     res.render('allitems', {
         items: items,
         count: count.cnt
@@ -103,9 +102,9 @@ router.get('/get/items', checker,async (req, res) => {
 })
 router.get('/sold/items',checker, async (req, res) => {
     const alltranz = await RunSQL("SELECT tranzactions.cr_date,pr.name,tranzactions.product_id,sum(tranzactions.pr_count) as pr_count from tranzactions  join products pr on pr.product_id=tranzactions.product_id where (DATE(tranzactions.cr_date)=?)   group by tranzactions.product_id  limit 100 offset ?", [req.query.date,(parseInt(req.query.getpage) - 1) * 100])
-    console.log(alltranz,req.session.user_id)
+   
     const count = await RunSQLOne("select count(*) as cnt from (SELECT * from tranzactions  where DATE(tranzactions.cr_date)=?   group by tranzactions.product_id) as result;", [req.query.date])
-    console.log(count)
+    
     if (count==undefined){
         res.render('solditems',{
             alltranz:alltranz,
@@ -122,7 +121,7 @@ router.get('/sold/items',checker, async (req, res) => {
 router.get('/sold/itemsinfo',async(req,res)=>{
     const alltranz=await RunSQL("select * from tranzactions join products on products.product_id=tranzactions.product_id where (DATE(tranzactions.cr_date)=?) and  tranzactions.product_id=? limit 100 offset ?",[req.query.date,req.query.product_id,(parseInt(req.query.getpage)-1)*100])
     const count=await RunSQLOne('select count(*) as cnt from tranzactions join products on products.product_id=tranzactions.product_id where (DATE(tranzactions.cr_date)=?) and  tranzactions.product_id=?',[req.query.date,req.query.product_id])
-    console.log(count)
+   
     res.render('solditemsinfo',{
         alltranz:alltranz,
         count:count.cnt
