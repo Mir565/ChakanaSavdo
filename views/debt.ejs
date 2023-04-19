@@ -127,18 +127,16 @@ aside,#sa,header,#stat1,#stat,#searcher,#flexSwitchCheckChecked,#kamqolgan{
   <script>
     function searchBar(e){
       if (e.keyCode==13)
-      window.location=`/get/debt?getpage=1&organ_name=${document.getElementById('searcher').value}`;
+      window.location=`/get/debt?getpage=1&debtor_name=${document.getElementById('searcher').value}`;
     }
     let z=[];
     let qq=[];
     let x=0;
     let debtor=<%- JSON.stringify(debtor)%>;
     let count=<%- JSON.stringify(count)%>;
-    //console.log(count)
+
     const urlParams = new URLSearchParams(window.location.search);
 const pagenumber = parseInt(urlParams.get('getpage'));
-
-
 
 var select = document.getElementById("pagenation");
     for(let i=1;i<(count/100)+1;i++){
@@ -151,9 +149,7 @@ if (pagenumber==i){
 select.appendChild(option);
     }
     function changelocation(pagenum){
-
       window.location=`/get/debt?getpage=${pagenum}`
-
     }
     createTable(debtor)
     

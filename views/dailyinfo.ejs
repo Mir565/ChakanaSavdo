@@ -74,12 +74,16 @@
                 Таблица продуктов
 
               </header>
-              
+              <input class="form-control" placeholder="Barkod" id="barkod"  onkeyup=barkod(event) type="text">
+              <br>
+              <input class="form-control" placeholder="Nomi" id="nomi"  onkeyup=nomi(event) type="text">
+            
               
               <table class="table table-advance" id="tbl_exporttable_to_xls">
-                <form class="navbar-form" onsubmit="return false;">
-                  <input class="form-control" placeholder="Qidiruv"id="searcher"  onkeyup="searchBar(event)" type="text">
-                </form>
+               
+                
+              
+
                
                 <tbody id="mahsulot">
                  
@@ -126,9 +130,13 @@ aside,#sa,header,#stat1,#stat,#searcher,#flexSwitchCheckChecked,#kamqolgan{
   <!--custome script for all page-->
   <script src="/js/scripts.js" ></script>
   <script>
-    function searchBar(e){
+    function nomi(e){
       if (e.keyCode==13)
-      window.location=`/get/debt?getpage=1&organ_name=${document.getElementById('searcher').value}`;
+      window.location=`/get/dailyinfo?getpage=1&name=${document.getElementById('nomi').value}&order_id=${urlParams.get('order_id')}`;
+    }
+    function barkod(e){
+      if (e.keyCode==13)
+      window.location=`/get/dailyinfo?getpage=1&barkod=${document.getElementById('barkod').value}&order_id=${urlParams.get('order_id')}`;
     }
     let z=[];
     let qq=[];

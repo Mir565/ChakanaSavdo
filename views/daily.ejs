@@ -75,11 +75,13 @@
 
               </header>
               
-              
+              <form class="navbar-form" onsubmit="return false;">
+                <input class="form-control" placeholder="Qidiruv"id="name"  type="text">
+              <input type="date" name="" id="date">
+              <button onclick="send()" class="btn btn-primary">Qidirish</button>
+              </form>
               <table class="table table-advance" id="tbl_exporttable_to_xls">
-                <form class="navbar-form" onsubmit="return false;">
-                  <input class="form-control" placeholder="Qidiruv"id="searcher"  onkeyup="searchBar(event)" type="text">
-                </form>
+                
                 <tbody id="mahsulot">
                  
                 </tbody>
@@ -125,9 +127,8 @@ aside,#sa,header,#stat1,#stat,#searcher,#flexSwitchCheckChecked,#kamqolgan{
   <!--custome script for all page-->
   <script src="/js/scripts.js" ></script>
   <script>
-    function searchBar(e){
-      if (e.keyCode==13)
-      window.location=`/get/debt?getpage=1&organ_name=${document.getElementById('searcher').value}`;
+    function send(){
+      window.location=`/get/daily?getpage=1&name=${document.getElementById('name').value}&date=${document.getElementById('date').value}`;
     }
     let z=[];
     let qq=[];

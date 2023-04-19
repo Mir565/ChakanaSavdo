@@ -63,7 +63,13 @@
         <br>
       <div>
       
-        <input type="date" name="date" id="date">
+        <input type="date" required name="date" id="date">
+        <br>
+        <br>
+        <input type="text" class="form-control"  id="barkod" placeholder="BARKOD">
+        <br>
+        <input type="text" class="form-control"  id="name" placeholder="NOMI">
+        <br>
       <button class="btn btn-primary"  onclick="searchbydate()">Qidirish</button>
       </div>
         <center> 
@@ -131,7 +137,7 @@ aside,#sa,header,#stat1,#stat,#searcher,#flexSwitchCheckChecked,#kamqolgan{
   <script src="/js/scripts.js" ></script>
   <script>
     function searchbydate(){
-       window.location=`/sold/items?getpage=${1}&date=${document.getElementById('date').value}`
+       window.location=`/sold/items?getpage=${1}&date=${document.getElementById('date').value}&name=${document.getElementById('name').value}&barkod=${document.getElementById('barkod').value}`
     }
     let z=[];
     let qq=[];

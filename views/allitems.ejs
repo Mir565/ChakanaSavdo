@@ -147,6 +147,7 @@ aside,#sa,header,#stat1,#stat,#searcher,#flexSwitchCheckChecked,#kamqolgan{
     let x=0;
     let Mahsulotlar=<%- JSON.stringify(items)%>;
     let count=<%- JSON.stringify(count)%>;
+    let kurs=<%- JSON.stringify(kurs)%>
     //console.log(count)
     const urlParams = new URLSearchParams(window.location.search);
 const pagenumber = parseInt(urlParams.get('getpage'));
@@ -198,7 +199,9 @@ select.appendChild(option);
       var table = document.getElementById('mahsulot')
       for (var i = 0; i < Mahsulotlar.length; i++) 
      {
-      s+=`<tr style="font-size:20px;color:black"  id="tr${i}"><td>${((pagenumber-1)*100)+i+1}</td><td>${Mahsulotlar[i].barcode}</td>  <td>${Mahsulotlar[i].name}</td> <td>${Mahsulotlar[i].price}</td><td>${Mahsulotlar[i].sell_price}</td><td>${Mahsulotlar[i].price*Mahsulotlar[i].pr_count}</td><td>${Mahsulotlar[i].sell_price*Mahsulotlar[i].pr_count}</td> <td>${Mahsulotlar[i].pr_count}</td>
+      xprice=Mahsulotlar[i].ISSUM?Mahsulotlar[i].price:Mahsulotlar[i].price*kurs
+      xsell_price=Mahsulotlar[i].ISSUM?Mahsulotlar[i].sell_price:Mahsulotlar[i].sell_price*kurs;
+      s+=`<tr style="font-size:20px;color:black"  id="tr${i}"><td>${((pagenumber-1)*100)+i+1}</td><td>${Mahsulotlar[i].barcode}</td>  <td>${Mahsulotlar[i].name}</td> <td>${xprice}</td><td>${xsell_price}</td><td>${xprice*Mahsulotlar[i].pr_count}</td><td>${xsell_price*Mahsulotlar[i].pr_count}</td> <td>${Mahsulotlar[i].pr_count}</td>
                      <td>${Mahsulotlar[i].pr_date}</td> <td id="stat1"> <div class="btn-group">               <a class="btn btn-danger" target="_blank" href="barkod?name=${Mahsulotlar[i].name}&price=${Mahsulotlar[i].sell_price}&barkod=${Mahsulotlar[i].barcode}">
                       Barkod</a> <a class="btn btn-primary" href="/update/item?id=${Mahsulotlar[i].product_id}">
                       Tahrir</a> 

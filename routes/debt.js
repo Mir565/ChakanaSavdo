@@ -1,14 +1,20 @@
 router.get('/get/debt',checker,async(req,res)=>{
-    const debtor=await RunSQL("select * from debtor  limit 100 offset ?",[(parseInt(req.query.getpage) - 1) * 100]);
+    const debtor=await RunSQL("select * from debtor where debtor_name like ? limit 100 offset ?",["%"+req.query.debtor_name+"%",(parseInt(req.query.getpage) - 1) * 100]);
     const count =await RunSQLOne("select  count(*) as cnt from debtor");
-   
+
     res.render('debt',{
         debtor:debtor,
         count:count.cnt
     })
 })
 router.get('/get/debtinfo',checker,async(req,res)=>{
-    const debtor=await RunSQL("select * from debt where debtor_id=? limit 100 offset ?",[req.query.debtor_id,(parseInt(req.query.getpage) - 1) * 100]);
+    let debtor;
+    if (req.query.date){
+        debtor=await RunSQL("select * from debt where debtor_id=? and DATE(cr_date)=? limit 100 offset ?",[req.query.debtor_id,req.query.date,(parseInt(req.query.getpage) - 1) * 100]);
+    }
+    else{
+        debtor=await RunSQL("select * from debt where debtor_id=? limit 100 offset ?",[req.query.debtor_id,(parseInt(req.query.getpage) - 1) * 100]);
+    }
     const {payed}=await RunSQLOne("select sum(cash)+sum(card)+sum(transfer) as payed from payeddebt where debtor_id=?",[req.query.debtor_id])
     const {alldebt}=await RunSQLOne("select sum(debt) as alldebt from debt where debtor_id=?",[req.query.debtor_id])
     const count =await RunSQLOne("select  count(*) as cnt from debt where debtor_id=?",[req.query.debtor_id]);
@@ -41,7 +47,13 @@ router.post('/paydebt',async(req,res)=>{
     res.redirect('/get/debt')   
 })
 router.get('/paydebtinfo',async(req,res)=>{
-    const payed=await RunSQL("select * from payeddebt where debtor_id=? limit 100 offset ?",[req.query.debtor_id,(parseInt(req.query.getpage) - 1) * 100])
+    let payed;
+    if (req.query.date){
+    payed=await RunSQL("select * from payeddebt where debtor_id=? and DATE(cr_date)=?  limit 100 offset ?",[req.query.debtor_id,req.query.date,(parseInt(req.query.getpage) - 1) * 100])
+    }
+    else{
+        payed=await RunSQL("select * from payeddebt where debtor_id=? limit 100 offset ?",[req.query.debtor_id,(parseInt(req.query.getpage) - 1) * 100])
+    }
     const count =await RunSQLOne("select  count(*) as cnt from payeddebt where debtor_id=?",[req.query.debtor_id])
     const {payeddebt}=await RunSQLOne("select sum(cash)+sum(card)+sum(transfer) as payeddebt from payeddebt where debtor_id=?",[req.query.debtor_id])
     const {alldebt}=await RunSQLOne("select sum(debt) as alldebt from debt where debtor_id=?",[req.query.debtor_id])

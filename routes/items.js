@@ -94,17 +94,26 @@ router.get('/get/items', checker,async (req, res) => {
     
     const items = await RunSQL('Select * from  products pr join filial_count fc on pr.product_id=fc.product_id  where fc.pr_user_id=? limit ? offset ?', [req.session.user_id,100, (parseInt(req.query.getpage) - 1) * 100]);
     const count = await RunSQLOne('Select count(*) as cnt from products pr join filial_count fc on pr.product_id=fc.product_id where fc.pr_user_id=?',[req.session.user_id]);
- 
+
+    const{kurs}=await RunSQLOne("select kurs from valuta");
     res.render('allitems', {
         items: items,
-        count: count.cnt
+        count: count.cnt,
+        kurs:kurs
     })
 })
 router.get('/sold/items',checker, async (req, res) => {
-    const alltranz = await RunSQL("SELECT tranzactions.cr_date,pr.name,tranzactions.product_id,sum(tranzactions.pr_count) as pr_count from tranzactions  join products pr on pr.product_id=tranzactions.product_id where (DATE(tranzactions.cr_date)=?)   group by tranzactions.product_id  limit 100 offset ?", [req.query.date,(parseInt(req.query.getpage) - 1) * 100])
-   
-    const count = await RunSQLOne("select count(*) as cnt from (SELECT * from tranzactions  where DATE(tranzactions.cr_date)=?   group by tranzactions.product_id) as result;", [req.query.date])
-    
+    let alltranz,count;
+    if (req.query.name){
+     alltranz = await RunSQL("SELECT tranzactions.cr_date,pr.name,tranzactions.product_id,sum(tranzactions.pr_count) as pr_count from tranzactions  join products pr on pr.product_id=tranzactions.product_id where (DATE(tranzactions.cr_date)=?) and pr.name like ?  group by tranzactions.product_id  limit 100 offset ?", [req.query.date,"%"+req.query.name+"%",(parseInt(req.query.getpage) - 1) * 100])
+    }
+    else if (req.query.barkod){
+        alltranz = await RunSQL("SELECT tranzactions.cr_date,pr.name,tranzactions.product_id,sum(tranzactions.pr_count) as pr_count from tranzactions  join products pr on pr.product_id=tranzactions.product_id where (DATE(tranzactions.cr_date)=?) and pr.barcode=?  group by tranzactions.product_id  limit 100 offset ?", [req.query.date,req.query.barkod,(parseInt(req.query.getpage) - 1) * 100])
+    }
+    else{
+        alltranz = await RunSQL("SELECT tranzactions.cr_date,pr.name,tranzactions.product_id,sum(tranzactions.pr_count) as pr_count from tranzactions  join products pr on pr.product_id=tranzactions.product_id where (DATE(tranzactions.cr_date)=?)   group by tranzactions.product_id  limit 100 offset ?", [req.query.date,(parseInt(req.query.getpage) - 1) * 100])  
+    }
+    count = await RunSQLOne("select count(*) as cnt from (SELECT * from tranzactions  where DATE(tranzactions.cr_date)=?   group by tranzactions.product_id) as result;", [req.query.date])
     if (count==undefined){
         res.render('solditems',{
             alltranz:alltranz,
@@ -121,7 +130,7 @@ router.get('/sold/items',checker, async (req, res) => {
 router.get('/sold/itemsinfo',async(req,res)=>{
     const alltranz=await RunSQL("select * from tranzactions join products on products.product_id=tranzactions.product_id where (DATE(tranzactions.cr_date)=?) and  tranzactions.product_id=? limit 100 offset ?",[req.query.date,req.query.product_id,(parseInt(req.query.getpage)-1)*100])
     const count=await RunSQLOne('select count(*) as cnt from tranzactions join products on products.product_id=tranzactions.product_id where (DATE(tranzactions.cr_date)=?) and  tranzactions.product_id=?',[req.query.date,req.query.product_id])
-   
+
     res.render('solditemsinfo',{
         alltranz:alltranz,
         count:count.cnt

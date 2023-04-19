@@ -253,8 +253,10 @@ xaridorgen()
               var xbarkod=Mahsulotlar[i].barcode;
               var xname = Mahsulotlar[i].name;
               var xcountnum = Mahsulotlar[i].pr_count;
-              var xprice = Mahsulotlar[i].price;
-              var xbuyprice = Mahsulotlar[i].sell_price;
+              
+              var xprice =  Mahsulotlar[i].ISSUM?Mahsulotlar[i].price:Mahsulotlar[i].price*kurs;
+            
+              var xbuyprice =Mahsulotlar[i].ISSUM?Mahsulotlar[i].sell_price:Mahsulotlar[i].sell_price*kurs;
               var xid = Mahsulotlar[i].product_id;
                 s += `<tr   style="font-size:20px;color:black;background-color:${stylex}" id="tr${f}"><td>${i+1}</td><td>${xname}</td><td>${xcountnum}</td> <td >${xprice}</td><td>${xbuyprice}</td> 
                  <td>${xbarkod}</td>
@@ -274,6 +276,8 @@ xaridorgen()
     
   var allitems=<%- JSON.stringify(allitems) %>
   var organs=<%- JSON.stringify(organs)%>
+
+  var kurs=<%- JSON.stringify(kurs)%>
 
   Mahsulotlar = allitems
   createTable(Mahsulotlar)

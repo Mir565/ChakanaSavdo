@@ -46,6 +46,8 @@ app.use('/',require('./routes/calc'))
 app.use('/',require('./routes/debt'))
 app.use('/',require('./routes/daily'))
 app.use('/',require('./routes/vazvrat'))
+app.use('/',require('./routes/curiers'))
+app.use('/',require('./routes/valuta'))
 // server yoqish 
 app.listen(PORT, () => {
     console.log("Create Server " + PORT)

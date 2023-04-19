@@ -12,23 +12,23 @@
   <title>Smart Savdo</title>
 
   <!-- Bootstrap CSS -->
-  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="/css/bootstrap.min.css" rel="stylesheet">
   <!-- bootstrap theme -->
-  <link href="css/bootstrap-theme.css" rel="stylesheet">
+  <link href="/css/bootstrap-theme.css" rel="stylesheet">
   <!--external css-->
   <!-- font icon -->
-  <link href="css/elegant-icons-style.css" rel="stylesheet" />
-  <link href="css/font-awesome.min.css" rel="stylesheet" />
-  <link href="css/daterangepicker.css" rel="stylesheet" />
-  <link href="css/bootstrap-datepicker.css" rel="stylesheet" />
-  <link href="css/bootstrap-colorpicker.css" rel="stylesheet" />
+  <link href="/css/elegant-icons-style.css" rel="stylesheet" />
+  <link href="/css/font-awesome.min.css" rel="stylesheet" />
+  <link href="/css/daterangepicker.css" rel="stylesheet" />
+  <link href="/css/bootstrap-datepicker.css" rel="stylesheet" />
+  <link href="/css/bootstrap-colorpicker.css" rel="stylesheet" />
   <!-- date picker -->
 
   <!-- color picker -->
 
   <!-- Custom styles -->
-  <link href="css/style.css" rel="stylesheet">
-  <link href="css/style-responsive.css" rel="stylesheet" />
+  <link href="/css/style.css" rel="stylesheet">
+  <link href="/css/style-responsive.css" rel="stylesheet" />
 
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
   <!--[if lt IE 9]>
@@ -65,7 +65,7 @@
             </ol>
           </div>
         </div>
-        <center><button  id="button1"class="btn <%= clas%>" "><%= message%></button></center>
+      
         <br>
         <div class="row">
           <div class="col-lg-12">
@@ -73,12 +73,13 @@
               <header class="panel-heading"> 
                Yangi Parol
               </header>
+              <center><h1>1 USD = <%=kurs %>UZS</h1></center>
               <div class="panel-body">
-                <form class="form-horizontal" method="POST" action="/valuta">
+                <form class="form-horizontal" method="POST" action="">
                   <div class="form-group">
                     <label class="col-sm-2 control-label">Валюта (введите стоимость 1 доллара в Сумах):</label>
                     <div class="col-sm-10">
-                      <input type="number" step="any" class="form-control" required  name="valuta">
+                      <input type="number"  class="form-control" required  name="kurs">
                     </div>
                   </div>
                     </div>
@@ -116,19 +117,19 @@
   <!-- colorpicker -->
 
   <!-- bootstrap-wysiwyg -->
-  <script src="js/jquery.hotkeys.js"></script>
-  <script src="js/bootstrap-wysiwyg.js"></script>
-  <script src="js/bootstrap-wysiwyg-custom.js"></script>
-  <script src="js/moment.js"></script>
-  <script src="js/bootstrap-colorpicker.js"></script>
-  <script src="js/daterangepicker.js"></script>
-  <script src="js/bootstrap-datepicker.js"></script>
+  <script src="/js/jquery.hotkeys.js"></script>
+  <script src="/js/bootstrap-wysiwyg.js"></script>
+  <script src="/js/bootstrap-wysiwyg-custom.js"></script>
+  <script src="/js/moment.js"></script>
+  <script src="/js/bootstrap-colorpicker.js"></script>
+  <script src="/js/daterangepicker.js"></script>
+  <script src="/js/bootstrap-datepicker.js"></script>
   <!-- ck editor -->
   <script type="text/javascript" src="assets/ckeditor/ckeditor.js"></script>
   <!-- custom form component script for this page-->
-  <script src="js/form-component.js"></script>
+  <script src="/js/form-component.js"></script>
   <!-- custome script for all page -->
-  <script src="js/scripts.js"></script>
+  <script src="/js/scripts.js"></script>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 

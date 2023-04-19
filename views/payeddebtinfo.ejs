@@ -77,10 +77,13 @@
               <center><h1 id="qarz"></h1></center>
               <center>  <a href="" id="pay" class="btn btn-primary" >To'lash</a></center>
               <br>
+              <form class="navbar-form" onsubmit="return false;">
+
+                <input type="date" id="date">
+               <button onclick="searchBar(event)">Qidirish</button>  
+               </form>
               <table class="table table-advance" id="tbl_exporttable_to_xls">
-                <form class="navbar-form" onsubmit="return false;">
-                  <input class="form-control" placeholder="Qidiruv"id="searcher"  onkeyup="searchBar(event)" type="text">
-                </form>
+               
                 <tbody id="mahsulot">
                  
                 </tbody>
@@ -128,8 +131,7 @@ aside,#sa,header,#stat1,#stat,#searcher,#flexSwitchCheckChecked,#kamqolgan{
   <script src="/js/scripts.js" ></script>
   <script>
     function searchBar(e){
-      if (e.keyCode==13)
-      window.location=`/get/debt?getpage=1&organ_name=${document.getElementById('searcher').value}`;
+      window.location=`/paydebtinfo?getpage=${1}&date=${document.getElementById('date').value}&debtor_id=${urlParams.get('debtor_id')}`;
     }
     let z=[];
     let qq=[];
@@ -157,7 +159,7 @@ select.appendChild(option);
     }
     function changelocation(pagenum){
 
-      window.location=`/get/debt?getpage=${pagenum}`
+      window.location=`/paydebtinfo?getpage=${pagenum}&date=${document.getElementById('date').value}&debtor_id=${urlParams.get('debtor_id')}`
 
     }
     createTable(payed)
