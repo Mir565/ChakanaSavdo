@@ -11,26 +11,34 @@
         }
         </style>
 <body>
-  <h4>"URGUT XOS TOVAR MEHROJ"     Tel: (99)3376665  (98)1306665  (99)3316665  Xaridor Nomi:<%= cusname%></h4>
+ <center> <h2 style="font-style:italic;">"Cafe Brown"</h2></center>
+ <center> <h2 id="vaqt"> Vaqt:</h2></center>
+  <h3> №:<%= cusname%></h3>
+  <h3>Тел:  (98)4123664 (91)3128778  </h3>
 <table id="tablehref" >
- 
 </table>
+
 <center><h2 id="all"></h2></center>
+<br>
+<center><i>Лучший кафе в городе Бухара</i></center>
 </body>
 <script>
+  var cusname=<%- JSON.stringify(cusname)%>;
   var name=<%- JSON.stringify(arrayname)%>
   var price=<%- JSON.stringify(arrayprice)%>
   var count=<%- JSON.stringify(arraycount)%>
+  document.getElementById('vaqt').innerHTML=new Date().toLocaleString();
+
 function createTable(name,price,count){
   var allprice=0;
   console.log(name)
   name=name.split(',');
  ss=`<tr>
-     <th style="width:0.5%">Nomer</th>
-    <th style="width:40%">Mahsulot Nomi</th>
-    <th>Miqdori</th>
-    <th>1 Dona Narxi</th>
-    <th>Izoh</th>
+     <th style="width:0.5%">Номер</th>
+    <th style="width:40%">Hаиме..</th>
+    <th>Количество</th>
+    <th>Цена 1 шт.</th>
+    <th>Цена</th>
   </tr>`;
  for (let i=0;i<price.length;i++)
  {
@@ -40,12 +48,18 @@ function createTable(name,price,count){
     <td>${name[i]}</td>
     <td>${count[i]}</td>
     <td>${price[i]}</td>
-    <td></td>
+    <td>${price[i]*count[i]}</td>
   </tr>
  `
  allprice=allprice+(parseFloat(price[i])*parseFloat(count[i]));
- document.getElementById('all').innerHTML = `Jami ${allprice}`
  }
+ 
+ if (cusname!="saboy"){
+  document.getElementById('all').innerHTML = `Сумма ${allprice+(allprice/100)*15}` 
+        }
+        else{
+          document.getElementById('all').innerHTML = `Сумма ${allprice}`
+        }
  document.getElementById('tablehref').innerHTML=ss;
 }
 createTable(name,price,count)

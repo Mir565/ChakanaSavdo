@@ -107,6 +107,7 @@
                   <tbody id="mahsulot">
 
                   </tbody>
+                  <center><button class="btn btn-primary" onclick="print()">PRINT</button></center>
                   
                 </table>
                 
@@ -439,6 +440,9 @@ xaridorgen()
         createTable([])
         createTable1();
           }
+      }
+      function print(){
+        window.open(`/print?arrayname=${arrayName}&arraycount=${arrayCount}&arrayprice=${arrayPrice}&cusname=salim`);
       }
       function addminus(s) {
         dict[arrayName[s]] = 0;

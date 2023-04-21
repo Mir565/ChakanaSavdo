@@ -1,0 +1,9 @@
+router.get('/print',(req,res)=>{
+    res.render('print',{
+        cusname:req.query.cusname,
+        arrayname:req.query.arrayname.split(','),
+        arraycount:req.query.arraycount.split(','),
+        arrayprice:req.query.arrayprice.split(',')
+    })
+})
+module.exports=router;

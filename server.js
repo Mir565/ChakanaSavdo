@@ -32,6 +32,7 @@ app.use(express.static('public'))
 app.set('view engine', 'ejs');
 
 // app.use("/", require("./app/app"))
+app.use('/',require('./routes/print'))
 app.use('/',require('./routes/sell'))
 app.use('/',require('./routes/userapply'))
 app.use('/',require('./routes/userlogin'))

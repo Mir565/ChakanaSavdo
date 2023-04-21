@@ -141,7 +141,7 @@ aside,#sa,header,#stat1,#stat,#searcher,#flexSwitchCheckChecked,#kamqolgan{
     //console.log(count)
     const urlParams = new URLSearchParams(window.location.search);
 
-    console.log(urlParams.get('getpage').value)
+ 
      document.getElementById('month').value=urlParams.get('month');
      document.getElementById('year').value=urlParams.get('year');
 const pagenumber = parseInt(urlParams.get('getpage'));
@@ -185,29 +185,7 @@ select.appendChild(option);
        
        
   
-      function check(){
-        t=confirm("Ochirilsinmi?");
-          return t;
-      }
-      
-     
-     function mana(s){
-      //  console.log(s);
-      var r=confirm('Удалить?')
-      if (r==true){
-      $.ajax({
-      url: `/api/delete/${s}`,
-      type: 'GET', cache: false, dataType: 'json',
-      contentType: 'application/json', 
-      success: function (data) { 
-        // console.log(data)
-     if (data.status){
-      location.reload();
-     }
-    },
-    })
-    }
-  }
+   
      </script>
     
 </body>
