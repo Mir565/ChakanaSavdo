@@ -1,6 +1,6 @@
 const { RunSQL } = require("../db/db.fun")
 
-router.get('/mag/get/sell',async(req,res)=>{
+router.get('/mag/get/sell',checker,async(req,res)=>{
     const items =[]
     const organs=await RunSQL("SELECT * from users")
     res.render('magsell',{
@@ -8,7 +8,7 @@ router.get('/mag/get/sell',async(req,res)=>{
         organs:organs
     })
 })
-router.post('/mag/add/sell',async(req,res)=>{
+router.post('/mag/add/sell',checker,async(req,res)=>{
    
     const{pulkochrish,plastik,naqd,minusName,minusCount,minusPayment,bazanarx,barkod,idfornews,organid,curiername,summa,allid}=req.body;
     let inserting=[]
@@ -28,7 +28,7 @@ res.json({})
 // const insertingfortranz=await RunSQL("INSERT INTO tranzactions(pr_name, barcode,pr_count, price,organ_id,order_id) VALUES ?",[insertfortranz]) 
 })
 
-router.get('/get/sell',async(req,res)=>{
+router.get('/get/sell',checker,async(req,res)=>{
     const items =[]
     const{kurs}=await RunSQLOne("select kurs from valuta");
     const organs=await RunSQL("SELECT * from users")

@@ -174,16 +174,13 @@
     <script>
            
         
-        // console.log(rol)
+      
       var dict = {};
       var dictnames={};
 
     var telnumber;
      
-      // console.log(CustomerNames1)
-    
-      // console.log(CustomerNames1)
-   
+     
 
     
       var Mahsulotlar;
@@ -283,7 +280,7 @@
                              Gen Barkod</th> </tr>`;
           var table = document.getElementById('mahsulot')
 f=1
-    s+=`<tr   style="font-size:20px;color:black;" id="tr${1}"><td>${0}</td><td><input type="text"  id="ssxs"></td><td>${0}</td> <td >${0}</td><td>${0}</td> 
+    s+=`<tr   style="font-size:20px;color:black;" id="tr${1}"><td>${0}</td><td><input type="text" onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode >= 48 && event.charCode <= 57) || (event.charCode==32)" id="ssxs"></td><td>${0}</td> <td >${0}</td><td>${0}</td> 
                   <td><input type="number" tabindex=${1 * 3 + 3} name="${document.getElementById("ssxs")}" id="a${"80S565EA"}"  soni="${0}" value="${0}" class="form-control" style="font-size:20px;color:black" /></td> <td></td>
                   <td><input type="number" tabindex=${1 * 3 + 3} name="${document.getElementById("ssxs")}" id="s${"80S565EA"}"  soni="${0}" class="form-control" style="font-size:20px;color:black" /></td> 
                      <td><input type="number" tabindex=${1 * 3 + 3} name="${document.getElementById("ssxs")}" id="s${"80S565EA"}"  soni="${0}" class="form-control" style="font-size:20px;color:black" /></td>

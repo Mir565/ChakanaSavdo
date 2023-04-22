@@ -53,7 +53,7 @@
            
           </div>
         </div>
-        <select name="" id="pagenation" onchange="changelocation(this.value)" ></select>
+       <center><button class="btn btn-primary" onclick="print()">Print</button></center>
         <center> 
         <h3 style="color: black;" id="tovarsoni"> </h3> 
         <h3 style="color: black;" id="tovar"></h3>
@@ -130,7 +130,10 @@ aside,#sa,header,#stat1,#stat,#searcher,#flexSwitchCheckChecked,#kamqolgan{
       if (e.keyCode==13)
       window.location=`/get/vazvratinfo?getpage=1&barkod=${document.getElementById('barkod').value}&order_id=${urlParams.get('order_id')}`;
     }
-    let z=[];
+    function print(){
+      window.open(`/print?data=${JSON.stringify(dailyinfodata)}`);
+    }
+        let z=[];
     let qq=[];
     let x=0;
     let dailyinfodata=<%- JSON.stringify(dailyinfodata)%>;
@@ -151,9 +154,7 @@ if (pagenumber==i){
 }
 select.appendChild(option);
     }
-    function changelocation(pagenum){
-      window.location=`/get/debt?getpage=${pagenum}`
-    }
+ 
     createTable(dailyinfodata)
     
     function createTable(dailyinfodata){
@@ -177,29 +178,9 @@ select.appendChild(option);
        
        
   
-      function check(){
-        t=confirm("Ochirilsinmi?");
-          return t;
-      }
-      
+  
      
-     function mana(s){
-      //  console.log(s);
-      var r=confirm('Удалить?')
-      if (r==true){
-      $.ajax({
-      url: `/api/delete/${s}`,
-      type: 'GET', cache: false, dataType: 'json',
-      contentType: 'application/json', 
-      success: function (data) { 
-        // console.log(data)
-     if (data.status){
-      location.reload();
-     }
-    },
-    })
-    }
-  }
+  
      </script>
     
 </body>

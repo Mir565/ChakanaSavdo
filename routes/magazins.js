@@ -1,4 +1,4 @@
-router.get("/all/magtranzactions", async (req, res) => {
+router.get("/all/magtranzactions",checker, async (req, res) => {
   await RunSQL("SET sql_mode = ''");
   const alltranz = await RunSQL(
     "SELECT users.email,mag.cr_date,mag.order_id from magazinstranz as mag join users   on users.user_id=mag.user_id where mag.cr_date>=? and mag.user_id=?  group by(mag.order_id)  order by mag.cr_date desc limit ? offset ?",
@@ -17,7 +17,7 @@ router.get("/all/magtranzactions", async (req, res) => {
     organs: organs,
   });
 });
-router.get("/update/magtranzactioninfo", async (req, res) => {
+router.get("/update/magtranzactioninfo",checker, async (req, res) => {
     const{count,mag_tranz_id,prev_count,user_id,product_id}=req.query;
     await RunSQL("UPDATE magazinstranz SET pr_count=? where mag_tranz_id=?",[count,mag_tranz_id])
     await RunSQL("UPDATE filial_count SET pr_count=pr_count+? where pr_user_id=? and product_id=?",[count-prev_count,user_id,product_id])
@@ -25,7 +25,7 @@ router.get("/update/magtranzactioninfo", async (req, res) => {
    
     res.json({msg:"success"})
 });
-router.get("/get/magtranzactioninfo", async (req, res) => {
+router.get("/get/magtranzactioninfo",checker, async (req, res) => {
   const alltranzinfo = await RunSQL(
     "SELECT *,tr.pr_count FROM  magazinstranz tr join products  as pd on pd.product_id=tr.product_id  where order_id=? limit ? offset ?",
     [req.query.order_id, 100, (parseInt(req.query.getpage) - 1) * 100]

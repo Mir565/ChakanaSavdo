@@ -6,7 +6,7 @@ router.get('/get/vazvrat',checker,async(req,res)=>{
         count:0
     })
 })
-router.get('/all/vazvrats',async(req,res)=>{
+router.get('/all/vazvrats',checker,async(req,res)=>{
     let dailydata;
     if (req.query.name && req.query.date){
         console.log(1)
@@ -26,21 +26,21 @@ router.get('/all/vazvrats',async(req,res)=>{
         count:count.cnt
     })
 })
-router.get('/get/vazvrat/searchbybarkod',async(req,res)=>{
+router.get('/get/vazvrat/searchbybarkod',checker,async(req,res)=>{
     const data=await RunSQL("select * from tranzactions join products on products.product_id=tranzactions.product_id  where order_id=? and products.barcode=?",[req.query.order_id,req.query.barkod])
     res.render('vazvrat',{
         dailyinfodata:data,
         count:0
     })
 })
-router.get('/get/vazvrat/searchbytext',async(req,res)=>{
+router.get('/get/vazvrat/searchbytext',checker,async(req,res)=>{
     const data=await RunSQL("select * from tranzactions join products on products.product_id=tranzactions.product_id  where order_id=? and products.name like ?",[req.query.order_id,"%"+req.query.name+"%"])
     res.render('vazvrat',{
         dailyinfodata:data,
         count:0
     })
 })
-router.post('/post/vazvrat',async(req,res)=>{
+router.post('/post/vazvrat',checker,async(req,res)=>{
     const data=req.body.data;
     vaz_order_id="id" + Math.random().toString(16).slice(2)
     for(let i=0;i<data.length;i++){
@@ -56,7 +56,7 @@ router.post('/post/vazvrat',async(req,res)=>{
 }
    res.json({"data":1})
 })
-router.get('/get/vazvratinfo',async(req,res)=>{
+router.get('/get/vazvratinfo',checker,async(req,res)=>{
     let dailyinfovazvratdata;
     if (req.query.name){
         dailyinfovazvratdata=await RunSQL("select * from vazvrat join products on products.product_id=vazvrat.product_id  where vazvrat.order_id=? and  products.name like ?",[req.query.order_id,"%"+req.query.name+"%"])

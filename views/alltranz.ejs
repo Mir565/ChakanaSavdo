@@ -57,8 +57,8 @@
         <br>
       <div>
         <select  class="" name="" id="organnames" ></select>
-      
         <input type="date" name="date" id="date">
+        <input type="month" name="month" id="month">
       <button class="btn btn-primary"  onclick="searchbydate()">Qidirish</button>
       </div>
         <center> 
@@ -126,7 +126,7 @@ aside,#sa,header,#stat1,#stat,#searcher,#flexSwitchCheckChecked,#kamqolgan{
   <script src="/js/scripts.js" ></script>
   <script>
     function searchbydate(){
-       window.location=`/all/tranzactions?getpage=${1}&date=${document.getElementById('date').value}&name=${document.getElementById('organnames').value}`
+       window.location=`/all/tranzactions?getpage=${1}&date=${document.getElementById('date').value}&name=${document.getElementById('organnames').value}&month=${document.getElementById('month').value}`
     }
     let z=[];
     let qq=[];

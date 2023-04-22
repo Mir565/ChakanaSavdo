@@ -1,4 +1,4 @@
-router.get('/get/rol',async(req,res)=>{
+router.get('/get/rol',checker,async(req,res)=>{
     res.json({"user":req.session.email,"rol":req.session.rol})
 })
 router.get('/get/rolchange',checker,async(req,res)=>{

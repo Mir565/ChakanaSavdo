@@ -27,7 +27,7 @@ router.get('/get/debtinfo',checker,async(req,res)=>{
         debtor_name:debtor_name
     })
 })
-router.get('/paydebt',async(req,res)=>{
+router.get('/paydebt',checker,async(req,res)=>{
     const {payeddebt}=await RunSQLOne("select sum(cash)+sum(card)+sum(transfer) as payeddebt from payeddebt where debtor_id=?",[req.query.debtor_id])
     const {alldebt}=await RunSQLOne("select sum(debt) as alldebt from debt where debtor_id=?",[req.query.debtor_id])
     const {debtor_name}=await RunSQLOne("select debtor_name from debtor where debtor_id=?",[req.query.debtor_id])
@@ -39,14 +39,14 @@ router.get('/paydebt',async(req,res)=>{
         debtor_name:debtor_name
     })
 })
-router.post('/paydebt',async(req,res)=>{
+router.post('/paydebt',checker,async(req,res)=>{
     console.log(req.query)
     const{cash,moneytransfer,card}=req.body;
     const data=await RunSQL("INSERT INTO payeddebt(cash,card,transfer,debtor_id)Values(?,?,?,?)",[cash,card,moneytransfer,req.query.debtor_id])
    console.log(data)
     res.redirect('/get/debt')   
 })
-router.get('/paydebtinfo',async(req,res)=>{
+router.get('/paydebtinfo',checker,async(req,res)=>{
     let payed;
     if (req.query.date){
     payed=await RunSQL("select * from payeddebt where debtor_id=? and DATE(cr_date)=?  limit 100 offset ?",[req.query.debtor_id,req.query.date,(parseInt(req.query.getpage) - 1) * 100])

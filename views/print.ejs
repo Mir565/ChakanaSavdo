@@ -11,16 +11,16 @@
         }
         </style>
 <body>
- <center> <h2 style="font-style:italic;">"Cafe Brown"</h2></center>
- <center> <h2 id="vaqt"> Vaqt:</h2></center>
-  <h3> №:<%= cusname%></h3>
-  <h3>Тел:  (98)4123664 (91)3128778  </h3>
+ <center> <h2 style="font-style:italic;">""Мир Сантехники""</h2></center>
+ <center> <h2 id="vaqt"> Sana:</h2></center>
+  <h3> Xaridor:<%= cusname%></h3>
+  <h3>Tel:  +998913113333  </h3>
 <table id="tablehref" >
 </table>
 
 <center><h2 id="all"></h2></center>
 <br>
-<center><i>Лучший кафе в городе Бухара</i></center>
+<center><i>Xaridingiz uchun raxmat!</i></center>
 </body>
 <script>
   var cusname=<%- JSON.stringify(cusname)%>;
@@ -34,11 +34,11 @@ function createTable(name,price,count){
   console.log(name)
   name=name.split(',');
  ss=`<tr>
-     <th style="width:0.5%">Номер</th>
-    <th style="width:40%">Hаиме..</th>
-    <th>Количество</th>
-    <th>Цена 1 шт.</th>
-    <th>Цена</th>
+     <th style="width:0.5%">Nomer</th>
+    <th style="width:40%">Nomi</th>
+    <th>Soni</th>
+    <th>1 Dona</th>
+    <th>Jami</th>
   </tr>`;
  for (let i=0;i<price.length;i++)
  {
@@ -54,12 +54,8 @@ function createTable(name,price,count){
  allprice=allprice+(parseFloat(price[i])*parseFloat(count[i]));
  }
  
- if (cusname!="saboy"){
-  document.getElementById('all').innerHTML = `Сумма ${allprice+(allprice/100)*15}` 
-        }
-        else{
-          document.getElementById('all').innerHTML = `Сумма ${allprice}`
-        }
+ 
+          document.getElementById('all').innerHTML = `Jami ${allprice}`
  document.getElementById('tablehref').innerHTML=ss;
 }
 createTable(name,price,count)

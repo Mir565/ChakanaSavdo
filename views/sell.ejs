@@ -259,7 +259,7 @@ xaridorgen()
                  <td>${xbarkod}</td>
                     
                   <td><input type="number" tabindex=${f * 3 + 3} id="soni${xid}"  class="form-control" /></td>
-                  <td><input type="number" tabindex=${f * 3 + 3} id="narxi${xid}"  class="form-control" /></td>  
+                  <td><input type="number" tabindex=${f * 3 + 3} id="narxi${xid}"  class="form-control" value=${xbuyprice} /></td>  
                       <td id="stat1"> <div class="btn-group"> 
                         <button class="btn btn-success"  id="s${xid}" name="${xcountnum}" tabindex=${f * 3 + 4}   onclick="add(${xid},'${xname}',${xcountnum},${xprice},${xbuyprice},'${xbarkod}')">
                       <i class="icon_plus_alt2"></i></button> </td>
@@ -442,7 +442,7 @@ xaridorgen()
           }
       }
       function print(){
-        window.open(`/print?arrayname=${arrayName}&arraycount=${arrayCount}&arrayprice=${arrayPrice}&cusname=salim`);
+        window.open(`/print?arrayname=${arrayName}&arraycount=${arrayCount}&arrayprice=${arrayPrice}&cusname=${document.getElementById('customername').value}`);
       }
       function addminus(s) {
         dict[arrayName[s]] = 0;

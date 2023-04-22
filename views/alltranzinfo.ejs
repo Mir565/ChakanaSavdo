@@ -72,7 +72,7 @@
               
               <table class="table table-advance" id="tbl_exporttable_to_xls">
                 <form class="navbar-form" onsubmit="return false;">
-                  <input class="form-control" placeholder="Qidiruv"id="searcher"  onkeyup="searchBar()" type="text">
+                  <input class="form-control" placeholder="Qidiruv"id="searcher"  onkeyup="searchBar(event)" type="text">
                 </form>
                
                 <tbody id="mahsulot">
@@ -145,7 +145,12 @@ select.appendChild(option);
     }
     function changelocation(pagenum){
     //  console.log(pagenum)
-      window.location=`/get/tranzactioninfo?getpage=${pagenum}`
+      window.location=`/get/tranzactioninfo?getpage=${pagenum}&order_id=${urlParams.get('order_id')}`
+    }
+    function searchBar(e){
+      if (e.keyCode==13){
+        window.location=`/get/tranzactioninfo?getpage=${1}&name=${document.getElementById('searcher').value}&order_id=${urlParams.get('order_id')}`
+      }
 
     }
     createTable(alltranzinfo)

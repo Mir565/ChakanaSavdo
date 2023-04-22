@@ -1,4 +1,4 @@
-router.get('/print',(req,res)=>{
+router.get('/print',checker,(req,res)=>{
     res.render('print',{
         cusname:req.query.cusname,
         arrayname:req.query.arrayname.split(','),

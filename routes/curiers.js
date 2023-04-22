@@ -1,4 +1,4 @@
-router.get('/curiers',async(req,res)=>{
+router.get('/curiers',checker,async(req,res)=>{
     let data;
     if (req.query.name){
 data=await RunSQL("select * from curiers where curiername like ?",["%"+req.query.name+"%"]);

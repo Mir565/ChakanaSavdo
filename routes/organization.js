@@ -1,4 +1,4 @@
-router.post('/add/organizations',async(req,res)=>{
+router.post('/add/organizations',checker,async(req,res)=>{
     const organname=req.body.organname.trim();
     const organ=await RunSQL("INSERT INTO organizations(organ_name)values(?)",[organname])
     if(organ.err)

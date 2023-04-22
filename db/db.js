@@ -7,8 +7,9 @@ module.exports = mysql.createPool({
     password: db_config.password,
     database: db_config.database,
     waitForConnections: true,
-    connectionLimit: 10,
+    connectionLimit: 100,
     queueLimit: 0,
-    multipleStatements: true
+    multipleStatements: true,
+    dateStrings: 'date'
 })
 
