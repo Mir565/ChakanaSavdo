@@ -179,7 +179,7 @@ select.appendChild(option);
       var table = document.getElementById('mahsulot')
       for (var i = 0; i < alltranz.length; i++) 
      {
-      s+=` <tr style="font-size:20px;color:black"  id="tr${i}"><td>${((pagenumber-1)*100)+i+1}</td><td>${alltranz[i].name}</td>  <td>${alltranz[i].pr_count}</td><td>${ new Date(alltranz[i].cr_date).toISOString().slice(0, 19).replace('T', ' ')}</td> <td><a class="btn btn-primary" href="/sold/itemsinfo?product_id=${alltranz[i].product_id}&getpage=1&date=${urlParams.get('date')}">
+      s+=` <tr style="font-size:20px;color:black"  id="tr${i}"><td>${((pagenumber-1)*100)+i+1}</td><td>${alltranz[i].name}</td>  <td>${alltranz[i].pr_count}</td><td>${ alltranz[i].cr_date}</td> <td><a class="btn btn-primary" href="/sold/itemsinfo?product_id=${alltranz[i].product_id}&getpage=1&date=${urlParams.get('date')}">
                       <i class="fa fa-edit"></i></a> 
         
             </div> </td> </tr>`

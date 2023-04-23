@@ -74,6 +74,10 @@
               <input type="number" placeholder="YYYY" min="2019" max="2100" id="year">
               <button onclick="send()" class="btn btn-primary">Qidirish</button>
               </form>
+              <center><h1 id="uzsdata"></h1></center>
+              <center><h1 id="usddata"></h1></center>
+              <center><h1 id="allsumma"></h1></center>
+              
               <table class="table table-advance" id="tbl_exporttable_to_xls">
                 
                 <tbody id="mahsulot">
@@ -133,11 +137,22 @@ aside,#sa,header,#stat1,#stat,#searcher,#flexSwitchCheckChecked,#kamqolgan{
     function send(){
       window.location=`/get/benefit?getpage=1&month=${document.getElementById('month').value}&year=${document.getElementById('year').value}`;
     }
+    function numberWithSpaces(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
     let z=[];
     let qq=[];
     let x=0;
     let data=<%- JSON.stringify(data)%>;
     let count=<%- JSON.stringify(count)%>;
+    let uzsdata=<%- JSON.stringify(uzsdata)%>;
+    let usddata=<%- JSON.stringify(usddata)%>;
+    let allsumma=<%- JSON.stringify(allsumma)%>;
+    console.log(uzsdata)
+    document.getElementById('uzsdata').innerHTML=`UZSdagi mahsulotlardan ko'riladigan foyda: ${numberWithSpaces(uzsdata)} UZS`;
+    document.getElementById('usddata').innerHTML=`USDdagi mahsulotlardan ko'riladigan foyda: ${numberWithSpaces(usddata)} USD`;
+    document.getElementById('allsumma').innerHTML=`Barchasi UZSda: ${numberWithSpaces(allsumma)} UZS`;
+    
     //console.log(count)
     const urlParams = new URLSearchParams(window.location.search);
 
