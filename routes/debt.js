@@ -7,6 +7,11 @@ router.get('/get/debt',checker,async(req,res)=>{
         count:count.cnt
     })
 })
+// router.get('/delete/debt/',checker,async(req,res)=>{
+//     await RunSQL("delete from debtor where debtor_id=?",[req.query.debtor_id]);
+//     await RunSQL("delete from debt where debtor_id=?",[req.query.debtor_id]);
+//     await RunSQL("delete from paydebt where debtor_id=?",[req.query.debtor_id]);
+// })
 router.get('/get/debtinfo',checker,async(req,res)=>{
     let debtor;
     if (req.query.date){

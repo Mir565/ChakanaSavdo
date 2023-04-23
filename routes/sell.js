@@ -61,11 +61,11 @@ router.post('/add/sell',async(req,res)=>{
     }
    
 
-    await RunSQL("INSERT INTO allsumma(cash,card,transfer,debt,order_id,user_id) Values(?,?,?,?,?,?)",[cash,card,transfer,debt,order_id,req.session.user_id])
     await RunSQL("INSERT INTO tranzactions(product_id,pr_count,price,sellprice,organ_id,order_id,customername,curiername) Values(?,?,?,?,?,?,?,?)",[allid[i],minusCount[i],bazanarx[i],minusPayment[i],organid,order_id,customername,curiername])
     await RunSQLOne("SELECT count(*)as cnt from filial_count where product_id=? and pr_user_id=?",[allid[i],1])
     await RunSQL("UPDATE filial_count SET  pr_count=pr_count-? WHERE product_id=? and pr_user_id=?",[minusCount[i],allid[i],req.session.user_id])
 }
+await RunSQL("INSERT INTO allsumma(cash,card,transfer,debt,order_id,user_id) Values(?,?,?,?,?,?)",[cash,card,transfer,debt,order_id,req.session.user_id])
 let{counter}=await RunSQLOne("SELECT count(*) as counter FROM curiers WHERE curiername=?",[curiername])
 console.log(counter)
 if(counter==0){
