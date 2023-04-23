@@ -32,7 +32,7 @@
         <br>
         <div  id="sabzi">
           <table class="table table-striped table-advance table-hover" id="salom">
-            <!-- <div class="clear"></div> -->
+        
         </div>
         </center>
         <center><button style="margin-bottom: 5px;" class="btn btn-primary" onclick="minus()" id="tas">Подтверждение
@@ -96,7 +96,6 @@
                     <input class="form-control" placeholder="Nomi" id="searcher1" tabindex="0" onkeyup="searchBar1(event)"
                     type="text">
 
-
                   <tbody id="mahsulot">
 
                   </tbody>
@@ -122,7 +121,6 @@
 
     <style>
     </style>
-    <!--main content end-->
     </section>
  
     <style>
@@ -280,13 +278,13 @@
                              Gen Barkod</th> </tr>`;
           var table = document.getElementById('mahsulot')
 f=1
-    s+=`<tr   style="font-size:20px;color:black;" id="tr${1}"><td>${0}</td><td><input type="text" onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode >= 48 && event.charCode <= 57) || (event.charCode==32)" id="ssxs"></td><td>${0}</td> <td >${0}</td><td>${0}</td> 
-                  <td><input type="number" tabindex=${1 * 3 + 3} name="${document.getElementById("ssxs")}" id="a${"80S565EA"}"  soni="${0}" value="${0}" class="form-control" style="font-size:20px;color:black" /></td> <td></td>
-                  <td><input type="number" tabindex=${1 * 3 + 3} name="${document.getElementById("ssxs")}" id="s${"80S565EA"}"  soni="${0}" class="form-control" style="font-size:20px;color:black" /></td> 
-                     <td><input type="number" tabindex=${1 * 3 + 3} name="${document.getElementById("ssxs")}" id="s${"80S565EA"}"  soni="${0}" class="form-control" style="font-size:20px;color:black" /></td>
-                     <td><select tabindex=${1 * 3 + 3} name="${document.getElementById("ssxs")}" id="s${"80S565EA"}"  soni="${0}" class="form-control" style="font-size:20px;color:black"><option value="1">UZS</option><option value="0">USD</option></select></td> 
-                     <td><input type="number" tabindex=${1 * 3 + 3} name="${document.getElementById("ssxs")}" id="s${"80S565EA"}"  soni="${0}" onkeyup="foizchiqar(this.value,this.id)" class="form-control" style="font-size:20px;color:black" /></td> 
-                      <td><input type="number" tabindex=${1 * 3 + 3} name="${document.getElementById("ssxs")}" id="s${"80S565EA"}"  soni="${0}" onkeyup="narxchiqar(this.value,this.id)" class="form-control" style="font-size:20px;color:black" /></td> 
+    s+=`<tr   style="font-size:20px;color:black;" id="tr${1}"><td>${0}</td><td><input type="text" onkeypress="return (event.charCode >= 65 && event.charCode <= 90) || (event.charCode >= 97 && event.charCode <= 122) || (event.charCode >= 48 && event.charCode <= 57) || (event.charCode==32)" id="newname"></td><td>${0}</td> <td >${0}</td><td>${0}</td> 
+                  <td><input type="number" tabindex=${1 * 3 + 3}  id="newbarkod"  class="form-control" style="font-size:20px;color:black" /></td> <td></td>
+                  <td><input type="number" tabindex=${1 * 3 + 3}  id="newcount"  class="form-control" style="font-size:20px;color:black" /></td> 
+                     <td><input type="number"tabindex=${1 * 3 + 3}  id="newbuyprice"   class="form-control" style="font-size:20px;color:black" /></td>
+                     <td><select tabindex=${1 * 3 + 3} id="newvaluta"   class="form-control" style="font-size:20px;color:black"><option value="1">UZS</option><option value="0">USD</option></select></td> 
+                     <td><input type="number" tabindex=${1 * 3 + 3} id="newfoiz"  onkeyup="foizchiqar(this.value,this.id)" class="form-control" style="font-size:20px;color:black" /></td> 
+                      <td><input type="number" tabindex=${1 * 3 + 3} id="newsellprice"   onkeyup="narxchiqar(this.value,this.id)" class="form-control" style="font-size:20px;color:black" /></td> 
                       <td id="stat1"> <div class="btn-group"> 
                         <button class="btn btn-success"  id="s80S565EA" name="${0}" tabindex=${f * 3 + 4}   onclick="adds(this.id,this.name,${0})">
                       <i class="icon_plus_alt2"></i></button> 
@@ -304,43 +302,52 @@ f=1
               var xprice = Mahsulotlar[i].price;
               var xbuyprice = Mahsulotlar[i].sell_price;
               var xid = Mahsulotlar[i].product_id;
-                s += `<tr   style="font-size:20px;color:black;background-color:${stylex}" id="tr${f}"><td>${i+1}</td><td>${xname}</td><td>${xcountnum}</td> <td >${xprice}</td><td>${xbuyprice}</td> 
-                  <td><input type="number" tabindex=${f * 3 + 3} name="${xname}" id="a${xid}"  soni="${xcountnum}" value="${xbarkod}" class="form-control" style="font-size:20px;color:black" /></td> <td></td>
+                s += `<tr   style="font-size:20px;color:black;background-color:${stylex}" id="tr${f}"><td>${i+1}</td><td id="name${xid}">${xname}</td><td>${xcountnum}</td> <td >${xprice}</td><td>${xbuyprice}</td> 
+                  <td><input type="number" tabindex=${f * 3 + 3} id="barkod${xid}"   value="${xbarkod}" class="form-control" style="font-size:20px;color:black" /></td> <td></td>
                     
-                  <td><input type="number" tabindex=${f * 3 + 3} name="${xname}" id="s${xid}"  soni="${xcountnum}" class="form-control" style="font-size:20px;color:black" /></td> 
-                     <td><input type="number" tabindex=${f * 3 + 3} name="${xname}" id="s${xid}"  soni="${xcountnum}" class="form-control" style="font-size:20px;color:black" /></td>
-                     <td><select tabindex=${1 * 3 + 3} name="${xname}" id="s${"80S565EA"}"  soni="${0}" class="form-control" style="font-size:20px;color:black"><option value="1">UZS</option><option value="0">USD</option></select></td> 
+                  <td><input type="number" tabindex=${f * 3 + 3}   id="count${xid}"   class="form-control" style="font-size:20px;color:black" /></td> 
+                     <td><input type="number" tabindex=${f * 3 + 3} id="buyprice${xid}"  class="form-control" style="font-size:20px;color:black" /></td>
+                     <td><select tabindex=${1 * 3 + 3}    id="valuta${xid}"   class="form-control" style="font-size:20px;color:black"><option value="1">UZS</option><option value="0">USD</option></select></td> 
                      
-                     <td><input type="number" tabindex=${f * 3 + 3} name="${xname}" id="s${xid}"  soni="${xcountnum}" onkeyup="foizchiqar(this.value,this.id)" class="form-control" style="font-size:20px;color:black" /></td> 
+                     <td><input type="number" tabindex=${f * 3 + 3}  id="foiz${xid}"   onkeyup="foizchiqar2(${xid})" class="form-control" style="font-size:20px;color:black" /></td> 
                       
-                      <td><input type="number" tabindex=${f * 3 + 3} name="${xname}" id="s${xid}"  soni="${xcountnum}" onkeyup="narxchiqar(this.value,this.id)" onkeypress="if(event.keyCode == 13){add(this.id,${xcountnum},${xprice},${xid})}" class="form-control" style="font-size:20px;color:black" /></td> 
+                      <td><input type="number" tabindex=${f * 3 + 3} id="sellprice${xid}"  onkeyup="narxchiqar2(${xid})" onkeypress="if(event.keyCode == 13){add(this.id,${xcountnum},${xprice},${xid})}" class="form-control" style="font-size:20px;color:black" /></td> 
                       
                       <td id="stat1"> <div class="btn-group"> 
-                        <button class="btn btn-success"  id="s${xid}" name="${xcountnum}" tabindex=${f * 3 + 4}   onclick="add(this.id,this.name,${xprice},${xid})">
+                        <button class="btn btn-success"  id="${xid}" name="${xcountnum}" tabindex=${f * 3 + 4}   onclick="add(this.id,this.name,${xprice},${xid})">
                       <i class="icon_plus_alt2"></i></button> 
             </div> </td><td><button  id="f${xid}" type="text"   onclick=genBar(this.id)   class="btn btn-primary">GenBarkod</button></td></tr>`
       } 
         table.innerHTML = s;
       }
-      var bc = "false";
-      var bp = "false";
-      var bn = "false";
+   
 
 function foizchiqar(foiz,id){
-  foiz=parseFloat(foiz);
-  narx=parseFloat(document.querySelectorAll(`#${id}`)[1].value)
+  foiz=parseFloat(document.getElementById('newfoiz').value);
+  narx=parseFloat(document.getElementById(`newbuyprice`).value)
   foiz=narx+((narx/100)*foiz)
-  document.querySelectorAll(`#${id}`)[4].value=foiz;
+  document.getElementById(`newsellprice`).value=foiz;
 }
 function narxchiqar(snarx,id){
   console.log(snarx)
-  snarx=parseFloat(snarx);
-  narxi=parseFloat(document.querySelectorAll(`#${id}`)[1].value)
-  console.log(narxi)
+  snarx=parseFloat(document.getElementById('newsellprice').value);
+  narxi=parseFloat(document.getElementById('newbuyprice').value)
   foiz=((snarx*100)/narxi)-100;
-  document.querySelectorAll(`#${id}`)[3].value=foiz;
+  document.getElementById(`newfoiz`).value=foiz;
 }
-    
+function foizchiqar2(id){
+  foiz=parseFloat(document.getElementById(`foiz${id}`).value);
+  narx=parseFloat(document.getElementById(`buyprice${id}`).value)
+  foiz=narx+((narx/100)*foiz)
+  document.getElementById(`sellprice${id}`).value=foiz;
+}
+function narxchiqar2(id){
+  console.log(id)
+  snarx=parseFloat(document.getElementById(`sellprice${id}`).value);
+  narxi=parseFloat(document.getElementById(`buyprice${id}`).value)
+  foiz=((snarx*100)/narxi)-100;
+  document.getElementById(`foiz${id}`).value=foiz;
+}
   var allitems=<%- JSON.stringify(allitems) %>
   var organs=<%- JSON.stringify(organs)%>
   for(organ of organs){
@@ -348,9 +355,7 @@ function narxchiqar(snarx,id){
   }
   Mahsulotlar = allitems
   createTable(Mahsulotlar)
-  function getRndInteger(min, max) {
-  return Math.floor(Math.random() * (max - min) ) + min;
-}
+
 function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min) ) + min;
   }
@@ -361,29 +366,14 @@ function genBar(s){
         return i % 2 == 0 ? p + 1 * v : p + 3 * v;
         }, 0);
       if (checkSum % 10==0) {
-        document.getElementById("a"+s.slice(1)).value=ean
+        document.getElementById('newbarkod').value=ean
         return 0;
       }
 }
 }
           
           createTable(Mahsulotlar, 1);
-      function mana(s) {
-        var r = confirm('Удалить?')
-        if (r == true) {
-          $.ajax({
-            url: `/api/delete/${s}`,
-            type: 'GET', cache: false, dataType: 'json',
-            contentType: 'application/json',
-            success: function (data) {
-
-              if (data.status) {
-                location.reload();
-              }
-            },
-          })
-        }
-      }
+    
       var jami = 0;
       var kurs=[];
       var idfornews=[]
@@ -394,7 +384,6 @@ function genBar(s){
       var arrayCount = []
       var arrayPrice = []
       var arraySell = [];
-      var arrayBazaCount = [];
       var arrayBazaNarx = [];
       function createTable1() {
         jami = 0;
@@ -437,10 +426,8 @@ function genBar(s){
           `
         }
         
-        document.getElementById("yulduz").innerHTML=`***************************************`;
-        document.getElementById("yulduz1").innerHTML=`***************************************`;
-        document.getElementById("yulduz2").innerHTML=`=======================================`;
-        document.getElementById('all').innerHTML = `Итог:${jami}  uzs`;
+    
+
         document.getElementById('mahsulot1').innerHTML = xs;
       }
       function changedata(index){
@@ -449,7 +436,6 @@ function genBar(s){
         if (parseInt(t)){
           arrayCount[index]=parseInt(t);
           createTable1();
-    
         }
         else
         alert("Error!")       
@@ -484,41 +470,6 @@ function genBar(s){
         let  organs = document.getElementById("organnames");
           return organs.options[organs.selectedIndex].text;
         }
-      function money(){
-        naqd = 0;
-        plastik = 0;
-        qarz = 0;
-        pulkochrish = 0;
-        summa = jami - (jami * skidka() / 100);
-        naqd = prompt(`Наличные:${summa}`, summa);
-        summa -= naqd;
-        if (summa > 0)
-          plastik = prompt(`Пластик
-:${summa}`, summa);
-        summa -= plastik;
-        if (summa > 0) {
-          qarz = prompt(`Долг:${summa}`, summa);
-          if (qarz > 0) {
-            sss = "";
-            for (q of arrayName) {
-              sss = sss + q + " ";
-            }
-            kun = prompt('За сколько дней он будет возвращен?', 10);
-            if (!telnumber)
-              telnumber = prompt("Номер телефона", "+998941234567")
-            else {
-              telnumber = prompt("Номер телефона", telnumber)
-            }
-          }
-        }
-        summa -= qarz;
-        if (summa > 0)
-          pulkochrish = prompt(`Перевод денег:${summa}`, summa);
-        summa -= pulkochrish;
-        if (summa > 0) {
-          return 0;
-        }
-      }
       function cliked(i) {
         x = prompt("Остаток", arrayCount[i])
         if (!parseFloat(x)) {
@@ -547,25 +498,23 @@ function genBar(s){
           return 0;
         }
         arrayPrice[i] = t;
-        ram();
         createTable1();
       }
       var check = true;
       function adds(s, soni,sdd, narxi) {
-        console.log(s)
-        if (dictnames[document.getElementById("ssxs").value.trim()]==1){
+        if (dictnames[document.getElementById("newname").value.trim()]==1){
           alert("Iltimos Yangi Mahsulot nomini kiriting!")
           return 0;
         }
         document.getElementById("searcher").focus();
-        var barkodx="a"+s.slice(1);
-   soni=parseFloat(document.querySelectorAll(`#${s}`)[0].value)
-   onarxi=parseFloat(document.querySelectorAll(`#${s}`)[1].value)
-   kursValue=parseFloat(document.querySelectorAll(`#${s}`)[2].value)
-   sfoiz=parseFloat(document.querySelectorAll(`#${s}`)[3].value)
-  snarxi=parseFloat(document.querySelectorAll(`#${s}`)[4].value)
+        var barkodx=document.getElementById('newbarkod').value;
+   soni=document.getElementById('newcount').value;
+   onarxi=document.getElementById('newbuyprice').value;
+   kursValue=document.getElementById('newvaluta').value;
+   sfoiz=document.getElementById('newfoiz').value;
+  snarxi=document.getElementById('newsellprice').value;
   console.log(soni,onarxi,kursValue,sfoiz,snarxi)
-     if (!parseFloat(document.querySelectorAll(`#${s}`)[0].value) || !parseFloat(document.querySelectorAll(`#${s}`)[1].value)  || !parseFloat(document.querySelectorAll(`#${s}`)[3].value)){
+     if (!parseFloat(soni) || !parseFloat(sfoiz)  || !parseFloat(snarxi)){
       alert("Пожалуйста, введите информацию правильно")
       return 0;
      }
@@ -579,7 +528,7 @@ function genBar(s){
             }
           }
           if (fx == 0) {
-            newBarkod.push(document.getElementById(barkodx).value);
+            newBarkod.push(barkodx);
             if (s=="s80S565EA")
             {
             idfornews.push(true)
@@ -588,13 +537,12 @@ function genBar(s){
             else
             idfornews.push(false)
             
-            dict[document.getElementById(s).name] = 1;
+            dict[document.getElementById("newname").name] = 1;
             arrayPrice.push(parseFloat(snarxi));
-            arrayCount.push(parseFloat(document.getElementById(s).value));
-            arrayName.push(document.getElementById("ssxs").value);
+            arrayCount.push(parseFloat(document.getElementById("newcount").value));
+            arrayName.push(document.getElementById("newname").value);
             kurs.push(kursValue)
             arrayFoiz.push(sfoiz)
-            arrayBazaCount.push(soni);
             arrayBazaNarx.push(onarxi);
             createTable1();
             createTable([]);
@@ -602,35 +550,34 @@ function genBar(s){
           }
       }
      
-      function add(s, soni,sdd, product_id ){
+      function add(product_id){
         console.log(product_id)
-        console.log(s);
         document.getElementById("searcher").value="";
         document.getElementById('searcher1').value="";
         document.getElementById("searcher").focus();
         console.log("kirildi!")
         document.getElementById("searcher").focus();
-        var barkodx="a"+s.slice(1);
-    soni=parseFloat(document.querySelectorAll(`#${s}`)[0].value)
-    onarxi=parseFloat(document.querySelectorAll(`#${s}`)[1].value)
-    sfoiz=parseFloat(document.querySelectorAll(`#${s}`)[2].value)
-    snarxi=parseFloat(document.querySelectorAll(`#${s}`)[3].value)
-    if (!parseFloat(document.querySelectorAll(`#${s}`)[0].value) || !parseFloat(document.querySelectorAll(`#${s}`)[1].value) || !parseFloat(document.querySelectorAll(`#${s}`)[2].value) || !parseFloat(document.querySelectorAll(`#${s}`)[3].value)){
+    var barkodx=document.getElementById(`barkod${product_id}`).value;
+    soni=parseFloat(document.getElementById(`count${product_id}`).value)
+    onarxi=parseFloat(document.getElementById(`buyprice${product_id}`).value)
+    sfoiz=parseFloat(document.getElementById(`foiz${product_id}`).value)
+    snarxi=parseFloat(document.getElementById(`sellprice${product_id}`).value)
+    if (!parseFloat(soni) || !parseFloat(onarxi) || !parseFloat(sfoiz) || !parseFloat(snarxi)){
     alert("Пожалуйста, введите информацию правильно")
     return 0;
      }
           fx = 0;
           for (let i = 0; i < arrayName.length; i++) {
-            if (arrayName[i] === document.getElementById(s).name) {
-              cx = parseFloat(document.getElementById(s).value);
-                arrayCount[i] = arrayCount[i] + cx;
-                createTable1();//check
+            if (arrayName[i] === document.getElementById(`name${product_id}`).innerText) {
+              cx = parseFloat(soni);
+              alert("Mahsulot kiritildi tekshiring!!!")
+              createTable1();//check
               fx = 1; 
               document.getElementById(s).value = "";
             }
           }
           if (fx == 0) {
-            newBarkod.push(document.getElementById(barkodx).value);
+            newBarkod.push(barkodx);
             if (s=="s80S565EA")
             {
             idfornews.push(true)
@@ -639,19 +586,16 @@ function genBar(s){
             else
             allid.push(product_id)
             idfornews.push(false)
-            dict[document.getElementById(s).name] = 1;
+            dict[name] = 1;
             arrayPrice.push(parseFloat(snarxi));
-            arrayCount.push(parseFloat(document.getElementById(s).value));
-            arrayName.push(document.getElementById(s).name);
-            kurs.push(kursValue)
+            arrayCount.push(soni);
+            arrayName.push(document.getElementById(`name${product_id}`).innerText);
+            kurs.push(document.getElementById(`valuta${product_id}`).value)
             arrayFoiz.push(sfoiz)
-            arrayBazaCount.push(soni);
             arrayBazaNarx.push(onarxi);
             createTable([])
             createTable1();
-            // document.getElementById(s).value = "";
           }
-       
       }
 createTable([])
   
@@ -661,42 +605,19 @@ createTable([])
         arrayName.splice(s, 1);
         kurs.splice(s,1);
         arrayPrice.splice(s, 1);
-        arrayBazaCount.splice(s, 1);
+       
         arrayBazaNarx.splice(s, 1);
         newBarkod.splice(s, 1);
         idfornews.splice(s,1)
         allid.splice(s,1)
         createTable1();
       }
-      function CheckNull(t) {
-        if (t === null) {
-          return 0;
-        }
-        else {
-          return t;
-        }
-      }
       function minus() {
-        //document.getElementById('puli').innerHTML = `To'lanadigan Summa:${jami - (jami * skidka() / 100)} so'm`
         var organid= document.getElementById('organnames').value;
         if (arrayCount.length == 0) {
           alert("Продажа не состоялась!")
           return 0;
         }
-        money();
-        if (summa != 0) {
-          alert("Вы сделали ошибку при входе!")
-          return 0;
-        }
-        naqd = CheckNull(naqd);
-        plastik = CheckNull(plastik)
-        pulkochrish = CheckNull(pulkochrish)
-        qarz = CheckNull(qarz);
-        alert(`Наличные:${naqd}\n Пластик
-:${plastik}\n Перевод денег
-:${pulkochrish}\n Долг:${qarz}`)
-        var r = confirm('Подтверждать?')
-        if (r == true) {
           var curiername;
           $.ajax({
             url: '/add/item',
@@ -710,10 +631,6 @@ createTable([])
           })
           location.reload();
         }
-      }
-      today = new Date();
-      var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-      document.getElementById('timenow').innerHTML += `Число:${new Date().getDate()}.${new Date().getMonth() + 1}.${new Date().getFullYear()} ${time}`
     </script>
 </body>
 </html>

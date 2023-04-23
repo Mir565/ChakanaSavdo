@@ -132,10 +132,11 @@ router.get('/sold/items',checker, async (req, res) => {
 router.get('/sold/itemsinfo',checker,async(req,res)=>{
     const alltranz=await RunSQL("select * from tranzactions join products on products.product_id=tranzactions.product_id where (DATE(tranzactions.cr_date)=?) and  tranzactions.product_id=? limit 100 offset ?",[req.query.date,req.query.product_id,(parseInt(req.query.getpage)-1)*100])
     const count=await RunSQLOne('select count(*) as cnt from tranzactions join products on products.product_id=tranzactions.product_id where (DATE(tranzactions.cr_date)=?) and  tranzactions.product_id=?',[req.query.date,req.query.product_id])
-
+    const{kurs}=await RunSQLOne("select kurs from valuta");
     res.render('solditemsinfo',{
         alltranz:alltranz,
-        count:count.cnt
+        count:count.cnt,
+        kurs:kurs
     })
 })
 

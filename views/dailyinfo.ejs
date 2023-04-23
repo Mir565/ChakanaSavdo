@@ -71,7 +71,7 @@
               <br>
               <input class="form-control" placeholder="Nomi" id="nomi"  onkeyup=nomi(event) type="text">
             
-              
+              <center> <button onclick="print()" class="btn btn-primary">Print</button></center>
               <table class="table table-advance" id="tbl_exporttable_to_xls">
                
                 
@@ -130,6 +130,9 @@ aside,#sa,header,#stat1,#stat,#searcher,#flexSwitchCheckChecked,#kamqolgan{
     function barkod(e){
       if (e.keyCode==13)
       window.location=`/get/dailyinfo?getpage=1&barkod=${document.getElementById('barkod').value}&order_id=${urlParams.get('order_id')}`;
+    }
+    function print(){
+      window.open(`/print/customer/history?data=${JSON.stringify(dailyinfodata)}`)
     }
     let z=[];
     let qq=[];

@@ -87,6 +87,11 @@
             <h1>Jadval</h1>
           <button type="submit" class="btn btn-primary" onclick="send()">Tasdiqlash</button> 
           <br>
+          <br>
+          <button type="submit" class="btn btn-primary" onclick="print()">Print</button> 
+          
+
+          <br>
           </center> 
            
             <table class="table table-advance" id="tbl_exporttable_to_xls">
@@ -141,6 +146,9 @@ aside,#sa,header,#stat1,#stat,#searcher,#flexSwitchCheckChecked,#kamqolgan{
     function searchText(e){
       if (e.keyCode==13)
       window.location=`/get/vazvrat/searchbytext?name=${document.getElementById('searchertext').value}&order_id=${urlParams.get('order_id')}`;
+    }
+    function print(){
+      window.open(`/print/vazvrat/current?data=${JSON.stringify(data)}`)
     }
     let z=[];
     let qq=[];
@@ -218,10 +226,13 @@ select.appendChild(option);
       if(localStorage.getItem('data')==null){
         console.log(1)
         data=[]
-      }else{
+      }else if (JSON.parse(localStorage.getItem('data'))[0].old.order_id==urlParams.get('order_id')){
         data=JSON.parse(localStorage.getItem('data'));
        console.log(data)
         createTableForVazvrat(data);
+      }else{
+        data=[]
+        localStorage.clear();
       }
       function add(order_id){
 console.log(order_id)
@@ -258,6 +269,7 @@ console.log(vazvratcount,vazvratprice)
         }
         createTableForVazvrat(data)
         localStorage.setItem('data',JSON.stringify(data));
+
         document.getElementById(`soni${order_id}`).value=""
         document.getElementById(`narxi${order_id}`).value=""
       }

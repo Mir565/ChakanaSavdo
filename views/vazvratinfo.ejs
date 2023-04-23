@@ -21,21 +21,7 @@
   <!-- Custom styles -->
   <link href="/css/style.css" rel="stylesheet">
   <link href="/css/style-responsive.css" rel="stylesheet" />
-  
-  <!-- HTML5 shim and Respond.js IE8 support of HTML5 -->
-  <!--[if lt IE 9]>
-      <script src="js/html5shiv.js"></script>
-      <script src="js/respond.min.js"></script>
-      <script src="js/lte-ie7.js"></script>
-    <![endif]-->
 
-  <!-- =======================================================
-      Theme Name: NiceAdmin
-      Theme URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-      Author: BootstrapMade
-      Author URL: https://bootstrapmade.com
-    ======================================================= -->
-</head>
 <script>
   document.title="Все Продукты"
 </script>
@@ -131,7 +117,7 @@ aside,#sa,header,#stat1,#stat,#searcher,#flexSwitchCheckChecked,#kamqolgan{
       window.location=`/get/vazvratinfo?getpage=1&barkod=${document.getElementById('barkod').value}&order_id=${urlParams.get('order_id')}`;
     }
     function print(){
-      window.open(`/print?data=${JSON.stringify(dailyinfodata)}`);
+      window.open(`/print/vazvrat?order_id=${urlParams.get('order_id')}`);
     }
         let z=[];
     let qq=[];

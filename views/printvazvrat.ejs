@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <style>
+        table, td, th {
+          border: 1.5px solid black;
+        }
+        
+        table {
+          width: 100%;
+          border-collapse: collapse;
+        }
+        </style>
+<body>
+ <center> <h2 style="font-style:italic;">""Мир Сантехники""</h2></center>
+ <center> <h2 style="font-style:italic;">#VAZVRAT</h2></center>
+ <center> <h2 id="vaqt"> Sana:</h2></center>
+ <center> <h2 id="taked_tmie"> Xarid Qilingan Sana:</h2></center>
+  <h3>Tel:  +998913113333  </h3>
+  <h3 id="cusname">Xaridor Nomi: </h3>
+<table id="tablehref" >
+</table>
+
+<center><h2 id="all"></h2></center>
+<br>
+</body>
+<script>
+  var data=<%- JSON.stringify(data)%>;
+  console.log(data)
+  document.getElementById('cusname').innerHTML+=`${data[0].customername}`
+  document.getElementById('vaqt').innerHTML+=new Date().toLocaleString();
+  document.getElementById('taked_tmie').innerHTML+=data[0].cr_date;
+
+function createTable(data){
+  var allprice=0;
+ ss=`<tr>
+     <th style="width:0.5%">Nomer</th>
+    <th style="width:40%">Nomi</th>
+    <th>Soni</th>
+    <th>1 Dona</th>
+    <th>Jami</th>
+  </tr>`;
+ for (let i=0;i<data.length;i++)
+ {
+  ss+=`
+  <tr>
+    <td>${i+1}</td>
+    <td>${data[i].name}</td>
+    <td>${data[i].vazvratcount}</td>
+    <td>${data[i].vazvratprice}</td>
+    <td>${data[i].vazvratcount*data[i].vazvratprice}</td>
+  </tr>
+ `
+ allprice=allprice+(data[i].vazvratcount*data[i].vazvratprice);
+ }
+ 
+ 
+          document.getElementById('all').innerHTML = `Jami ${allprice}`
+ document.getElementById('tablehref').innerHTML=ss;
+}
+createTable(data)
+window.print();
+window.onafterprint=()=>{
+  window.close();
+}
+</script>
+</html>

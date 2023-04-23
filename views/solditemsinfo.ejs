@@ -128,6 +128,7 @@ aside,#sa,header,#stat1,#stat,#searcher,#flexSwitchCheckChecked,#kamqolgan{
     let x=0;
     let alltranz=<%- JSON.stringify(alltranz)%>;
      let count=<%- JSON.stringify(count)%>;
+     let kurs=<%- JSON.stringify(kurs)%>
      console.log(alltranz)
     const urlParams = new URLSearchParams(window.location.search);
 const pagenumber = parseInt(urlParams.get('getpage'));
@@ -167,26 +168,13 @@ select.appendChild(option);
       var table = document.getElementById('mahsulot')
       for (var i = 0; i < alltranz.length; i++) 
      {
-      s+=` <tr style="font-size:20px;color:black"  id="tr${i}"><td>${((pagenumber-1)*100)+i+1}</td><td>${alltranz[i].name}</td>  <td>${alltranz[i].pr_count}</td><td>${alltranz[i].customername}</td> <td></td><td>${alltranz[i].cr_date}</td>  </tr>`
+      s+=` <tr style="font-size:20px;color:black"  id="tr${i}"><td>${((pagenumber-1)*100)+i+1}</td><td>${alltranz[i].name}</td>  <td>${alltranz[i].pr_count}</td><td>${alltranz[i].ISSUM?alltranz[i].sell_price:alltranz[i].sell_price*kurs}</td> <td></td><td>${alltranz[i].cr_date}</td>  </tr>`
        }
       table.innerHTML=s;
         }       
-      function ExportToExcel(type, fn, dl) {
-       var elt = document.getElementById('tbl_exporttable_to_xls');
-       var wb = XLSX.utils.table_to_book(elt, { sheet: "sheet1" });
-       return dl ?
-         XLSX.write(wb, { bookType: type, bookSST: true, type: 'base64' }):
-         XLSX.writeFile(wb, fn || ('MySheetName.' + (type || 'xlsx')));
-    }
-      function round(value, precision) {
-    var multiplier = Math.pow(10, precision || 0);
-    return Math.round(value * multiplier) / multiplier;
-}
-      function check(){
-        t=confirm("Ochirilsinmi?");
-          return t;
-      }
-      
+
+ 
+     
      
      </script>
     
