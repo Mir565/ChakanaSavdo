@@ -48,7 +48,7 @@
       <section class="wrapper">
         <div class="row" id="sa">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-table"></i>Savdolar Jadvali           </h3>
+            <h3 class="page-header"><i class="fa fa-table"></i>Draft Jadvali           </h3>
             <ol class="breadcrumb">
               <li><i class="fa fa-home"></i><a href="index.html">Домашняя страница
               </a></li>
@@ -93,8 +93,6 @@
       </section>
     </section>
     <style>
-      
-
     </style>
     <!--main content end-->
     <div class="text-right">
@@ -128,7 +126,7 @@ aside,#sa,header,#stat1,#stat,#searcher,#flexSwitchCheckChecked,#kamqolgan{
   <script src="/js/scripts.js" ></script>
   <script>
     function send(){
-      window.location=`/get/daily?getpage=1&name=${document.getElementById('name').value}&date=${document.getElementById('date').value}`;
+      window.location=`/get/draft?getpage=1&name=${document.getElementById('name').value}&date=${document.getElementById('date').value}`;
     }
     let z=[];
     let qq=[];
@@ -153,7 +151,7 @@ select.appendChild(option);
     }
     function changelocation(pagenum){
 
-      window.location=`/get/daily?getpage=${pagenum}`
+      window.location=`/get/draft?getpage=${pagenum}`
 
     }
     createTable(dailydata)
@@ -171,11 +169,10 @@ select.appendChild(option);
       var table = document.getElementById('mahsulot')
       for (var i = 0; i < dailydata.length; i++) 
      {
-      s+=` <tr style="font-size:20px;color:black"  id="tr${i}"><td>${((pagenumber-1)*100)+i+1}</td><td>${dailydata[i].customername}</td>  <td>${dailydata[i].sum}</td> <td>${dailydata[i].cr_date}</td> <td><a class="btn btn-primary" href="/get/dailyinfo?order_id=${dailydata[i].order_id}&getpage=1">
-                      <i class="fa fa-info"></i></a> <a class="btn btn-danger" href="/get/vazvrat?order_id=${dailydata[i].order_id}">
-                      <i class="fa fa-minus"></i></a>  
-                      <a class="btn btn-success" href="/get/vazvratinfo?order_id=${dailydata[i].order_id}">
-                      <i class="fa fa-info"></i></a>  
+      s+=` <tr style="font-size:20px;color:black"  id="tr${i}"><td>${((pagenumber-1)*100)+i+1}</td><td>${dailydata[i].customername}</td>  <td>${dailydata[i].sum}</td> <td>${dailydata[i].cr_date}</td> <td><a class="btn btn-primary" href="/get/draftinfo?order_id=${dailydata[i].order_id}&getpage=1">
+                      <i class="fa fa-info"></i></a>
+                      <a class="btn btn-danger" href="/delete/draft?order_id=${dailydata[i].order_id}&getpage=1">
+                      <i class="fa fa-trash"></i> </a>
              </td> </tr>`
        }
       table.innerHTML=s;
@@ -183,29 +180,7 @@ select.appendChild(option);
        
        
   
-      function check(){
-        t=confirm("Ochirilsinmi?");
-          return t;
-      }
-      
      
-     function mana(s){
-      //  console.log(s);
-      var r=confirm('Удалить?')
-      if (r==true){
-      $.ajax({
-      url: `/api/delete/${s}`,
-      type: 'GET', cache: false, dataType: 'json',
-      contentType: 'application/json', 
-      success: function (data) { 
-        // console.log(data)
-     if (data.status){
-      location.reload();
-     }
-    },
-    })
-    }
-  }
      </script>
     
 </body>

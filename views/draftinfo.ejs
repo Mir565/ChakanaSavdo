@@ -48,14 +48,7 @@
       <section class="wrapper">
         <div class="row" id="sa">
           <div class="col-lg-12">
-            <h3 class="page-header"><i class="fa fa-table"></i>Savdolar Jadvali           </h3>
-            <ol class="breadcrumb">
-              <li><i class="fa fa-home"></i><a href="index.html">Домашняя страница
-              </a></li>
-              <li><i class="fa fa-table"></i>Продукт</li>
-              <li><i class="fa fa-th-list"></i>Таблица продуктов
-              </li>
-            </ol>
+            <h3 class="page-header"><i class="fa fa-table"></i> DraftINFO Jadvali</h3>
           </div>
         </div>
         <select name="" id="pagenation" onchange="changelocation(this.value)" ></select>
@@ -71,17 +64,20 @@
           <div class="col-lg-12">
             <section class="panel">
               <header class="panel-heading">
-              Savdolar Jadvali
+                Savdolar Jadvali
 
               </header>
-              
-              <form class="navbar-form" onsubmit="return false;">
-                <input class="form-control" placeholder="Qidiruv"id="name"  type="text">
-              <input type="date" name="" id="date">
-              <button onclick="send()" class="btn btn-primary">Qidirish</button>
-              </form>
+              <input class="form-control" placeholder="Barkod" id="barkod"  onkeyup=barkod(event) type="text">
+              <br>
+              <input class="form-control" placeholder="Nomi" id="nomi"  onkeyup=nomi(event) type="text">
+            
+              <center> <button onclick="print()" class="btn btn-primary">Savdoga o'tish</button></center>
               <table class="table table-advance" id="tbl_exporttable_to_xls">
+               
                 
+              
+
+               
                 <tbody id="mahsulot">
                  
                 </tbody>
@@ -127,14 +123,23 @@ aside,#sa,header,#stat1,#stat,#searcher,#flexSwitchCheckChecked,#kamqolgan{
   <!--custome script for all page-->
   <script src="/js/scripts.js" ></script>
   <script>
-    function send(){
-      window.location=`/get/daily?getpage=1&name=${document.getElementById('name').value}&date=${document.getElementById('date').value}`;
+    function nomi(e){
+      if (e.keyCode==13)
+      window.location=`/get/draftinfo?getpage=1&name=${document.getElementById('nomi').value}&order_id=${urlParams.get('order_id')}`;
     }
+    function barkod(e){
+      if (e.keyCode==13)
+      window.location=`/get/draftinfo?getpage=1&barkod=${document.getElementById('barkod').value}&order_id=${urlParams.get('order_id')}`;
+    }
+   
     let z=[];
     let qq=[];
     let x=0;
-    let dailydata=<%- JSON.stringify(dailydata)%>;
+    let dailyinfodata=<%- JSON.stringify(dailyinfodata)%>;
     let count=<%- JSON.stringify(count)%>;
+    function print(){
+      window.location=`/get/sell?draft=${dailyinfodata[0].order_id}`;
+    }
     //console.log(count)
     const urlParams = new URLSearchParams(window.location.search);
 const pagenumber = parseInt(urlParams.get('getpage'));
@@ -152,31 +157,25 @@ if (pagenumber==i){
 select.appendChild(option);
     }
     function changelocation(pagenum){
-
-      window.location=`/get/daily?getpage=${pagenum}`
-
+      window.location=`/get/draft?getpage=${pagenum}`
     }
-    createTable(dailydata)
+    createTable(dailyinfodata)
     
-    function createTable(dailydata){
+    function createTable(dailyinfodata){
       qq=[];
       x++;
-      s=`<tr> <th >
-      
-           Порядковый Номер</th>
-                      <th  >
-                  
-                       Название</th>  <th>Summa</th>  <th>Sanasi</th> 
-                          <th id="stat" Статистика</th> </tr>`;
+      s=`<tr> <th >Tartib R..</th>
+                      <th>Nomi</th>
+                      <th>Soni</th>    
+                      <th>Barkod</th>
+                      <th>Narxi</th>
+                      <th>Sanasi</th></tr>`      
       var table = document.getElementById('mahsulot')
-      for (var i = 0; i < dailydata.length; i++) 
+      for (var i = 0; i < dailyinfodata.length; i++) 
      {
-      s+=` <tr style="font-size:20px;color:black"  id="tr${i}"><td>${((pagenumber-1)*100)+i+1}</td><td>${dailydata[i].customername}</td>  <td>${dailydata[i].sum}</td> <td>${dailydata[i].cr_date}</td> <td><a class="btn btn-primary" href="/get/dailyinfo?order_id=${dailydata[i].order_id}&getpage=1">
-                      <i class="fa fa-info"></i></a> <a class="btn btn-danger" href="/get/vazvrat?order_id=${dailydata[i].order_id}">
-                      <i class="fa fa-minus"></i></a>  
-                      <a class="btn btn-success" href="/get/vazvratinfo?order_id=${dailydata[i].order_id}">
-                      <i class="fa fa-info"></i></a>  
-             </td> </tr>`
+      s+=` <tr style="font-size:20px;color:black"  id="tr${i}"><td>${((pagenumber-1)*100)+i+1}</td><td>${dailyinfodata[i].name}</td><td>${dailyinfodata[i].pr_count}</td> <td>${dailyinfodata[i].barcode}</td> <td>${dailyinfodata[i].sellprice}</td><td>${dailyinfodata[i].cr_date}</td> 
+      
+            </div> </td> </tr>`
        }
       table.innerHTML=s;
         }

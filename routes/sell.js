@@ -30,12 +30,17 @@ res.json({})
 
 router.get('/get/sell',checker,async(req,res)=>{
     const items =[]
+    let data=[];
+    if (req.query.draft){
+   data=await RunSQL("select draft.*,products.name from draft join products on products.product_id=draft.product_id  where draft.order_id=?",[req.query.draft]);
+    }
     const{kurs}=await RunSQLOne("select kurs from valuta");
     const organs=await RunSQL("SELECT * from users")
     res.render('sell',{
         allitems:items,
         organs:organs,
-        kurs:kurs
+        kurs:kurs,
+        data:data
     })
 })
 router.post('/add/sell',async(req,res)=>{

@@ -38,9 +38,12 @@
             <!-- <div class="clear"></div> -->
         </div>
         </center>
-        <center><button style="margin-bottom: 5px;" class="btn btn-primary" onclick="minus()" id="tas">Подтверждение
+        <center><button style="margin-bottom: 5px;" class="btn btn-primary" onclick="minus()" id="tas">Tasdiqlash
+        </button>
+        <button style="margin-bottom: 5px;" class="btn btn-warning" onclick="draft()" id="tas">Draft
         </button>
         </center>
+        
         <center>
           <div class="form-check">
           
@@ -270,8 +273,28 @@ xaridorgen()
   
 
 
-    
+      var idfornews=[]
+      var allid=[]
+      var arrayName = []
+      var arrayCount = []
+      var arrayPrice = []
+      var arrayBazaCount = [];
+      var arrayBazaNarx = [];
   var allitems=<%- JSON.stringify(allitems) %>
+  var datadraft=<%- JSON.stringify(data) %>
+  if (datadraft.length>0){
+    for(let i=0;i<datadraft.length;i++){
+      arrayName.push(datadraft[i].name);
+      arrayCount.push(datadraft[i].pr_count);
+      arrayBazaCount.push(99999999);
+      allid.push(datadraft[i].product_id);
+      arrayPrice.push(datadraft[i].sellprice)
+      arrayBazaNarx.push(datadraft[i].price)
+     
+    }
+    document.getElementById("customername").value=datadraft[0].customername;
+    createTable1();
+  }
   var organs=<%- JSON.stringify(organs)%>
 
   var kurs=<%- JSON.stringify(kurs)%>
@@ -282,19 +305,10 @@ xaridorgen()
           createTable(Mahsulotlar, 1);
      
       var jami = 0;
-      var idfornews=[]
-      var allid=[]
-      var newBarkod=[]
-      var arrayFoiz=[]
-      var arrayName = []
-      var arrayCount = []
-      var arrayPrice = []
-      var arraySell = [];
-      var arrayBazaCount = [];
-      var arrayBazaNarx = [];
+     
       function createTable1() {
         jami = 0;
-        arraySell = []
+       
         xs = `<tr style="font-family:'Arial Narrow', Arial, sans-serif;font-size:23px"> <th>#N</th>
        <th>Nomi</th>
         <th>Soni</th>
@@ -318,8 +332,8 @@ xaridorgen()
       }
       function changedata(index){
         t=prompt("soni")
-        if (parseInt(t) && parseInt(t)<=arrayBazaCount[i]){
-          arrayCount[index]=parseInt(t);
+        if (parseFloat(t) && parseFloat(t)<=arrayBazaCount[i]){
+          arrayCount[index]=parseFloat(t);
           createTable1();
         }
         else
@@ -328,8 +342,8 @@ xaridorgen()
       function changebazanarx(index){
       
         t=prompt("Narxni kiriting")
-        if (parseInt(t)&& arrayBazaNarx[i]<t){
-          arrayPrice[index]=parseInt(t);
+        if (parseFloat(t)&& arrayBazaNarx[i]<t){
+          arrayPrice[index]=parseFloat(t);
           createTable1();
         }
         else
@@ -465,11 +479,32 @@ xaridorgen()
       function calcSumma(arrayPrice){
         let summa=0;
         for(let i=0;i<arrayPrice.length;i++){
-summa+=arrayPrice[i];
+summa+=(arrayPrice[i]*arrayCount[i]);
         }
       return summa
       }
-
+      function draft(){
+         organid=1
+         customername=document.getElementById('customername').value;
+        if (arrayCount.length == 0) {
+          alert("Продажа не состоялась!")
+          return 0;
+        }
+        var r = confirm('Подтверждать?')
+        if (r == true) {
+                   $.ajax({
+            url: '/add/draft',
+            type: "POST",
+            cache: false,
+            contentType: 'application/json',
+            dataType: 'json',
+            data: JSON.stringify({customername:customername, minusName: arrayName, minusCount: arrayCount,   minusPayment: arrayPrice, bazanarx:arrayBazaNarx,allid:allid}),
+            success: data => {
+            }
+          })
+          location.reload();
+        }
+      }
       function minus() {
         var organid=1
         var customername=document.getElementById('customername').value;
@@ -502,7 +537,7 @@ summa+=arrayPrice[i];
             success: data => {
             }
           })
-          location.reload();
+         window.location="/get/sell"
         }
       }
     </script>
