@@ -100,6 +100,9 @@
                 </div>
 
                 <table class="table table-advance">
+                  <button class="btn btn-primary" id="change" onclick="change()">Olingan Narxi</button>
+                  <br>
+                  <br>
                   <input class="form-control" placeholder="Shtrix Kod" id="searcher" tabindex="0" onkeypress="searchBar(event)"
                     type="text">
                     <br>
@@ -182,10 +185,28 @@
     <!--custome script for all page-->
     <script src="/js/scripts.js"></script>
     <script>
-           
-           function xaridorgen(){
+           var changes=localStorage.getItem('changes');
+           console.log(changes)
+           if (changes==1)
+            document.getElementById('change').className="btn btn-primary";
+           else
+           document.getElementById('change').className="btn btn-danger";
+            function xaridorgen(){
   var uniq = 'id' + (new Date()).getTime();
 document.getElementById("customername").value=uniq;
+}
+function change(){
+  if (changes==1){
+  document.getElementById('change').className="btn btn-danger";
+  searchText();
+changes=0;  
+localStorage.setItem('changes',0);
+}else{
+  changes=1;
+  localStorage.setItem('changes',1);
+  searchText();
+  document.getElementById('change').className="btn btn-primary";
+}
 }
 xaridorgen()
       var dict = {};
@@ -202,7 +223,7 @@ xaridorgen()
             contentType: 'application/json',
             dataType: 'json',
             success: data => {
-              console.log(data)
+           
               if (data.barcode!=undefined){
                 document.getElementById('searcher').value=""
                 createTable([data]);
@@ -214,7 +235,7 @@ xaridorgen()
     }
   }
   function searchText(event){
-      if (event.key ==="Enter"){
+    if (document.getElementById('searcher1').value.length>0){
       $.ajax({
             url: `/search/itemText?name=${document.getElementById('searcher1').value}`,
             type: "GET",
@@ -222,11 +243,13 @@ xaridorgen()
             contentType: 'application/json',
             dataType: 'json',
             success: data => {
-              console.log(data)
+           
                 createTable(data);
             }
           })
-    }
+        }else{
+          createTable([])
+        }
   }
       function createTable(Mahsulotlar, pagename) {
         begin = 0;
@@ -258,7 +281,7 @@ xaridorgen()
             
               var xbuyprice =Mahsulotlar[i].ISSUM?Mahsulotlar[i].sell_price:Mahsulotlar[i].sell_price*kurs;
               var xid = Mahsulotlar[i].product_id;
-                s += `<tr   style="font-size:20px;color:black;background-color:${stylex}" id="tr${f}"><td>${i+1}</td><td>${xname}</td><td>${xcountnum}</td> <td >${xprice}</td><td>${xbuyprice}</td> 
+                s += `<tr   style="font-size:20px;color:black;background-color:${stylex}" id="tr${f}"><td>${i+1}</td><td>${xname}</td><td>${xcountnum}</td> <td >${changes==1?xprice:"********"}</td><td>${xbuyprice}</td> 
                  <td>${xbarkod}</td>
                     
                   <td><input type="number" tabindex=${f * 3 + 3} id="soni${xid}"  class="form-control" /></td>
@@ -425,10 +448,10 @@ xaridorgen()
                   alert ("bazada buncha mahsulot mavjud emas!")
                   return 0;
                 }
-        document.getElementById("searcher").value="";
-        document.getElementById('searcher1').value="";
-        document.getElementById("searcher").focus();
-        document.getElementById("searcher").focus();
+        // document.getElementById("searcher").value="";
+        // document.getElementById('searcher1').value="";
+        document.getElementById("searcher1").focus();
+        document.getElementById("searcher1").focus();
           flag = 0;
           for (let i = 0; i < arrayName.length; i++) {
             if (arrayName[i] === xname) {
@@ -439,7 +462,7 @@ xaridorgen()
                 arrayPrice[i]=narxi;
                 arrayCount[i] = arrayCount[i] + count;
                 createTable1();
-                createTable([])
+               searchText()
                 flag = 1; 
             }
           }
@@ -451,7 +474,7 @@ xaridorgen()
         arrayBazaNarx.push(xprice);
         allid.push(xid);
         dict[xname] = 1;
-        createTable([])
+        searchText()
         createTable1();
           }
       }
@@ -540,6 +563,9 @@ summa+=(arrayPrice[i]*arrayCount[i]);
          window.location="/get/sell"
         }
       }
+      window.onbeforeunload = function () {
+  return 'Are you really want to perform the action?';
+ }
     </script>
 </body>
 </html>

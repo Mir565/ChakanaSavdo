@@ -13,7 +13,7 @@ router.get('/all/tranzactions',checker,async(req,res)=>{
         alltranz=await RunSQL("SELECT * from tranzbyorderid where  organ_id=? order by cr_date desc limit ? offset ?",[req.query.name,100,(parseInt(req.query.getpage)-1)*100]);
         count=await RunSQLOne("SELECT count(*) as count FROM tranzbyorderid where  organ_id=?",[req.query.name]);    
     }
-    const organs=await RunSQL("SELECT * from organizations")
+    const organs=await RunSQL("SELECT  count(distinct order_id) from organizations ")
     res.render('alltranz',{
         alltranz:alltranz,
         count:count.count,
