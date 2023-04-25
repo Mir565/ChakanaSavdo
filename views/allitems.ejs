@@ -115,14 +115,12 @@ aside,#sa,header,#stat1,#stat,#searcher,#flexSwitchCheckChecked,#kamqolgan{
   <script src="/js/jquery.js"></script>
   <script>
     function searchBar(e){
-      if (e.keyCode==13){
         searcherdbarkod=document.getElementById('searcher').value;
         $.ajax({
       url: `/search/itemor?barcode=${searcherdbarkod}`,
       type: 'GET', cache: false, dataType: 'json',
       contentType: 'application/json', 
       success: function (data) {
-        console.log(data) 
      if(data!=[])
         createTable(data)
         else{
@@ -134,7 +132,6 @@ aside,#sa,header,#stat1,#stat,#searcher,#flexSwitchCheckChecked,#kamqolgan{
      }
     },
     })
-      }
     }
     let z=[];
     let qq=[];

@@ -187,7 +187,7 @@
     <!--custome script for all page-->
     <script src="/js/scripts.js"></script>
     <script>
-           var changes=localStorage.getItem('changes');
+           let changes=localStorage.getItem('changes');
            console.log(changes)
            if (changes==1)
             document.getElementById('change').className="btn btn-primary";
@@ -201,12 +201,15 @@ function change(){
   if (changes==1){
   document.getElementById('change').className="btn btn-danger";
   searchText();
+  
 changes=0;  
 localStorage.setItem('changes',0);
+createTable1();
 }else{
   changes=1;
   localStorage.setItem('changes',1);
   searchText();
+  createTable1();
   document.getElementById('change').className="btn btn-primary";
 }
 }
@@ -337,6 +340,7 @@ xaridorgen()
         xs = `<tr style="font-family:'Arial Narrow', Arial, sans-serif;font-size:23px"> <th>#N</th>
        <th>Nomi</th>
         <th>Soni</th>
+        <th>Olingan Narxi</th>
         <th>Narxi</th>
         <th>Jami</th>
       <th id="delete">Удалить
@@ -346,16 +350,14 @@ xaridorgen()
           jami+=(arrayPrice[i]*arrayCount[i])
           xs +=`<tr style="color:black;font-size:20px;font-family:'Arial Narrow', Arial, sans-serif;" ><td>${i + 1}</td><td> <b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;">${arrayName[i]}</b></td>        
         
-          <td ><b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;" onclick="changedata(s=${i})">${arrayCount[i]}</b></td>
-          <td ><b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;" onclick="changebazanarx(s=${i})">${arrayPrice[i]}</b></td>
-          <td ><b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;" onclick="changedata(s=${i})">${arrayPrice[i]*arrayCount[i]}</b></td>
+          <td><b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;" onclick="changedata(s=${i})">${arrayCount[i]}</b></td>
+          <td><b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;" onclick="changebazanarx(s=${i})">${changes==1?arrayBazaNarx[i]:"**********"}</b></td>
+          <td><b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;" onclick="changebazanarx(s=${i})">${arrayPrice[i]}</b></td>
+          <td><b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;" onclick="changedata(s=${i})">${arrayPrice[i]*arrayCount[i]}</b></td>
           <td><button class="btn btn-danger" id="delete1" onclick="addminus(s=${i})">удалить</button></td></tr>
           `
         }
-        
-        
         document.getElementById('mahsulot1').innerHTML = xs;
-
         document.getElementById('allsummas').innerHTML=`Jami:${jami}`
       }
       function changedata(index){

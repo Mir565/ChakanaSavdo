@@ -35,10 +35,7 @@ router.get('/get/vazvrat/searchbybarkod',checker,async(req,res)=>{
 })
 router.get('/get/vazvrat/searchbytext',checker,async(req,res)=>{
     const data=await RunSQL("select * from tranzactions join products on products.product_id=tranzactions.product_id  where order_id=? and products.name like ?",[req.query.order_id,"%"+req.query.name+"%"])
-    res.render('vazvrat',{
-        dailyinfodata:data,
-        count:0
-    })
+    res.json({"dailydata":data})
 })
 router.post('/post/vazvrat',checker,async(req,res)=>{
     const data=req.body.data;

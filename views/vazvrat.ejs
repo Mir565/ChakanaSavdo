@@ -144,8 +144,20 @@ aside,#sa,header,#stat1,#stat,#searcher,#flexSwitchCheckChecked,#kamqolgan{
       window.location=`/get/vazvrat/searchbybarkod?barkod=${document.getElementById('searcherbarkod').value}&order_id=${urlParams.get('order_id')}`;
     }
     function searchText(e){
-      if (e.keyCode==13)
-      window.location=`/get/vazvrat/searchbytext?name=${document.getElementById('searchertext').value}&order_id=${urlParams.get('order_id')}`;
+      if (document.getElementById('searchertext').value.length>0){
+      $.ajax({
+            url: `/get/vazvrat/searchbytext?name=${document.getElementById('searchertext').value}&order_id=${urlParams.get('order_id')}`,
+            type: "GET",
+            cache: false,
+            contentType: 'application/json',
+            dataType: 'json',
+            success: data => {
+               createTable(data.dailydata)
+            }
+          })
+        }else{
+          createTable([])
+        }
     }
     function print(){
       window.open(`/print/vazvrat/current?data=${JSON.stringify(data)}`)
@@ -155,7 +167,6 @@ aside,#sa,header,#stat1,#stat,#searcher,#flexSwitchCheckChecked,#kamqolgan{
     let x=0;
     let dailyinfodata=<%- JSON.stringify(dailyinfodata)%>;
     let count=<%- JSON.stringify(count)%>;
-    //console.log(count)
     const urlParams = new URLSearchParams(window.location.search);
 const pagenumber = parseInt(urlParams.get('getpage'));
 
@@ -224,21 +235,19 @@ select.appendChild(option);
       }
       let data=[]
       if(localStorage.getItem('data')==null){
-        console.log(1)
+        
         data=[]
       }else if (JSON.parse(localStorage.getItem('data'))[0].old.order_id==urlParams.get('order_id')){
         data=JSON.parse(localStorage.getItem('data'));
-       console.log(data)
+      
         createTableForVazvrat(data);
       }else{
         data=[]
         localStorage.clear();
       }
       function add(order_id){
-console.log(order_id)
 let vazvratcount=parseFloat(document.getElementById(`soni${order_id}`).value);
 let vazvratprice=parseFloat(document.getElementById(`narxi${order_id}`).value);
-console.log(vazvratcount,vazvratprice)
         for(let i=0;i<dailyinfodata.length;i++){
           flag=0;
           if (dailyinfodata[i].tranz_id==order_id){
@@ -255,7 +264,7 @@ console.log(vazvratcount,vazvratprice)
               }
             }
             if (flag==0){
-              console.log(dailyinfodata[i])
+           
               if (vazvratcount>dailyinfodata[i].pr_count){
                   alert("Buncha mahsulot sotilmagan! Hisoblashda xatolik tekshiring iltimos!!! ")
                   return 0;
@@ -274,9 +283,9 @@ console.log(vazvratcount,vazvratprice)
         document.getElementById(`narxi${order_id}`).value=""
       }
       function deletefromtable(tranz_id){
-        console.log(tranz_id)
+     
         for (let i=0;i<data.length;i++){
-          console.log(data[i].old.tranz_id)
+        
           if ("id"+data[i].old.tranz_id==tranz_id){
             data.splice(i,1);
           }
@@ -285,25 +294,10 @@ console.log(vazvratcount,vazvratprice)
         createTableForVazvrat(data)
       }
 
-     function mana(s){
-      //  console.log(s);
-      var r=confirm('Удалить?')
-      if (r==true){
-      $.ajax({
-      url: `/api/delete/${s}`,
-      type: 'GET', cache: false, dataType: 'json',
-      contentType: 'application/json', 
-      success: function (data) { 
-        // console.log(data)
-     if (data.status){
-      location.reload();
-     }
-    },
-    })
-    }
-  }
+ 
+  
   function send(){
-    console.log(data[0].old)
+    
         $.ajax({
             url: '/post/vazvrat',
             type: "POST",
