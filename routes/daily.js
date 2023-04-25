@@ -1,7 +1,9 @@
+const { RunSQL } = require("../db/db.fun");
 const { checker } = require("../middleware/checkaccess")
 
 router.get('/get/daily',checker,async(req,res)=>{
     let dailydata;
+    await RunSQL("SET GLOBAL sql_mode=(SELECT REPLACE(@@sql_mode,'ONLY_FULL_GROUP_BY',''))")
     if (req.query.name && req.query.date){
         console.log(1)
         dailydata=await RunSQL("SELECT order_id,customername,sum(pr_count*sellprice) as sum,cr_date FROM tranzactions where DATE(cr_date)=?  and customername like ?  group by order_id order by cr_date desc limit 100 offset ?",[req.query.date,'%'+req.query.name+'%',(parseInt(req.query.getpage) - 1) * 100])     
