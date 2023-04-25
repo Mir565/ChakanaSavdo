@@ -14,7 +14,8 @@ router.get('/get/daily',checker,async(req,res)=>{
     else{
         dailydata=await RunSQL("SELECT order_id,customername,sum(pr_count*sellprice) as sum,cr_date FROM tranzactions group by order_id order by cr_date desc limit 100 offset ?",[(parseInt(req.query.getpage) - 1) * 100])
     }
-    const count=await RunSQLOne("SELECT count(*) as cnt  FROM tranzactions")
+    console.log(dailydata)
+    const count=await RunSQLOne("SELECT count(distinct order_id) as cnt  FROM tranzactions")
     res.render('daily',{
         dailydata:dailydata,
         count:count.cnt
