@@ -12,14 +12,10 @@ require("./set.global")
 app.use(cookieParser(process.env.SESSION));
 app.use(session({
     secret: process.env.SESSION,
-    resave: false,
-    saveUninitialized: false,
-    store: new FileStore({
-        path: "/tmp/sessions/",
-        useAsync: true
-    }),
-    cookie: { maxAge: 3600000, secure: false, httpOnly: false }
-}))
+    resave:false,   
+    saveUninitialized:false,
+    maxAge:60000000
+    }))
 
 
 // post data json 

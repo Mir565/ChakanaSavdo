@@ -123,10 +123,12 @@
         <h1>
         <center>  Sotuv Jadvali</center>
         </h1>
+        <center><b id="allsummas" style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;"></b></center>
         <table class="table table-advance">
           <tbody id="mahsulot1">
           
         </table>
+        
         </div>
         </div>
 
@@ -259,7 +261,7 @@ xaridorgen()
             <th>Soni</th>
                       <th>Olingan Narxi</th> 
                         <th> Sotiladigan Narxi</th> 
-                        <th>Barkod</th> 
+                      
                         <th>Sonini Kiriting</th> 
                         <th>Narxi Kiriting</th> 
                         <th>Qo'shish</th> 
@@ -282,13 +284,13 @@ xaridorgen()
               var xbuyprice =Mahsulotlar[i].ISSUM?Mahsulotlar[i].sell_price:Mahsulotlar[i].sell_price*kurs;
               var xid = Mahsulotlar[i].product_id;
                 s += `<tr   style="font-size:20px;color:black;background-color:${stylex}" id="tr${f}"><td>${i+1}</td><td>${xname}</td><td>${xcountnum}</td> <td >${changes==1?xprice:"********"}</td><td>${xbuyprice}</td> 
-                 <td>${xbarkod}</td>
+                
                     
                   <td><input type="number" tabindex=${f * 3 + 3} id="soni${xid}"  class="form-control" /></td>
                   <td><input type="number" tabindex=${f * 3 + 3} id="narxi${xid}"  class="form-control" value=${xbuyprice} /></td>  
                       <td id="stat1"> <div class="btn-group"> 
                         <button class="btn btn-success"  id="s${xid}" name="${xcountnum}" tabindex=${f * 3 + 4}   onclick="add(${xid},'${xname}',${xcountnum},${xprice},${xbuyprice},'${xbarkod}')">
-                      <i class="icon_plus_alt2"></i></button> </td>
+                      <i class="icon_plus_alt2"></i>Qo'shish</button> </td>
             </div>`
             } 
         table.innerHTML = s;
@@ -341,6 +343,7 @@ xaridorgen()
 </th>
       </tr>`;
         for (i = 0; i < arrayCount.length; i++) {
+          jami+=(arrayPrice[i]*arrayCount[i])
           xs +=`<tr style="color:black;font-size:20px;font-family:'Arial Narrow', Arial, sans-serif;" ><td>${i + 1}</td><td> <b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;">${arrayName[i]}</b></td>        
         
           <td ><b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;" onclick="changedata(s=${i})">${arrayCount[i]}</b></td>
@@ -352,10 +355,12 @@ xaridorgen()
         
         
         document.getElementById('mahsulot1').innerHTML = xs;
+
+        document.getElementById('allsummas').innerHTML=`Jami:${jami}`
       }
       function changedata(index){
         t=prompt("soni")
-        if (parseFloat(t) && parseFloat(t)<=arrayBazaCount[i]){
+        if (parseFloat(t) && parseFloat(t)<=arrayBazaCount[index]){
           arrayCount[index]=parseFloat(t);
           createTable1();
         }
@@ -365,7 +370,7 @@ xaridorgen()
       function changebazanarx(index){
       
         t=prompt("Narxni kiriting")
-        if (parseFloat(t)&& arrayBazaNarx[i]<t){
+        if (parseFloat(t)&& arrayBazaNarx[index]<t){
           arrayPrice[index]=parseFloat(t);
           createTable1();
         }

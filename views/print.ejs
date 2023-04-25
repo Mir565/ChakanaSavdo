@@ -34,7 +34,7 @@ function createTable(name,price,count){
   console.log(name)
   name=name.split(',');
  ss=`<tr>
-     <th style="width:0.5%">Nomer</th>
+     <th style="width:0.5%;">Nomer</th>
     <th style="width:40%">Nomi</th>
     <th>Soni</th>
     <th>1 Dona</th>
@@ -44,11 +44,11 @@ function createTable(name,price,count){
  {
   ss+=`
   <tr>
-    <td>${i+1}</td>
-    <td>${name[i]}</td>
-    <td>${count[i]}</td>
-    <td>${price[i]}</td>
-    <td>${price[i]*count[i]}</td>
+    <td><b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;">${i+1}</b></td>
+    <td><b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;" >${name[i]}</b></td>
+    <td><b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;" >${count[i]}</b></td>
+    <td><b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;">${price[i]}</b></td>
+    <td><b style="color:black;font-size:25px;font-family:'Arial Narrow', Arial, sans-serif;">${price[i]*count[i]}</b></td>
   </tr>
  `
  allprice=allprice+(parseFloat(price[i])*parseFloat(count[i]));
