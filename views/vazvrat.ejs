@@ -139,6 +139,8 @@ aside,#sa,header,#stat1,#stat,#searcher,#flexSwitchCheckChecked,#kamqolgan{
   <!--custome script for all page-->
   <script src="/js/scripts.js" ></script>
   <script>
+     let dailyinfodata=<%- JSON.stringify(dailyinfodata)%>;
+    let count=<%- JSON.stringify(count)%>;
     function searchBar(e){
       if (e.keyCode==13)
       window.location=`/get/vazvrat/searchbybarkod?barkod=${document.getElementById('searcherbarkod').value}&order_id=${urlParams.get('order_id')}`;
@@ -152,7 +154,8 @@ aside,#sa,header,#stat1,#stat,#searcher,#flexSwitchCheckChecked,#kamqolgan{
             contentType: 'application/json',
             dataType: 'json',
             success: data => {
-               createTable(data.dailydata)
+               dailyinfodata=data.dailydata;
+               createTable(dailyinfodata)
             }
           })
         }else{
@@ -165,8 +168,7 @@ aside,#sa,header,#stat1,#stat,#searcher,#flexSwitchCheckChecked,#kamqolgan{
     let z=[];
     let qq=[];
     let x=0;
-    let dailyinfodata=<%- JSON.stringify(dailyinfodata)%>;
-    let count=<%- JSON.stringify(count)%>;
+   
     const urlParams = new URLSearchParams(window.location.search);
 const pagenumber = parseInt(urlParams.get('getpage'));
 
@@ -246,6 +248,7 @@ select.appendChild(option);
         localStorage.clear();
       }
       function add(order_id){
+        console.log(order_id)
 let vazvratcount=parseFloat(document.getElementById(`soni${order_id}`).value);
 let vazvratprice=parseFloat(document.getElementById(`narxi${order_id}`).value);
         for(let i=0;i<dailyinfodata.length;i++){
